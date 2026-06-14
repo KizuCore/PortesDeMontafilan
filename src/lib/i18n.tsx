@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 import enText from "@/i18n/locales/en.json";
 import frText from "@/i18n/locales/fr.json";
 
@@ -14,6 +20,17 @@ const resources: Record<Lang, Messages> = {
   en: enText,
 };
 
+function readInitialLang(): Lang {
+  if (typeof window === "undefined") return "fr";
+
+  try {
+    const saved = window.localStorage.getItem("lang");
+    return saved === "fr" || saved === "en" ? saved : "fr";
+  } catch {
+    return "fr";
+  }
+}
+
 const Ctx = createContext<{
   lang: Lang;
   setLang: (l: Lang) => void;
@@ -27,24 +44,29 @@ const Ctx = createContext<{
 });
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("fr");
+  const [lang, setLangState] = useState<Lang>(readInitialLang);
 
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem("lang") as Lang | null;
-      if (saved === "fr" || saved === "en") setLangState(saved);
-    } catch {}
-  }, []);
+    document.documentElement.lang = lang;
+  }, [lang]);
 
   const setLang = (l: Lang) => {
     setLangState(l);
-    try { localStorage.setItem("lang", l); } catch {}
+    try {
+      localStorage.setItem("lang", l);
+    } catch {
+      // Ignore storage failures; in-memory language still updates.
+    }
   };
 
-  const t = (k: StringKey) => (resources[lang][k] ?? resources.fr[k] ?? String(k)) as string;
-  const tm = <K extends keyof Messages,>(k: K) => resources[lang][k] ?? resources.fr[k];
+  const t = (k: StringKey) =>
+    (resources[lang][k] ?? resources.fr[k] ?? String(k)) as string;
+  const tm = <K extends keyof Messages>(k: K) =>
+    resources[lang][k] ?? resources.fr[k];
 
-  return <Ctx.Provider value={{ lang, setLang, t, tm }}>{children}</Ctx.Provider>;
+  return (
+    <Ctx.Provider value={{ lang, setLang, t, tm }}>{children}</Ctx.Provider>
+  );
 }
 
 export const useI18n = () => useContext(Ctx);

@@ -50,7 +50,7 @@ export function LangSwitch({ tone = "dark" }: { tone?: "dark" | "light" }) {
     >
       <span
         aria-hidden="true"
-        className={`absolute inset-y-0.5 left-0.5 w-[calc(50%-2px)] rounded-full ${indicator} transition-transform duration-200 ease-out ${lang === "en" ? "translate-x-full" : "translate-x-0"}`}
+        className={`pointer-events-none absolute inset-y-0.5 left-0.5 w-[calc(50%-2px)] rounded-full ${indicator} transition-transform duration-200 ease-out ${lang === "en" ? "translate-x-full" : "translate-x-0"}`}
       />
       {opts.map((option) => (
         <button
