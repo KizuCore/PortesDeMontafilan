@@ -587,8 +587,8 @@ function AirbnbCalendar() {
           <AnimatedSection delay={150}>
             <div className="rounded-2xl border border-border bg-card p-5 sm:p-6">
               <div className="flex items-center justify-between gap-4 mb-4">
-                <h3 className="text-lg sm:text-xl">Disponibilités</h3>
-                <span className="label-tiny">Airbnb</span>
+                <h3 className="text-lg sm:text-xl">Choisissez vos dates</h3>
+                <span className="label-tiny">Estimation</span>
               </div>
               <div className="flex justify-center">
                 <Calendar
