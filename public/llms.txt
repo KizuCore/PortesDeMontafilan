@@ -1,35 +1,44 @@
-ï»¿# Les Portes de Montafilan
+# Les Portes de Montafilan
 
-Site officiel du gÃ®te Les Portes de Montafilan Ã  Corseul (France), entre Dinan, Saint-Malo et Cap FrÃ©hel.
+Site officiel du gîte Les Portes de Montafilan à Corseul (France), entre Dinan, Saint-Malo et Cap Fréhel.
 
 ## Contact rapide
-- TÃ©lÃ©phone: +33 7 80 71 01 59
+- Téléphone: +33 7 80 71 01 59
 - Email: lesportesdemontafilan@gmail.com
 
-## Ã€ propos
-- GÃ®te 3 Ã©toiles
-- Maison de 85 mÂ² rÃ©novÃ©e
-- 2 chambres, jusqu'Ã  4 voyageurs + bÃ©bÃ©
-- Espace extÃ©rieur de 350 mÂ²
-- Parking privÃ©
+## À propos
+- Gîte 3 étoiles
+- Maison de 85 m² rénovée
+- 2 chambres, jusqu'à 4 voyageurs + bébé
+- Espace extérieur de 350 m²
+- Parking privé
 
-## RÃ©servation
+## Réservation
 - L'utilisateur choisit ses dates sur le site.
 - Le site affiche une estimation locale.
 - Le parcours se finalise sur Airbnb via redirection.
 
-## Ã‰quipements
+## Équipements
 - Wifi
 - Lave-linge
 - Lave-vaisselle
-- TÃ©lÃ©vision
-- Ã‰quipement bÃ©bÃ©
-- Jeux de sociÃ©tÃ©
+- Télévision
+- Équipement bébé
+- Jeux de société
 
 ## Pages importantes
-- Accueil: https://lesportesdemontafilan.fr/
-- Mentions lÃ©gales: https://lesportesdemontafilan.fr/mentions-legales
-- ConfidentialitÃ© & cookies: https://lesportesdemontafilan.fr/confidentialite-cookies
+- Accueil: https://lesportesdemontafilan.com/
+- Mentions légales: https://lesportesdemontafilan.com/mentions-legales
+- Confidentialité: https://lesportesdemontafilan.com/confidentialite
+- Cookies: https://lesportesdemontafilan.com/cookies
 
-## DonnÃ©es structurÃ©es
-Le site expose des donnÃ©es structurÃ©es schema.org (LodgingBusiness, WebSite, WebPage, FAQPage).
+## Localisation
+- Pays: France
+- Région: Bretagne
+- Département: Côtes-d'Armor
+- Commune: Corseul
+- Coordonnées approximatives: 48.491005, -2.187678
+- Points d'intérêt proches: Dinan, Saint-Malo, Dinard, Cap Fréhel, Saint-Cast-le-Guildo
+
+## Données structurées
+Le site expose des données structurées schema.org (LodgingBusiness, VacationRental, WebSite, WebPage, FAQPage).

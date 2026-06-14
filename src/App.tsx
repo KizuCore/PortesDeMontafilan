@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 
 import { CookieBanner } from "@/components/CookieBanner";
 import { LanguageProvider } from "@/lib/i18n";
@@ -8,22 +8,60 @@ import { CookiesPage } from "@/routes/cookies";
 import { Home } from "@/routes/index";
 import { MentionsLegalesPage } from "@/routes/mentions-legales";
 
+const SITE_ORIGIN = "https://lesportesdemontafilan.com";
+
+function upsertMeta(
+  attribute: "name" | "property",
+  key: string,
+  content: string,
+) {
+  let meta = document.querySelector<HTMLMetaElement>(
+    `meta[${attribute}="${key}"]`,
+  );
+  if (!meta) {
+    meta = document.createElement("meta");
+    meta.setAttribute(attribute, key);
+    document.head.appendChild(meta);
+  }
+  meta.content = content;
+}
+
+function upsertCanonical(href: string) {
+  let link = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+  if (!link) {
+    link = document.createElement("link");
+    link.rel = "canonical";
+    document.head.appendChild(link);
+  }
+  link.href = href;
+}
+
 function PageTitle({
   title,
   description,
+  robots = "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
 }: {
   title: string;
   description?: string;
+  robots?: string;
 }) {
+  const location = useLocation();
+
   useEffect(() => {
+    const canonicalHref = `${SITE_ORIGIN}${location.pathname === "/" ? "/" : location.pathname}`;
+
     document.title = title;
     if (description) {
-      const meta = document.querySelector<HTMLMetaElement>(
-        'meta[name="description"]',
-      );
-      if (meta) meta.content = description;
+      upsertMeta("name", "description", description);
+      upsertMeta("property", "og:description", description);
+      upsertMeta("name", "twitter:description", description);
     }
-  }, [description, title]);
+    upsertMeta("property", "og:title", title);
+    upsertMeta("property", "og:url", canonicalHref);
+    upsertMeta("name", "twitter:title", title);
+    upsertMeta("name", "robots", robots);
+    upsertCanonical(canonicalHref);
+  }, [description, location.pathname, robots, title]);
 
   return null;
 }
@@ -54,7 +92,10 @@ export function App() {
             path="/"
             element={
               <>
-                <PageTitle title="Les Portes de Montafilan - Gîte à Corseul, entre Dinan & Saint-Malo" />
+                <PageTitle
+                  title="Les Portes de Montafilan - Gîte 3 étoiles à Corseul"
+                  description="Les Portes de Montafilan, gîte 3 étoiles à Corseul, entre Dinan, Saint-Malo et Cap Fréhel. Galerie, disponibilités et demande de réservation."
+                />
                 <Home />
               </>
             }
@@ -95,7 +136,19 @@ export function App() {
               </>
             }
           />
-          <Route path="*" element={<NotFoundPage />} />
+          <Route
+            path="*"
+            element={
+              <>
+                <PageTitle
+                  title="Page introuvable - Les Portes de Montafilan"
+                  description="Cette page n'existe pas ou a été déplacée."
+                  robots="noindex, follow"
+                />
+                <NotFoundPage />
+              </>
+            }
+          />
         </Routes>
         <CookieBanner />
       </LanguageProvider>

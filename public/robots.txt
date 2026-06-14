@@ -1,4 +1,4 @@
-﻿User-agent: *
+User-agent: *
 Allow: /
 
-Sitemap: https://lesportesdemontafilan.fr/sitemap.xml
+Sitemap: https://lesportesdemontafilan.com/sitemap.xml
