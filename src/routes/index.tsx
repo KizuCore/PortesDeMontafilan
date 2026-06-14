@@ -8,9 +8,9 @@ import { useI18n } from "@/lib/i18n";
 import { LangSwitch } from "@/components/LangSwitch";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { getAirbnbRedirectUrl } from "@/lib/api/airbnb-link.functions";
-import { getReservationEstimate } from "@/lib/api/estimate.functions";
+import { getPricingConfig, getReservationEstimate } from "@/lib/api/estimate.functions";
 import type { BusyRange } from "../../shared/availability";
-import type { EstimateResult } from "../../shared/pricing";
+import { defaultPricingConfig, type EstimateResult, type PricingConfig } from "../../shared/pricing";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -502,10 +502,17 @@ function AirbnbCalendar() {
   const [estimateLoading, setEstimateLoading] = useState(false);
   const [estimateError, setEstimateError] = useState<string | null>(null);
   const [estimateWarning, setEstimateWarning] = useState<string | null>(null);
-  const rates = tm("home.rates");
+  const [pricingConfig, setPricingConfig] = useState<PricingConfig>(defaultPricingConfig);
+  const [pricingWarning, setPricingWarning] = useState<string | null>(null);
+  const rateLabels = tm("home.rates");
   const practical = tm("home.practical");
   const maxAdults = Math.max(MIN_ADULTS, MAX_GUESTS - children);
   const maxChildren = Math.max(MIN_CHILDREN, MAX_GUESTS - adults);
+  const displayedRates = [
+    { ...rateLabels[0], price: formatMoney(pricingConfig.lowSeasonNight, lang === "fr" ? "fr-FR" : "en-US") },
+    { ...rateLabels[1], price: formatMoney(pricingConfig.midSeasonNight, lang === "fr" ? "fr-FR" : "en-US") },
+    { ...rateLabels[2], price: formatMoney(pricingConfig.highSeasonNight, lang === "fr" ? "fr-FR" : "en-US") },
+  ];
 
   function clampNumber(value: number, min: number, max: number) {
     if (!Number.isFinite(value)) return min;
@@ -566,6 +573,32 @@ function AirbnbCalendar() {
       setAirbnbLoading(false);
     }
   }
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadPricingConfig() {
+      try {
+        const result = await getPricingConfig();
+
+        if (!cancelled) {
+          setPricingConfig(result.pricingConfig);
+          setPricingWarning(result.warning ?? null);
+        }
+      } catch (error: unknown) {
+        if (!cancelled) {
+          setPricingConfig(defaultPricingConfig);
+          setPricingWarning(error instanceof Error ? error.message : t("home.booking.estimateError"));
+        }
+      }
+    }
+
+    void loadPricingConfig();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [t]);
 
   useEffect(() => {
     let cancelled = false;
@@ -677,9 +710,11 @@ function AirbnbCalendar() {
     : t("home.booking.emptySelection");
 
   const locale = lang === "fr" ? "fr-FR" : "en-US";
-  const averageNightPrice = estimate && estimate.nights > 0
-    ? estimate.stayBasePrice / estimate.nights
-    : 0;
+  const rateBreakdownLabel = estimate?.rateBreakdown
+    .map((item) => (
+      `${item.nights} ${item.nights > 1 ? t("home.booking.nightPlural") : t("home.booking.nightSingular")} × ${formatMoney(item.nightlyRate, locale)}`
+    ))
+    .join(" + ");
 
   return (
     <section id="reservation" className="bg-secondary/60 py-20 sm:py-28">
@@ -692,7 +727,7 @@ function AirbnbCalendar() {
               {t("home.booking.body")}
             </p>
             <div className="mt-6 overflow-hidden rounded-[24px] border border-border bg-card shadow-card">
-              {rates.map((rate, index) => (
+              {displayedRates.map((rate, index) => (
                 <div
                   key={rate.label}
                   className={`flex items-center justify-between gap-4 px-5 py-5 ${index > 0 ? "border-t border-border" : ""}`}
@@ -705,6 +740,9 @@ function AirbnbCalendar() {
                 </div>
               ))}
             </div>
+            {pricingWarning ? (
+              <p className="mt-3 text-xs text-muted-foreground">{pricingWarning}</p>
+            ) : null}
             <p className="mt-4 text-sm text-muted-foreground">
               {t("home.booking.longStay")}
             </p>
@@ -760,9 +798,7 @@ function AirbnbCalendar() {
                     {t("home.booking.from")} <strong className="font-semibold text-foreground">{formatStayDate(range.from, locale)}</strong>{" "}
                     {t("home.booking.to")} <strong className="font-semibold text-foreground">{formatStayDate(range.to, locale)}</strong>
                     {" · "}
-                    {estimate.nights} {estimate.nights > 1 ? t("home.booking.nightPlural") : t("home.booking.nightSingular")}
-                    {" × "}
-                    {formatMoney(averageNightPrice, locale)}
+                    {rateBreakdownLabel}
                     <div className="mt-1 text-xs">
                       {t("home.booking.touristTaxIncluded")} {formatMoney(estimate.touristTax, locale)}
                     </div>

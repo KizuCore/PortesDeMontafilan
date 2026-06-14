@@ -35,3 +35,10 @@ export const getReservationEstimate = createServerFn({ method: "POST" })
 
     return { estimate, source, warning };
   });
+
+export const getPricingConfig = createServerFn({ method: "GET" })
+  .handler(async () => {
+    const { resolvePricingConfig } = await import("../../../api/_pricingConfig");
+    const { pricingConfig, source, warning } = await resolvePricingConfig();
+    return { pricingConfig, source, warning };
+  });

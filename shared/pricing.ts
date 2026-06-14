@@ -31,6 +31,7 @@ export interface EstimateResult {
   nights: number;
   season: Season;
   minNightsRequired: number;
+  rateBreakdown: RateBreakdownItem[];
   stayBasePrice: number;
   cleaningFee: number;
   touristTax: number;
@@ -40,13 +41,20 @@ export interface EstimateResult {
   warning?: string;
 }
 
+export interface RateBreakdownItem {
+  season: Season;
+  nights: number;
+  nightlyRate: number;
+  subtotal: number;
+}
+
 export const defaultPricingConfig: PricingConfig = {
   lowSeasonNight: 61,
   lowSeasonWeek: 400,
   midSeasonNight: 68,
   midSeasonWeek: 460,
-  highSeasonNight: 75,
-  highSeasonWeek: 560,
+  highSeasonNight: 100,
+  highSeasonWeek: 700,
   cleaningFee: 60,
   touristTaxPerAdultPerNight: 1.32,
   towelPackPerPerson: 6.5,
@@ -72,6 +80,12 @@ function roundToCents(amount: number): number {
   return Math.round(amount * 100) / 100;
 }
 
+function addCalendarDays(date: Date, days: number): Date {
+  const nextDate = new Date(date);
+  nextDate.setDate(nextDate.getDate() + days);
+  return nextDate;
+}
+
 function isBetween(date: Date, start: Date, end: Date): boolean {
   return date >= start && date <= end;
 }
@@ -84,12 +98,10 @@ function inSchoolHoliday(date: Date, ranges: SchoolHolidayRange[]): boolean {
   });
 }
 
-// Détermine la saison tarifaire selon la date d'arrivée.
-export function seasonForStayStart(
-  checkIn: string,
+export function seasonForDate(
+  date: Date,
   ranges: SchoolHolidayRange[] = defaultSchoolHolidayRanges,
 ): Season {
-  const date = parseDate(checkIn);
   const month = date.getMonth() + 1;
 
   if (month === 7 || month === 8 || inSchoolHoliday(date, ranges)) {
@@ -103,10 +115,67 @@ export function seasonForStayStart(
   return 'low';
 }
 
-function computeStayPrice(nights: number, nightlyRate: number, weeklyRate: number): number {
-  const fullWeeks = Math.floor(nights / 7);
-  const remainingNights = nights % 7;
-  return fullWeeks * weeklyRate + remainingNights * nightlyRate;
+// Détermine la saison tarifaire selon la date d'arrivée.
+export function seasonForStayStart(
+  checkIn: string,
+  ranges: SchoolHolidayRange[] = defaultSchoolHolidayRanges,
+): Season {
+  return seasonForDate(parseDate(checkIn), ranges);
+}
+
+function nightlyRateForSeason(season: Season, pricing: PricingConfig): number {
+  if (season === 'high') {
+    return pricing.highSeasonNight;
+  }
+
+  if (season === 'mid') {
+    return pricing.midSeasonNight;
+  }
+
+  return pricing.lowSeasonNight;
+}
+
+function highestSeason(seasons: Season[]): Season {
+  if (seasons.includes('high')) {
+    return 'high';
+  }
+
+  if (seasons.includes('mid')) {
+    return 'mid';
+  }
+
+  return 'low';
+}
+
+function computeRateBreakdown(
+  checkIn: string,
+  nights: number,
+  pricing: PricingConfig,
+  ranges: SchoolHolidayRange[],
+): RateBreakdownItem[] {
+  const start = parseDate(checkIn);
+  const breakdown: RateBreakdownItem[] = [];
+
+  for (let offset = 0; offset < nights; offset += 1) {
+    const nightDate = addCalendarDays(start, offset);
+    const season = seasonForDate(nightDate, ranges);
+    const nightlyRate = nightlyRateForSeason(season, pricing);
+    const previous = breakdown[breakdown.length - 1];
+
+    if (previous && previous.season === season && previous.nightlyRate === nightlyRate) {
+      previous.nights += 1;
+      previous.subtotal = roundToCents(previous.subtotal + nightlyRate);
+    } else {
+      breakdown.push({
+        season,
+        nights: 1,
+        nightlyRate,
+        subtotal: nightlyRate,
+      });
+    }
+  }
+
+  return breakdown;
 }
 
 // Calcule l'estimation complète affichée dans le formulaire.
@@ -124,6 +193,7 @@ export function estimateReservation(
       nights: 0,
       season: 'low',
       minNightsRequired: pricing.minNightsLowMid,
+      rateBreakdown: [],
       stayBasePrice: 0,
       cleaningFee: pricing.cleaningFee,
       touristTax: 0,
@@ -134,17 +204,10 @@ export function estimateReservation(
     };
   }
 
-  const season = seasonForStayStart(input.checkIn, ranges);
+  const rateBreakdown = computeRateBreakdown(input.checkIn, nights, pricing, ranges);
+  const season = highestSeason(rateBreakdown.map((item) => item.season));
   const minNightsRequired = season === 'high' ? pricing.minNightsHigh : pricing.minNightsLowMid;
-
-  const rates =
-    season === 'high'
-      ? { night: pricing.highSeasonNight, week: pricing.highSeasonWeek }
-      : season === 'mid'
-        ? { night: pricing.midSeasonNight, week: pricing.midSeasonWeek }
-        : { night: pricing.lowSeasonNight, week: pricing.lowSeasonWeek };
-
-  const stayBasePrice = computeStayPrice(nights, rates.night, rates.week);
+  const stayBasePrice = roundToCents(rateBreakdown.reduce((total, item) => total + item.subtotal, 0));
   const touristTax = roundToCents(nights * input.adults * pricing.touristTaxPerAdultPerNight);
   const towelPacksPrice = roundToCents(input.towelPacks * pricing.towelPackPerPerson);
 
@@ -160,6 +223,7 @@ export function estimateReservation(
     nights,
     season,
     minNightsRequired,
+    rateBreakdown,
     stayBasePrice,
     cleaningFee: pricing.cleaningFee,
     touristTax,
