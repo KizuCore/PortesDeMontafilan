@@ -41,6 +41,14 @@ const MAX_ADULTS = 4;
 const MIN_CHILDREN = 0;
 const MAX_CHILDREN = 3;
 const MAX_GUESTS = 4;
+const GOOGLE_MAPS_URL = "https://maps.google.com/?q=G%C3%AEte%20-%20Les%20Portes%20de%20Montafilan";
+
+function dateToYmd(date: Date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
 
 function Nav() {
   const [open, setOpen] = useState(false);
@@ -454,6 +462,8 @@ function AirbnbCalendar() {
   const [busyRanges, setBusyRanges] = useState<BusyRange[]>([]);
   const [availabilityLoading, setAvailabilityLoading] = useState(true);
   const [availabilityError, setAvailabilityError] = useState<string | null>(null);
+  const [airbnbLoading, setAirbnbLoading] = useState(false);
+  const [airbnbError, setAirbnbError] = useState<string | null>(null);
   const rates = tm("home.rates");
   const practical = tm("home.practical");
   const maxAdults = Math.max(MIN_ADULTS, MAX_GUESTS - children);
@@ -470,6 +480,43 @@ function AirbnbCalendar() {
 
   function handleChildrenChange(value: string) {
     setChildren(clampNumber(Number(value), MIN_CHILDREN, maxChildren));
+  }
+
+  async function handleRequestDates() {
+    if (!range?.from || !range?.to) {
+      setAirbnbError(t("home.booking.missingDates"));
+      return;
+    }
+
+    setAirbnbLoading(true);
+    setAirbnbError(null);
+
+    try {
+      const response = await fetch("/api/airbnb-link", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          checkIn: dateToYmd(range.from),
+          checkOut: dateToYmd(range.to),
+          adults,
+          children,
+        }),
+      });
+
+      const result = (await response.json().catch(() => null)) as { redirectUrl?: string; error?: string } | null;
+
+      if (!response.ok || !result?.redirectUrl) {
+        throw new Error(result?.error || `HTTP ${response.status}`);
+      }
+
+      window.location.assign(result.redirectUrl);
+    } catch (error: unknown) {
+      setAirbnbError(error instanceof Error ? error.message : t("home.booking.airbnbError"));
+    } finally {
+      setAirbnbLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -571,6 +618,17 @@ function AirbnbCalendar() {
                   className="pointer-events-auto"
                 />
               </div>
+                            <div className="mt-4 flex flex-wrap gap-3 text-xs uppercase tracking-wider text-muted-foreground">
+                <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5">
+                  <i className="legend-dot legend-available" /> {t("home.booking.legendAvailable")}
+                </span>
+                <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5">
+                  <i className="legend-dot legend-unavailable" /> {t("home.booking.legendUnavailable")}
+                </span>
+                <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5">
+                  <i className="legend-dot legend-selected" /> {t("home.booking.legendSelected")}
+                </span>
+              </div>
               <div className="mt-5 rounded-xl bg-secondary/70 p-4 sm:p-5">
                 {range?.from && range?.to ? (
                   <div className="flex flex-wrap items-end justify-between gap-3">
@@ -614,17 +672,28 @@ function AirbnbCalendar() {
                   </label>
                 </div>
               </div>
-              <div className="mt-4 flex flex-wrap gap-3 text-xs uppercase tracking-wider text-muted-foreground">
-                <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5">
-                  <i className="legend-dot legend-available" /> {t("home.booking.legendAvailable")}
-                </span>
-                <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5">
-                  <i className="legend-dot legend-unavailable" /> {t("home.booking.legendUnavailable")}
-                </span>
-                <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5">
-                  <i className="legend-dot legend-selected" /> {t("home.booking.legendSelected")}
-                </span>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  onClick={handleRequestDates}
+                  disabled={airbnbLoading || !range?.from || !range?.to}
+                  className="btn-primary disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {airbnbLoading ? t("home.booking.requestLoading") : t("home.booking.requestDates")}
+                </button>
+                <a
+                  href={GOOGLE_MAPS_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn-ghost !border-border !text-foreground hover:!bg-secondary"
+                >
+                  {t("home.booking.viewMaps")}
+                </a>
               </div>
+              {airbnbError ? (
+                <p className="mt-3 text-sm text-destructive">{airbnbError}</p>
+              ) : null}
+
             </div>
             <div className="mt-6 rounded-2xl border border-border bg-card p-6">
               <h3 className="text-lg">{t("home.booking.practicalTitle")}</h3>
