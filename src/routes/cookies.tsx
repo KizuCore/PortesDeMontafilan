@@ -13,7 +13,9 @@ export const Route = createFileRoute("/cookies")({
 });
 
 function Page() {
-  const { t } = useI18n();
+  const { t, tm } = useI18n();
+  const policyLines = tm("cookies.policyLines");
+
   return (
     <main className="bg-background text-foreground">
       <section className="py-20 sm:py-28">
@@ -27,6 +29,14 @@ function Page() {
               <ul className="mt-3 space-y-2">
                 <li>· <strong className="text-foreground">lang</strong> - {t("cookies.langDescription")}</li>
                 <li>· <strong className="text-foreground">cookie-consent-v1</strong> - {t("cookies.consentDescription")}</li>
+              </ul>
+            </div>
+            <div>
+              <h2 className="text-xl text-foreground">{t("cookies.policyTitle")}</h2>
+              <ul className="mt-3 space-y-2">
+                {policyLines.map((line) => (
+                  <li key={line}>· {line}</li>
+                ))}
               </ul>
             </div>
             <div>
