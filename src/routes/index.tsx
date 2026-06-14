@@ -240,7 +240,7 @@ function Hero() {
         </span>
         <div className="flex flex-1 items-center justify-center py-14 text-center sm:py-20">
           <div className="w-full max-w-5xl">
-            <span className="font-script text-2xl italic leading-none text-terra animate-fade-in-up delay-100">
+            <span className="font-script text-4xl italic leading-none text-terra animate-fade-in-up delay-100">
               ”
             </span>
             <h1 className="mx-auto mt-6 max-w-4xl font-script text-5xl font-normal italic leading-[0.95] tracking-[-0.035em] text-background drop-shadow-sm animate-fade-in-up delay-200 sm:text-7xl lg:text-[6rem]">
