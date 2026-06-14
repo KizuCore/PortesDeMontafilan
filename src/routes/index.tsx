@@ -22,14 +22,20 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: "Une parenthèse bretonne entre Dinan, Saint-Malo et le Cap Fréhel." },
       {
         property: "og:image",
-        content: "https://www.lesportesdemontafilan.com/assets/ArriereCours1-DthDVoyy.avif",
+        content: OG_IMAGE,
       },
     ],
   }),
   component: Home,
 });
 
-const IMG = (p: string) => `https://www.lesportesdemontafilan.com/assets/${p}`;
+const imageAssets = import.meta.glob("../assets/img/**/*.{avif,jpg,jpeg,png,webp}", {
+  eager: true,
+  import: "default",
+}) as Record<string, string>;
+
+const IMG = (path: string) => imageAssets[`../assets/img/${path}`] ?? path;
+const OG_IMAGE = IMG("house/ArriereCours1.avif");
 
 const highlights = [
   { k: "85 m²", v: "Maison rénovée en 2018" },
@@ -48,23 +54,23 @@ const amenities = [
 ];
 
 const gallerySections = [
-  { key: "salon", label: "Salon", images: [{ src: "Salon1-CKgo11X-.avif", alt: "Salon lumineux" }, { src: "Salon2-TF7xTJww.avif", alt: "Coin salon" }] },
-  { key: "cuisine", label: "Cuisine", images: [{ src: "Cuisine-CPQmG56z.avif", alt: "Cuisine équipée" }, { src: "Cuisine2-Cu3HHk2F.avif", alt: "Cuisine - vue 2" }] },
-  { key: "repas", label: "Espace repas", images: [{ src: "EspaceRepas1-B1Iy2ABL.avif", alt: "Espace repas" }, { src: "EspaceRepas2-oOCWVkAK.avif", alt: "Espace repas - vue 2" }, { src: "EspaceRepas3-BwKAtya9.avif", alt: "Espace repas - vue 3" }] },
-  { key: "chambres", label: "Chambres", images: [{ src: "Chambre1-BkwhqxBc.avif", alt: "Chambre 1" }, { src: "Chambre2-CcV3UvXp.avif", alt: "Chambre 2" }, { src: "ChambreDL1-8JuMMFdL.avif", alt: "Chambre lit double" }, { src: "ChambreDL2-C93412cL.avif", alt: "Chambre lit double - vue 2" }] },
-  { key: "sdb", label: "Salle de bain & WC", images: [{ src: "SalleDeBain1-1iN7dSWs.avif", alt: "Salle de bain" }, { src: "SalleDeBain2-CfgyPoyM.avif", alt: "Salle de bain - vue 2" }, { src: "Toilettes1-C6Ny5zgS.avif", alt: "Toilettes" }] },
-  { key: "travail", label: "Espace de travail", images: [{ src: "EspaceTravail1-B3ofyv4J.avif", alt: "Bureau" }, { src: "EspaceTravail2-Dc8XjQyQ.avif", alt: "Bureau - vue 2" }] },
-  { key: "exterieur", label: "Extérieur & jardin", images: [{ src: "Exterieur1-Md0P8o-N.avif", alt: "Extérieur" }, { src: "ArriereCours1-DthDVoyy.avif", alt: "Jardin" }, { src: "ArriereCours2-CdX0OFE-.avif", alt: "Arrière-cour" }] },
+  { key: "salon", label: "Salon", images: [{ src: "house/Salon1.avif", alt: "Salon lumineux" }, { src: "house/Salon2.avif", alt: "Coin salon" }] },
+  { key: "cuisine", label: "Cuisine", images: [{ src: "house/Cuisine.avif", alt: "Cuisine équipée" }, { src: "house/Cuisine2.avif", alt: "Cuisine - vue 2" }] },
+  { key: "repas", label: "Espace repas", images: [{ src: "house/EspaceRepas1.avif", alt: "Espace repas" }, { src: "house/EspaceRepas2.avif", alt: "Espace repas - vue 2" }, { src: "house/EspaceRepas3.avif", alt: "Espace repas - vue 3" }] },
+  { key: "chambres", label: "Chambres", images: [{ src: "house/Chambre1.avif", alt: "Chambre 1" }, { src: "house/Chambre2.avif", alt: "Chambre 2" }, { src: "house/ChambreDL1.avif", alt: "Chambre lit double" }, { src: "house/ChambreDL2.avif", alt: "Chambre lit double - vue 2" }] },
+  { key: "sdb", label: "Salle de bain & WC", images: [{ src: "house/SalleDeBain1.avif", alt: "Salle de bain" }, { src: "house/SalleDeBain2.avif", alt: "Salle de bain - vue 2" }, { src: "house/Toilettes1.avif", alt: "Toilettes" }] },
+  { key: "travail", label: "Espace de travail", images: [{ src: "house/EspaceTravail1.avif", alt: "Bureau" }, { src: "house/EspaceTravail2.avif", alt: "Bureau - vue 2" }] },
+  { key: "exterieur", label: "Extérieur & jardin", images: [{ src: "house/Exterieur1.avif", alt: "Extérieur" }, { src: "house/ArriereCours1.avif", alt: "Jardin" }, { src: "house/ArriereCours2.avif", alt: "Arrière-cour" }] },
 ];
 
 const places = [
-  { name: "Dinan", km: "19 km", img: "dinan-vue-remparts-BxsXu3ho.jpg", notes: ["Ruelles pavées & maisons à colombages", "Port de Dinan sur la Rance"] },
-  { name: "Saint-Malo", km: "30 km", img: "saint-malo-remparts-BYX5RS4m.jpg", notes: ["Remparts & Intra-Muros", "Plage du Sillon", "Cité corsaire"] },
-  { name: "Cap Fréhel & Fort La Latte", km: "18 km", img: "cap-frehel_emmanuel-berthier-CfiBypsN.jpg", notes: ["Falaises panoramiques", "Fort historique en bord de mer"] },
-  { name: "Saint-Cast-Le-Guildo", km: "10 km", img: "saint-cast-grande-plage-BT_2F98N.jpg", notes: ["Grande plage de sable", "Pointe de la Garde"] },
-  { name: "Dinard - Plage de l'Écluse", km: "23 km", img: "dinard-ecluse-BUjQ7rNP.jpg", notes: ["Promenade du Clair de Lune", "Villas Belle Époque"] },
-  { name: "Archipel des Ébihens", km: "13 km", img: "ebihens-B4_FVw3S.jpg", notes: ["Balades à marée basse", "Côte préservée"] },
-  { name: "Château de la Hunaudaye", km: "8,5 km", img: "hunaudaye-wA2MljGv.jpg", notes: ["Forteresse médiévale emblématique", "Visite immersive en famille"] },
+  { name: "Dinan", km: "19 km", img: "lieux/dinan-vue-remparts.jpg", notes: ["Ruelles pavées & maisons à colombages", "Port de Dinan sur la Rance"] },
+  { name: "Saint-Malo", km: "30 km", img: "lieux/saint-malo-remparts.jpg", notes: ["Remparts & Intra-Muros", "Plage du Sillon", "Cité corsaire"] },
+  { name: "Cap Fréhel & Fort La Latte", km: "18 km", img: "lieux/cap-frehel_emmanuel-berthier.jpg", notes: ["Falaises panoramiques", "Fort historique en bord de mer"] },
+  { name: "Saint-Cast-Le-Guildo", km: "10 km", img: "lieux/saint-cast-grande-plage.jpg", notes: ["Grande plage de sable", "Pointe de la Garde"] },
+  { name: "Dinard - Plage de l'Écluse", km: "23 km", img: "lieux/dinard-ecluse.jpg", notes: ["Promenade du Clair de Lune", "Villas Belle Époque"] },
+  { name: "Archipel des Ébihens", km: "13 km", img: "lieux/ebihens.jpg", notes: ["Balades à marée basse", "Côte préservée"] },
+  { name: "Château de la Hunaudaye", km: "8,5 km", img: "lieux/hunaudaye.jpg", notes: ["Forteresse médiévale emblématique", "Visite immersive en famille"] },
 ];
 
 const activities = [
@@ -186,7 +192,7 @@ function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
       <div className="absolute inset-0">
-        <img src={IMG("ArriereCours1-DthDVoyy.avif")} alt="Jardin clos du gîte Les Portes de Montafilan" className="h-full w-full object-cover" />
+        <img src={IMG("house/ArriereCours1.avif")} alt="Jardin clos du gîte Les Portes de Montafilan" className="h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-forest/30 via-forest/40 to-forest/70" />
       </div>
       <div className="container-x relative flex min-h-[88vh] flex-col justify-end py-16 text-primary-foreground sm:py-24">
@@ -238,19 +244,19 @@ function Intro() {
         <div className="lg:col-span-7">
           <div className="grid grid-cols-2 gap-3 sm:gap-4">
             <AnimatedSection delay={100} className="col-span-2">
-              <img src={IMG("Cuisine-CPQmG56z.avif")} alt="Cuisine ouverte équipée" className="aspect-[16/10] w-full rounded-2xl object-cover shadow-card img-reveal" />
+              <img src={IMG("house/Cuisine.avif")} alt="Cuisine ouverte équipée" className="aspect-[16/10] w-full rounded-2xl object-cover shadow-card img-reveal" />
             </AnimatedSection>
             <AnimatedSection delay={200}>
-              <img src={IMG("Chambre1-BkwhqxBc.avif")} alt="Chambre" className="aspect-[4/5] w-full rounded-2xl object-cover shadow-card img-reveal" />
+              <img src={IMG("house/Chambre1.avif")} alt="Chambre" className="aspect-[4/5] w-full rounded-2xl object-cover shadow-card img-reveal" />
             </AnimatedSection>
             <AnimatedSection delay={300}>
-              <img src={IMG("ArriereCours2-CdX0OFE-.avif")} alt="Jardin" className="aspect-[4/5] w-full rounded-2xl object-cover shadow-card img-reveal" />
+              <img src={IMG("house/ArriereCours2.avif")} alt="Jardin" className="aspect-[4/5] w-full rounded-2xl object-cover shadow-card img-reveal" />
             </AnimatedSection>
             <AnimatedSection delay={400}>
-              <img src={IMG("SalleDeBain1-1iN7dSWs.avif")} alt="Salle de bain" className="aspect-[4/3] w-full rounded-2xl object-cover shadow-card img-reveal" />
+              <img src={IMG("house/SalleDeBain1.avif")} alt="Salle de bain" className="aspect-[4/3] w-full rounded-2xl object-cover shadow-card img-reveal" />
             </AnimatedSection>
             <AnimatedSection delay={500}>
-              <img src={IMG("Exterieur1-Md0P8o-N.avif")} alt="Extérieur" className="aspect-[4/3] w-full rounded-2xl object-cover shadow-card img-reveal" />
+              <img src={IMG("house/Exterieur1.avif")} alt="Extérieur" className="aspect-[4/3] w-full rounded-2xl object-cover shadow-card img-reveal" />
             </AnimatedSection>
           </div>
         </div>
