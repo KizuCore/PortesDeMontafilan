@@ -1,44 +1,44 @@
 # Les Portes de Montafilan
 
-Site officiel du gîte Les Portes de Montafilan à Corseul (France), entre Dinan, Saint-Malo et Cap Fréhel.
+Site officiel du gÃ®te Les Portes de Montafilan Ã  Corseul (France), entre Dinan, Saint-Malo et Cap FrÃ©hel.
 
 ## Contact rapide
-- Téléphone: +33 7 80 71 01 59
+- TÃ©lÃ©phone: +33 7 80 71 01 59
 - Email: lesportesdemontafilan@gmail.com
 
-## À propos
-- Gîte 3 étoiles
-- Maison de 85 m² rénovée
-- 2 chambres, jusqu'à 4 voyageurs + bébé
-- Espace extérieur de 350 m²
-- Parking privé
+## Ã€ propos
+- GÃ®te 3 Ã©toiles
+- Maison de 85 mÂ² rÃ©novÃ©e
+- 2 chambres, jusqu'Ã  4 voyageurs + bÃ©bÃ©
+- Espace extÃ©rieur de 350 mÂ²
+- Parking privÃ©
 
-## Réservation
+## RÃ©servation
 - L'utilisateur choisit ses dates sur le site.
 - Le site affiche une estimation locale.
 - Le parcours se finalise sur Airbnb via redirection.
 
-## Équipements
+## Ã‰quipements
 - Wifi
 - Lave-linge
 - Lave-vaisselle
-- Télévision
-- Équipement bébé
-- Jeux de société
+- TÃ©lÃ©vision
+- Ã‰quipement bÃ©bÃ©
+- Jeux de sociÃ©tÃ©
 
 ## Pages importantes
 - Accueil: https://lesportesdemontafilan.com/
-- Mentions légales: https://lesportesdemontafilan.com/mentions-legales
-- Confidentialité: https://lesportesdemontafilan.com/confidentialite
+- Mentions lÃ©gales: https://lesportesdemontafilan.com/mentions-legales
+- ConfidentialitÃ©: https://lesportesdemontafilan.com/confidentialite
 - Cookies: https://lesportesdemontafilan.com/cookies
 
 ## Localisation
 - Pays: France
-- Région: Bretagne
-- Département: Côtes-d'Armor
+- RÃ©gion: Bretagne
+- DÃ©partement: CÃ´tes-d'Armor
 - Commune: Corseul
-- Coordonnées approximatives: 48.491005, -2.187678
-- Points d'intérêt proches: Dinan, Saint-Malo, Dinard, Cap Fréhel, Saint-Cast-le-Guildo
+- CoordonnÃ©es approximatives: 48.491005, -2.187678
+- Points d'intÃ©rÃªt proches: Dinan, Saint-Malo, Dinard, Cap FrÃ©hel, Saint-Cast-le-Guildo
 
-## Données structurées
-Le site expose des données structurées schema.org (LodgingBusiness, VacationRental, WebSite, WebPage, FAQPage).
+## DonnÃ©es structurÃ©es
+Le site expose des donnÃ©es structurÃ©es schema.org (LodgingBusiness, VacationRental, WebSite, WebPage, FAQPage).
