@@ -56,7 +56,7 @@ export function LangSwitch({ tone = "dark" }: { tone?: "dark" | "light" }) {
           onClick={() => setLang(option.lang)}
           aria-label={option.aria}
           aria-pressed={lang === option.lang}
-          className={`inline-flex min-w-14 items-center justify-center gap-1.5 rounded-full px-2.5 py-1 text-center ${lang === option.lang ? active : ""}`}
+          className={`inline-flex min-w-14 cursor-pointer items-center justify-center gap-1.5 rounded-full px-2.5 py-1 text-center ${lang === option.lang ? active : ""}`}
         >
           <FlagIcon lang={option.lang} />
           <span>{option.label}</span>
