@@ -104,30 +104,30 @@ function Nav() {
     <>
       <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur">
         <div className="container-x flex h-16 items-center justify-between gap-4">
-          <a href="#top" className="flex min-w-0 items-center gap-2">
+          <a href="#top" className="flex min-w-max shrink-0 items-center gap-2">
             <img
               src={LOGO_IMAGE}
               alt=""
               aria-hidden="true"
               className="h-10 w-10 shrink-0 rounded-full object-cover"
             />
-            <span className="truncate font-display text-lg leading-tight">Les Portes de Montafilan</span>
+            <span className="font-display text-lg leading-tight">Les Portes de Montafilan</span>
           </a>
-          <nav className="hidden items-center gap-7 lg:flex">
+          <nav className="hidden flex-1 items-center justify-center gap-5 xl:flex">
             {links.map((l) => (
-              <a key={l.href} href={l.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <a key={l.href} href={l.href} className="whitespace-nowrap text-sm text-muted-foreground transition-colors hover:text-foreground">
                 {l.label}
               </a>
             ))}
           </nav>
-          <div className="flex items-center gap-3">
+          <div className="flex shrink-0 items-center justify-end gap-3">
             <div className="hidden sm:block"><LangSwitch /></div>
-            <a href="#reservation" className="btn-primary hidden sm:inline-flex !py-2.5 !text-sm">{t("nav.reserve")}</a>
+            <a href="#reservation" className="btn-primary hidden min-w-36 xl:inline-flex !py-2.5 !text-sm">{t("nav.reserve")}</a>
             <button
               type="button"
               aria-label={t("nav.menu")}
               onClick={() => setOpen(true)}
-              className="lg:hidden inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-foreground hover:bg-secondary transition-colors"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-foreground transition-colors hover:bg-secondary xl:hidden"
             >
               <span className="flex flex-col gap-[3px]">
                 <span className="block h-px w-4 bg-foreground" />
