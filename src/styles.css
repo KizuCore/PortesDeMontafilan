@@ -201,6 +201,25 @@
   color: var(--terra);
 }
 
+.legend-dot {
+  display: inline-block;
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 9999px;
+}
+
+.legend-available {
+  background: color-mix(in oklab, var(--forest) 75%, white);
+}
+
+.legend-unavailable {
+  background: color-mix(in oklab, var(--forest) 35%, white);
+}
+
+.legend-selected {
+  background: var(--terra);
+}
+
 /* ── Animations ── */
 @keyframes fade-in-up {
   from { opacity: 0; transform: translateY(24px); }
