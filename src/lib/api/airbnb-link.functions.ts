@@ -47,7 +47,7 @@ function buildAirbnbRedirectUrl(checkIn: string, checkOut: string, adults: numbe
 }
 
 export const getAirbnbRedirectUrl = createServerFn({ method: "POST" })
-  .inputValidator(airbnbLinkInput)
+  .validator(airbnbLinkInput)
   .handler(async ({ data }) => {
     const redirectUrl = buildAirbnbRedirectUrl(data.checkIn, data.checkOut, data.adults, data.children);
     if (!redirectUrl) {

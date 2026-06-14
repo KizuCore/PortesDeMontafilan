@@ -8,7 +8,9 @@ import { useI18n } from "@/lib/i18n";
 import { LangSwitch } from "@/components/LangSwitch";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { getAirbnbRedirectUrl } from "@/lib/api/airbnb-link.functions";
+import { getReservationEstimate } from "@/lib/api/estimate.functions";
 import type { BusyRange } from "../../shared/availability";
+import type { EstimateResult } from "../../shared/pricing";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -49,6 +51,22 @@ function dateToYmd(date: Date) {
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
+}
+
+function formatStayDate(date: Date, locale: string) {
+  return new Intl.DateTimeFormat(locale, {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  }).format(date);
+}
+
+function formatMoney(amount: number, locale: string) {
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: "EUR",
+    maximumFractionDigits: 0,
+  }).format(amount);
 }
 
 function dateRangeIncludesBusyDate(from: Date, to: Date, busyRanges: BusyRange[]) {
@@ -480,6 +498,10 @@ function AirbnbCalendar() {
   const [availabilityError, setAvailabilityError] = useState<string | null>(null);
   const [airbnbLoading, setAirbnbLoading] = useState(false);
   const [airbnbError, setAirbnbError] = useState<string | null>(null);
+  const [estimate, setEstimate] = useState<EstimateResult | null>(null);
+  const [estimateLoading, setEstimateLoading] = useState(false);
+  const [estimateError, setEstimateError] = useState<string | null>(null);
+  const [estimateWarning, setEstimateWarning] = useState<string | null>(null);
   const rates = tm("home.rates");
   const practical = tm("home.practical");
   const maxAdults = Math.max(MIN_ADULTS, MAX_GUESTS - children);
@@ -580,6 +602,58 @@ function AirbnbCalendar() {
     };
   }, []);
 
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadEstimate() {
+      if (
+        !range?.from ||
+        !range?.to ||
+        dateRangeIncludesBusyDate(range.from, range.to, busyRanges)
+      ) {
+        setEstimate(null);
+        setEstimateError(null);
+        setEstimateWarning(null);
+        return;
+      }
+
+      setEstimateLoading(true);
+      setEstimateError(null);
+
+      try {
+        const result = await getReservationEstimate({
+          data: {
+            checkIn: dateToYmd(range.from),
+            checkOut: dateToYmd(range.to),
+            adults,
+            children,
+          },
+        });
+
+        if (!cancelled) {
+          setEstimate(result.estimate);
+          setEstimateWarning(result.warning ?? result.estimate.warning ?? null);
+        }
+      } catch (error: unknown) {
+        if (!cancelled) {
+          setEstimate(null);
+          setEstimateWarning(null);
+          setEstimateError(error instanceof Error ? error.message : t("home.booking.estimateError"));
+        }
+      } finally {
+        if (!cancelled) {
+          setEstimateLoading(false);
+        }
+      }
+    }
+
+    void loadEstimate();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [adults, busyRanges, children, range, t]);
+
   const disabledRanges = useMemo(
     () => busyRanges.map((rangeItem) => ({
       from: new Date(`${rangeItem.start}T00:00:00`),
@@ -601,6 +675,11 @@ function AirbnbCalendar() {
   const selectedLabel = range?.from && range?.to
     ? `${range.from.toLocaleDateString(lang === "fr" ? "fr-FR" : "en-US")} → ${range.to.toLocaleDateString(lang === "fr" ? "fr-FR" : "en-US")}`
     : t("home.booking.emptySelection");
+
+  const locale = lang === "fr" ? "fr-FR" : "en-US";
+  const averageNightPrice = estimate && estimate.nights > 0
+    ? estimate.stayBasePrice / estimate.nights
+    : 0;
 
   return (
     <section id="reservation" className="bg-secondary/60 py-20 sm:py-28">
@@ -671,6 +750,33 @@ function AirbnbCalendar() {
                   <p className="text-sm text-muted-foreground">{t("home.booking.selectHint")}</p>
                 )}
               </div>
+              {estimateLoading ? (
+                <div className="mt-5 rounded-xl bg-secondary/70 p-4 text-sm text-muted-foreground sm:p-5">
+                  {t("home.booking.estimateLoading")}
+                </div>
+              ) : estimate && range?.from && range?.to ? (
+                <div className="mt-5 flex flex-wrap items-center justify-between gap-4 rounded-xl bg-secondary/70 p-4 sm:p-5">
+                  <div className="text-sm text-muted-foreground">
+                    {t("home.booking.from")} <strong className="font-semibold text-foreground">{formatStayDate(range.from, locale)}</strong>{" "}
+                    {t("home.booking.to")} <strong className="font-semibold text-foreground">{formatStayDate(range.to, locale)}</strong>
+                    {" · "}
+                    {estimate.nights} {estimate.nights > 1 ? t("home.booking.nightPlural") : t("home.booking.nightSingular")}
+                    {" × "}
+                    {formatMoney(averageNightPrice, locale)}
+                    <div className="mt-1 text-xs">
+                      {t("home.booking.touristTaxIncluded")} {formatMoney(estimate.touristTax, locale)}
+                    </div>
+                  </div>
+                  <div className="font-display text-3xl text-foreground">
+                    ≈ {formatMoney(estimate.totalEstimated, locale)}
+                  </div>
+                </div>
+              ) : estimateError ? (
+                <p className="mt-3 text-sm text-destructive">{estimateError}</p>
+              ) : null}
+              {estimateWarning ? (
+                <p className="mt-3 text-sm text-muted-foreground">{estimateWarning}</p>
+              ) : null}
               <div className="mt-5 rounded-xl border border-border bg-background p-4 sm:p-5">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <h4 className="text-sm font-semibold uppercase tracking-[0.16em] text-foreground">
