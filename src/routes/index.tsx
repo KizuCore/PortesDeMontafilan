@@ -39,6 +39,7 @@ const imageAssets = import.meta.glob("../assets/img/**/*.{avif,jpg,jpeg,png,webp
 
 const IMG = (path: string) => imageAssets[`../assets/img/${path}`] ?? path;
 const OG_IMAGE = IMG("house/ArriereCours1.avif");
+const LOGO_IMAGE = "/favicon/android-chrome-512x512.png";
 const MIN_ADULTS = 1;
 const MAX_ADULTS = 4;
 const MIN_CHILDREN = 0;
@@ -104,7 +105,12 @@ function Nav() {
       <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur">
         <div className="container-x flex h-16 items-center justify-between gap-4">
           <a href="#top" className="flex min-w-0 items-center gap-2">
-            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-forest text-primary-foreground font-display text-lg">M</span>
+            <img
+              src={LOGO_IMAGE}
+              alt=""
+              aria-hidden="true"
+              className="h-10 w-10 shrink-0 rounded-full object-cover"
+            />
             <span className="truncate font-display text-lg leading-tight">Les Portes de Montafilan</span>
           </a>
           <nav className="hidden items-center gap-7 lg:flex">
@@ -1047,7 +1053,12 @@ function Footer() {
       <div className="container-x grid gap-8 sm:grid-cols-3">
         <div>
           <div className="flex items-center gap-2">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-forest text-primary-foreground font-display">M</span>
+            <img
+              src={LOGO_IMAGE}
+              alt=""
+              aria-hidden="true"
+              className="h-10 w-10 rounded-full object-cover"
+            />
             <span className="font-display text-lg">Les Portes de Montafilan</span>
           </div>
           <p className="mt-3 text-sm text-muted-foreground">{t("home.footer.body")}</p>
