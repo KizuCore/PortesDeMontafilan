@@ -18,7 +18,11 @@
   "cookies.more": "En savoir plus",
   "legal.title": "Mentions légales",
   "legal.lead": "Les informations ci-dessous détaillent l'éditeur du site, l'hébergement et les modalités de contact.",
-  "legal.pills": ["Éditeur identifié", "Hébergement déclaré", "Cadre de propriété intellectuelle"],
+  "legal.pills": [
+    "Éditeur identifié",
+    "Hébergement déclaré",
+    "Cadre de propriété intellectuelle"
+  ],
   "legal.publisherTitle": "Éditeur du site",
   "legal.publisherText": "Nom / raison sociale: Les Portes de Montafilan\nResponsable de publication: Jocelyne et Christian Robert\nAdresse: Corseul, Côtes-d'Armor, Bretagne, France\nEmail: lesportesdemontafilan@gmail.com",
   "legal.publisherLines": [
@@ -48,7 +52,11 @@
   "privacy.title": "Politique de confidentialité & cookies",
   "privacy.intro": "Cette page explique quelles données peuvent être collectées, pourquoi, et comment elles sont traitées.",
   "privacy.lead": "Cette page explique quelles données peuvent être collectées, pourquoi, et comment elles sont traitées.",
-  "privacy.pills": ["Données minimisées", "Usage limité à la réservation", "Droits RGPD"],
+  "privacy.pills": [
+    "Données minimisées",
+    "Usage limité à la réservation",
+    "Droits RGPD"
+  ],
   "privacy.dataTitle": "Données collectées",
   "privacy.dataText": "Le formulaire de contact collecte: prénom, nom, email, téléphone (optionnel), objet et message. Ces données sont utilisées uniquement pour répondre à votre demande. Les dates et informations de réservation sont traitées via Airbnb, pas stockées comme réservation sur ce site.",
   "privacy.dataLines": [
@@ -134,7 +142,8 @@
   "home.booking.guestsTitle": "Voyageurs",
   "home.booking.adults": "Adultes",
   "home.booking.children": "Enfants",
-  "home.booking.guestLimit": "4 voyageurs maximum, dont au moins 1 adulte.",
+  "home.booking.infants": "Bébé",
+  "home.booking.guestLimit": "4 voyageurs maximum + 1 bébé, dont au moins 1 adulte.",
   "home.booking.requestDates": "Demander ces dates",
   "home.booking.requestLoading": "Préparation...",
   "home.booking.viewMaps": "Voir sur Google Maps",
@@ -175,40 +184,220 @@
     { "k": "4 + bébé", "v": "Jusqu'à 4 voyageurs" },
     { "k": "15 min", "v": "Des plages bretonnes" }
   ],
-  "home.intro.tags": ["Wifi", "Lave-linge", "Lave-vaisselle", "TV", "Équipement bébé", "Jeux de société", "BBQ", "Garage"],
+  "home.intro.tags": [
+    "Wifi",
+    "Lave-linge",
+    "Lave-vaisselle",
+    "TV",
+    "Équipement bébé",
+    "Jeux de société",
+    "BBQ",
+    "Garage"
+  ],
   "home.spaces.items": [
-    { "t": "Séjour & cuisine", "d": "Salon lumineux ouvert sur une cuisine entièrement équipée." },
-    { "t": "2 chambres", "d": "Un lit double, deux lits simples, et un lit bébé sur demande." },
-    { "t": "Salle de bain", "d": "Une salle de bain complète et deux WC séparés." },
-    { "t": "Espace de travail", "d": "Un coin bureau dédié, dans une pièce séparée." },
-    { "t": "Jardin & terrasse", "d": "350 m² clos, mobilier de jardin et coin repas extérieur." },
-    { "t": "Garage & parking", "d": "Garage privatif (2 places) et stationnement libre dans la rue." }
+    {
+      "t": "Séjour & cuisine",
+      "d": "Salon lumineux ouvert sur une cuisine entièrement équipée."
+    },
+    {
+      "t": "2 chambres",
+      "d": "Un lit double, deux lits simples, et un lit bébé sur demande."
+    },
+    {
+      "t": "Salle de bain",
+      "d": "Une salle de bain complète et deux WC séparés."
+    },
+    {
+      "t": "Espace de travail",
+      "d": "Un coin bureau dédié, dans une pièce séparée."
+    },
+    {
+      "t": "Jardin & terrasse",
+      "d": "350 m² clos, mobilier de jardin et coin repas extérieur."
+    },
+    {
+      "t": "Garage & parking",
+      "d": "Garage privatif (2 places) et stationnement libre dans la rue."
+    }
   ],
   "home.amenities.items": [
-    { "title": "Cuisine & repas", "items": ["Cuisine équipée", "Four BEKO inox", "Lave-vaisselle", "Réfrigérateur / congélateur", "Micro-ondes", "Bouilloire & cafetière filtre", "Grille-pain, plaque de cuisson", "Verres à vin, vaisselle complète", "Table à manger"] },
-    { "title": "Extérieur", "items": ["Jardin clos 350 m²", "Mobilier de jardin", "Coin repas extérieur", "Barbecue électrique privatif", "Bains de soleil"] },
-    { "title": "Famille", "items": ["Lit parapluie (sur demande)", "Draps fournis & volets occultants", "Livres & jouets (5+ ans)", "Chaise haute pliante (sur demande)", "Baignoire bébé, table à langer", "Barrières de sécurité, protections fenêtres", "Jeux de société"] },
-    { "title": "Confort & services", "items": ["Wifi & connexion Ethernet", "Espace de travail dédié", "Télévision", "Chauffage central", "Lave-linge gratuit", "Sèche-cheveux, fer à repasser", "Service de ménage en option", "Animaux acceptés"] },
-    { "title": "Stationnement", "items": ["Garage privatif sur place (2 places)", "Stationnement gratuit dans la rue"] },
-    { "title": "Sécurité & arrivée", "items": ["Détecteur de fumée", "Arrivée autonome avec boîte à clés", "Entrée privée"] }
+    {
+      "title": "Cuisine & repas",
+      "items": [
+        "Cuisine équipée",
+        "Four BEKO inox",
+        "Lave-vaisselle",
+        "Réfrigérateur / congélateur",
+        "Micro-ondes",
+        "Bouilloire & cafetière filtre",
+        "Grille-pain, plaque de cuisson",
+        "Verres à vin, vaisselle complète",
+        "Table à manger"
+      ]
+    },
+    {
+      "title": "Extérieur",
+      "items": [
+        "Jardin clos 350 m²",
+        "Mobilier de jardin",
+        "Coin repas extérieur",
+        "Barbecue électrique privatif",
+        "Bains de soleil"
+      ]
+    },
+    {
+      "title": "Famille",
+      "items": [
+        "Lit parapluie (sur demande)",
+        "Draps fournis & volets occultants",
+        "Livres & jouets (5+ ans)",
+        "Chaise haute pliante (sur demande)",
+        "Baignoire bébé, table à langer",
+        "Barrières de sécurité, protections fenêtres",
+        "Jeux de société"
+      ]
+    },
+    {
+      "title": "Confort & services",
+      "items": [
+        "Wifi & connexion Ethernet",
+        "Espace de travail dédié",
+        "Télévision",
+        "Chauffage central",
+        "Lave-linge gratuit",
+        "Sèche-cheveux, fer à repasser",
+        "Service de ménage en option",
+        "Animaux acceptés"
+      ]
+    },
+    {
+      "title": "Stationnement",
+      "items": [
+        "Garage privatif sur place (2 places)",
+        "Stationnement gratuit dans la rue"
+      ]
+    },
+    {
+      "title": "Sécurité & arrivée",
+      "items": [
+        "Détecteur de fumée",
+        "Arrivée autonome avec boîte à clés",
+        "Entrée privée"
+      ]
+    }
   ],
   "home.gallery.sections": [
-    { "key": "salon", "label": "Salon", "images": [{ "src": "house/Salon1.avif", "alt": "Salon lumineux" }, { "src": "house/Salon2.avif", "alt": "Coin salon" }] },
-    { "key": "cuisine", "label": "Cuisine", "images": [{ "src": "house/Cuisine.avif", "alt": "Cuisine équipée" }, { "src": "house/Cuisine2.avif", "alt": "Cuisine - vue 2" }] },
-    { "key": "repas", "label": "Espace repas", "images": [{ "src": "house/EspaceRepas1.avif", "alt": "Espace repas" }, { "src": "house/EspaceRepas2.avif", "alt": "Espace repas - vue 2" }, { "src": "house/EspaceRepas3.avif", "alt": "Espace repas - vue 3" }] },
-    { "key": "chambres", "label": "Chambres", "images": [{ "src": "house/Chambre1.avif", "alt": "Chambre 1" }, { "src": "house/Chambre2.avif", "alt": "Chambre 2" }, { "src": "house/ChambreDL1.avif", "alt": "Chambre lit double" }, { "src": "house/ChambreDL2.avif", "alt": "Chambre lit double - vue 2" }] },
-    { "key": "sdb", "label": "Salle de bain & WC", "images": [{ "src": "house/SalleDeBain1.avif", "alt": "Salle de bain" }, { "src": "house/SalleDeBain2.avif", "alt": "Salle de bain - vue 2" }, { "src": "house/Toilettes1.avif", "alt": "Toilettes" }] },
-    { "key": "travail", "label": "Espace de travail", "images": [{ "src": "house/EspaceTravail1.avif", "alt": "Bureau" }, { "src": "house/EspaceTravail2.avif", "alt": "Bureau - vue 2" }] },
-    { "key": "exterieur", "label": "Extérieur & jardin", "images": [{ "src": "house/Exterieur1.avif", "alt": "Extérieur" }, { "src": "house/ArriereCours1.avif", "alt": "Jardin" }, { "src": "house/ArriereCours2.avif", "alt": "Arrière-cour" }] }
+    {
+      "key": "salon",
+      "label": "Salon",
+      "images": [
+        { "src": "house/Salon1.avif", "alt": "Salon lumineux" },
+        { "src": "house/Salon2.avif", "alt": "Coin salon" }
+      ]
+    },
+    {
+      "key": "cuisine",
+      "label": "Cuisine",
+      "images": [
+        { "src": "house/Cuisine.avif", "alt": "Cuisine équipée" },
+        { "src": "house/Cuisine2.avif", "alt": "Cuisine - vue 2" }
+      ]
+    },
+    {
+      "key": "repas",
+      "label": "Espace repas",
+      "images": [
+        { "src": "house/EspaceRepas1.avif", "alt": "Espace repas" },
+        { "src": "house/EspaceRepas2.avif", "alt": "Espace repas - vue 2" },
+        { "src": "house/EspaceRepas3.avif", "alt": "Espace repas - vue 3" }
+      ]
+    },
+    {
+      "key": "chambres",
+      "label": "Chambres",
+      "images": [
+        { "src": "house/Chambre1.avif", "alt": "Chambre 1" },
+        { "src": "house/Chambre2.avif", "alt": "Chambre 2" },
+        { "src": "house/ChambreDL1.avif", "alt": "Chambre lit double" },
+        { "src": "house/ChambreDL2.avif", "alt": "Chambre lit double - vue 2" }
+      ]
+    },
+    {
+      "key": "sdb",
+      "label": "Salle de bain & WC",
+      "images": [
+        { "src": "house/SalleDeBain1.avif", "alt": "Salle de bain" },
+        { "src": "house/SalleDeBain2.avif", "alt": "Salle de bain - vue 2" },
+        { "src": "house/Toilettes1.avif", "alt": "Toilettes" }
+      ]
+    },
+    {
+      "key": "travail",
+      "label": "Espace de travail",
+      "images": [
+        { "src": "house/EspaceTravail1.avif", "alt": "Bureau" },
+        { "src": "house/EspaceTravail2.avif", "alt": "Bureau - vue 2" }
+      ]
+    },
+    {
+      "key": "exterieur",
+      "label": "Extérieur & jardin",
+      "images": [
+        { "src": "house/Exterieur1.avif", "alt": "Extérieur" },
+        { "src": "house/ArriereCours1.avif", "alt": "Jardin" },
+        { "src": "house/ArriereCours2.avif", "alt": "Arrière-cour" }
+      ]
+    }
   ],
   "home.places": [
-    { "name": "Dinan", "km": "19 km", "img": "lieux/dinan-vue-remparts.jpg", "notes": ["Ruelles pavées & maisons à colombages", "Port de Dinan sur la Rance"] },
-    { "name": "Saint-Malo", "km": "30 km", "img": "lieux/saint-malo-remparts.jpg", "notes": ["Remparts & Intra-Muros", "Plage du Sillon", "Cité corsaire"] },
-    { "name": "Cap Fréhel & Fort La Latte", "km": "18 km", "img": "lieux/cap-frehel_emmanuel-berthier.jpg", "notes": ["Falaises panoramiques", "Fort historique en bord de mer"] },
-    { "name": "Saint-Cast-Le-Guildo", "km": "10 km", "img": "lieux/saint-cast-grande-plage.jpg", "notes": ["Grande plage de sable", "Pointe de la Garde"] },
-    { "name": "Dinard - Plage de l'Écluse", "km": "23 km", "img": "lieux/dinard-ecluse.jpg", "notes": ["Promenade du Clair de Lune", "Villas Belle Époque"] },
-    { "name": "Archipel des Ébihens", "km": "13 km", "img": "lieux/ebihens.jpg", "notes": ["Balades à marée basse", "Côte préservée"] },
-    { "name": "Château de la Hunaudaye", "km": "8,5 km", "img": "lieux/hunaudaye.jpg", "notes": ["Forteresse médiévale emblématique", "Visite immersive en famille"] }
+    {
+      "name": "Dinan",
+      "km": "19 km",
+      "img": "lieux/dinan-vue-remparts.jpg",
+      "notes": [
+        "Ruelles pavées & maisons à colombages",
+        "Port de Dinan sur la Rance"
+      ]
+    },
+    {
+      "name": "Saint-Malo",
+      "km": "30 km",
+      "img": "lieux/saint-malo-remparts.jpg",
+      "notes": ["Remparts & Intra-Muros", "Plage du Sillon", "Cité corsaire"]
+    },
+    {
+      "name": "Cap Fréhel & Fort La Latte",
+      "km": "18 km",
+      "img": "lieux/cap-frehel_emmanuel-berthier.jpg",
+      "notes": ["Falaises panoramiques", "Fort historique en bord de mer"]
+    },
+    {
+      "name": "Saint-Cast-Le-Guildo",
+      "km": "10 km",
+      "img": "lieux/saint-cast-grande-plage.jpg",
+      "notes": ["Grande plage de sable", "Pointe de la Garde"]
+    },
+    {
+      "name": "Dinard - Plage de l'Écluse",
+      "km": "23 km",
+      "img": "lieux/dinard-ecluse.jpg",
+      "notes": ["Promenade du Clair de Lune", "Villas Belle Époque"]
+    },
+    {
+      "name": "Archipel des Ébihens",
+      "km": "13 km",
+      "img": "lieux/ebihens.jpg",
+      "notes": ["Balades à marée basse", "Côte préservée"]
+    },
+    {
+      "name": "Château de la Hunaudaye",
+      "km": "8,5 km",
+      "img": "lieux/hunaudaye.jpg",
+      "notes": [
+        "Forteresse médiévale emblématique",
+        "Visite immersive en famille"
+      ]
+    }
   ],
   "home.activities": [
     "Zoo de la Bourbansais - Pleugueneuc (29 km)",
@@ -220,9 +409,18 @@
     "Escape Games - Erquy, Dinan, Lamballe, Dinard, Saint-Malo"
   ],
   "home.why.items": [
-    { "t": "Entre terre et mer", "d": "Depuis Corseul, rejoignez facilement la vieille ville de Dinan, les plages de Saint-Malo et le littoral du Cap Fréhel." },
-    { "t": "Plages, patrimoine, art de vivre", "d": "Alternez plages, balades dans la vallée de la Rance et sites médiévaux comme Dinan ou le château de la Hunaudaye." },
-    { "t": "Confort & flexibilité", "d": "Un cadre calme, un extérieur clos, un accès routier facile aux grandes destinations du nord de la Bretagne." }
+    {
+      "t": "Entre terre et mer",
+      "d": "Depuis Corseul, rejoignez facilement la vieille ville de Dinan, les plages de Saint-Malo et le littoral du Cap Fréhel."
+    },
+    {
+      "t": "Plages, patrimoine, art de vivre",
+      "d": "Alternez plages, balades dans la vallée de la Rance et sites médiévaux comme Dinan ou le château de la Hunaudaye."
+    },
+    {
+      "t": "Confort & flexibilité",
+      "d": "Un cadre calme, un extérieur clos, un accès routier facile aux grandes destinations du nord de la Bretagne."
+    }
   ],
   "home.rates": [
     { "label": "Octobre à avril", "price": "61 €", "unit": "/ nuit" },
@@ -236,8 +434,17 @@
     "Réservation finale sur Airbnb"
   ],
   "home.faqs": [
-    { "q": "Le gîte est-il proche de la mer ?", "a": "Oui. Plusieurs plages des Côtes-d'Armor sont accessibles en 15 à 25 minutes en voiture." },
-    { "q": "Est-ce une bonne base entre Dinan et Saint-Malo ?", "a": "Oui. Corseul est idéalement placé pour rayonner vers Dinan, Saint-Malo, Dinard et le Cap Fréhel." },
-    { "q": "Pour quel type de séjour ce gîte est-il le mieux adapté ?", "a": "Idéal pour des vacances familiales calmes et qualitatives en Bretagne, entre visites, plages et découvertes locales." }
+    {
+      "q": "Le gîte est-il proche de la mer ?",
+      "a": "Oui. Plusieurs plages des Côtes-d'Armor sont accessibles en 15 à 25 minutes en voiture."
+    },
+    {
+      "q": "Est-ce une bonne base entre Dinan et Saint-Malo ?",
+      "a": "Oui. Corseul est idéalement placé pour rayonner vers Dinan, Saint-Malo, Dinard et le Cap Fréhel."
+    },
+    {
+      "q": "Pour quel type de séjour ce gîte est-il le mieux adapté ?",
+      "a": "Idéal pour des vacances familiales calmes et qualitatives en Bretagne, entre visites, plages et découvertes locales."
+    }
   ]
 }

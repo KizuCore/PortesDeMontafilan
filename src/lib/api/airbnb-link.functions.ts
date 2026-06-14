@@ -5,6 +5,8 @@ const MAX_ADULTS = 4;
 const MIN_CHILDREN = 0;
 const MAX_CHILDREN = 3;
 const MAX_GUESTS = 4;
+const MIN_INFANTS = 0;
+const MAX_INFANTS = 1;
 
 const airbnbLinkInput = z
   .object({
@@ -12,6 +14,7 @@ const airbnbLinkInput = z
     checkOut: z.string().min(1),
     adults: z.number().int().min(MIN_ADULTS).max(MAX_ADULTS),
     children: z.number().int().min(MIN_CHILDREN).max(MAX_CHILDREN),
+    infants: z.number().int().min(MIN_INFANTS).max(MAX_INFANTS),
   })
   .refine((data) => data.adults + data.children <= MAX_GUESTS, {
     message: "GUEST_CAPACITY_EXCEEDED",

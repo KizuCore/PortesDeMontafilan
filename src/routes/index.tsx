@@ -35,6 +35,8 @@ const MAX_ADULTS = 4;
 const MIN_CHILDREN = 0;
 const MAX_CHILDREN = 3;
 const MAX_GUESTS = 4;
+const MIN_INFANTS = 0;
+const MAX_INFANTS = 1;
 const GOOGLE_MAPS_URL =
   "https://maps.google.com/?q=G%C3%AEte%20-%20Les%20Portes%20de%20Montafilan";
 
@@ -639,6 +641,7 @@ function AirbnbCalendar() {
   const [range, setRange] = useState<DateRange | undefined>();
   const [adults, setAdults] = useState(2);
   const [children, setChildren] = useState(0);
+  const [infants, setInfants] = useState(0);
   const [busyRanges, setBusyRanges] = useState<BusyRange[]>([]);
   const [availabilityLoading, setAvailabilityLoading] = useState(true);
   const [availabilityError, setAvailabilityError] = useState<string | null>(
@@ -694,6 +697,10 @@ function AirbnbCalendar() {
     setChildren(clampNumber(Number(value), MIN_CHILDREN, maxChildren));
   }
 
+  function handleInfantsChange(value: string) {
+    setInfants(clampNumber(Number(value), MIN_INFANTS, MAX_INFANTS));
+  }
+
   function handleRangeSelect(nextRange: DateRange | undefined) {
     if (
       nextRange?.from &&
@@ -735,6 +742,7 @@ function AirbnbCalendar() {
           checkOut: dateToYmd(range.to),
           adults,
           children,
+          infants,
         },
       });
 
@@ -1059,7 +1067,7 @@ function AirbnbCalendar() {
                     {t("home.booking.guestLimit")}
                   </span>
                 </div>
-                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                <div className="mt-4 grid gap-3 sm:grid-cols-3">
                   <label className="block text-sm">
                     <span className="block text-xs uppercase tracking-wider text-muted-foreground">
                       {t("home.booking.adults")}
@@ -1086,6 +1094,21 @@ function AirbnbCalendar() {
                       value={children}
                       onChange={(event) =>
                         handleChildrenChange(event.target.value)
+                      }
+                      className="mt-2 w-full rounded-lg border border-border bg-card px-4 py-3 text-foreground focus:border-terra focus:outline-none focus:ring-2 focus:ring-clay/30"
+                    />
+                  </label>
+                  <label className="block text-sm">
+                    <span className="block text-xs uppercase tracking-wider text-muted-foreground">
+                      {t("home.booking.infants")}
+                    </span>
+                    <input
+                      type="number"
+                      min={MIN_INFANTS}
+                      max={MAX_INFANTS}
+                      value={infants}
+                      onChange={(event) =>
+                        handleInfantsChange(event.target.value)
                       }
                       className="mt-2 w-full rounded-lg border border-border bg-card px-4 py-3 text-foreground focus:border-terra focus:outline-none focus:ring-2 focus:ring-clay/30"
                     />

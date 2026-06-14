@@ -18,7 +18,11 @@
   "cookies.more": "Learn more",
   "legal.title": "Legal notice",
   "legal.lead": "The information below details the website publisher, hosting provider, and contact channels.",
-  "legal.pills": ["Publisher identified", "Hosting provider declared", "Intellectual property framework"],
+  "legal.pills": [
+    "Publisher identified",
+    "Hosting provider declared",
+    "Intellectual property framework"
+  ],
   "legal.publisherTitle": "Website publisher",
   "legal.publisherText": "Name / business name: Les Portes de Montafilan\nPublication director: Jocelyne and Christian Robert\nAddress: Corseul, Brittany, France\nEmail: lesportesdemontafilan@gmail.com",
   "legal.publisherLines": [
@@ -136,7 +140,8 @@
   "home.booking.guestsTitle": "Guests",
   "home.booking.adults": "Adults",
   "home.booking.children": "Children",
-  "home.booking.guestLimit": "4 guests maximum, including at least 1 adult.",
+  "home.booking.infants": "Baby",
+  "home.booking.guestLimit": "4 guests maximum + 1 baby, including at least 1 adult.",
   "home.booking.requestDates": "Request these dates",
   "home.booking.requestLoading": "Preparing...",
   "home.booking.viewMaps": "View on Google Maps",
@@ -177,40 +182,214 @@
     { "k": "4 + baby", "v": "Up to 4 guests" },
     { "k": "15 min", "v": "From Breton beaches" }
   ],
-  "home.intro.tags": ["Wifi", "Washing machine", "Dishwasher", "TV", "Baby equipment", "Board games", "BBQ", "Garage"],
+  "home.intro.tags": [
+    "Wifi",
+    "Washing machine",
+    "Dishwasher",
+    "TV",
+    "Baby equipment",
+    "Board games",
+    "BBQ",
+    "Garage"
+  ],
   "home.spaces.items": [
-    { "t": "Living room & kitchen", "d": "Bright living room opening onto a fully equipped kitchen." },
-    { "t": "2 bedrooms", "d": "One double bed, two single beds, and a baby cot on request." },
+    {
+      "t": "Living room & kitchen",
+      "d": "Bright living room opening onto a fully equipped kitchen."
+    },
+    {
+      "t": "2 bedrooms",
+      "d": "One double bed, two single beds, and a baby cot on request."
+    },
     { "t": "Bathroom", "d": "One complete bathroom and two separate toilets." },
     { "t": "Workspace", "d": "A dedicated desk area in a separate room." },
-    { "t": "Garden & terrace", "d": "350 sqm enclosed garden, outdoor furniture and dining area." },
-    { "t": "Garage & parking", "d": "Private garage (2 spaces) and free street parking." }
+    {
+      "t": "Garden & terrace",
+      "d": "350 sqm enclosed garden, outdoor furniture and dining area."
+    },
+    {
+      "t": "Garage & parking",
+      "d": "Private garage (2 spaces) and free street parking."
+    }
   ],
   "home.amenities.items": [
-    { "title": "Kitchen & dining", "items": ["Equipped kitchen", "BEKO stainless steel oven", "Dishwasher", "Refrigerator / freezer", "Microwave", "Kettle & filter coffee maker", "Toaster, cooktop", "Wine glasses, full tableware", "Dining table"] },
-    { "title": "Outdoor", "items": ["350 sqm enclosed garden", "Outdoor furniture", "Outdoor dining area", "Private electric BBQ", "Sun loungers"] },
-    { "title": "Family", "items": ["Travel cot (on request)", "Sheets provided & blackout shutters", "Books & toys (5+ years)", "Foldable high chair (on request)", "Baby bathtub, changing table", "Safety gates, window guards", "Board games"] },
-    { "title": "Comfort & services", "items": ["Wifi & Ethernet connection", "Dedicated workspace", "TV", "Central heating", "Free washing machine", "Hair dryer, iron", "Optional cleaning service", "Pets allowed"] },
-    { "title": "Parking", "items": ["Private garage on site (2 spaces)", "Free street parking"] },
-    { "title": "Safety & arrival", "items": ["Smoke detector", "Self check-in with lockbox", "Private entrance"] }
+    {
+      "title": "Kitchen & dining",
+      "items": [
+        "Equipped kitchen",
+        "BEKO stainless steel oven",
+        "Dishwasher",
+        "Refrigerator / freezer",
+        "Microwave",
+        "Kettle & filter coffee maker",
+        "Toaster, cooktop",
+        "Wine glasses, full tableware",
+        "Dining table"
+      ]
+    },
+    {
+      "title": "Outdoor",
+      "items": [
+        "350 sqm enclosed garden",
+        "Outdoor furniture",
+        "Outdoor dining area",
+        "Private electric BBQ",
+        "Sun loungers"
+      ]
+    },
+    {
+      "title": "Family",
+      "items": [
+        "Travel cot (on request)",
+        "Sheets provided & blackout shutters",
+        "Books & toys (5+ years)",
+        "Foldable high chair (on request)",
+        "Baby bathtub, changing table",
+        "Safety gates, window guards",
+        "Board games"
+      ]
+    },
+    {
+      "title": "Comfort & services",
+      "items": [
+        "Wifi & Ethernet connection",
+        "Dedicated workspace",
+        "TV",
+        "Central heating",
+        "Free washing machine",
+        "Hair dryer, iron",
+        "Optional cleaning service",
+        "Pets allowed"
+      ]
+    },
+    {
+      "title": "Parking",
+      "items": ["Private garage on site (2 spaces)", "Free street parking"]
+    },
+    {
+      "title": "Safety & arrival",
+      "items": [
+        "Smoke detector",
+        "Self check-in with lockbox",
+        "Private entrance"
+      ]
+    }
   ],
   "home.gallery.sections": [
-    { "key": "salon", "label": "Living room", "images": [{ "src": "house/Salon1.avif", "alt": "Bright living room" }, { "src": "house/Salon2.avif", "alt": "Sitting area" }] },
-    { "key": "cuisine", "label": "Kitchen", "images": [{ "src": "house/Cuisine.avif", "alt": "Equipped kitchen" }, { "src": "house/Cuisine2.avif", "alt": "Kitchen - second view" }] },
-    { "key": "repas", "label": "Dining area", "images": [{ "src": "house/EspaceRepas1.avif", "alt": "Dining area" }, { "src": "house/EspaceRepas2.avif", "alt": "Dining area - second view" }, { "src": "house/EspaceRepas3.avif", "alt": "Dining area - third view" }] },
-    { "key": "chambres", "label": "Bedrooms", "images": [{ "src": "house/Chambre1.avif", "alt": "Bedroom 1" }, { "src": "house/Chambre2.avif", "alt": "Bedroom 2" }, { "src": "house/ChambreDL1.avif", "alt": "Double bedroom" }, { "src": "house/ChambreDL2.avif", "alt": "Double bedroom - second view" }] },
-    { "key": "sdb", "label": "Bathroom & toilets", "images": [{ "src": "house/SalleDeBain1.avif", "alt": "Bathroom" }, { "src": "house/SalleDeBain2.avif", "alt": "Bathroom - second view" }, { "src": "house/Toilettes1.avif", "alt": "Toilets" }] },
-    { "key": "travail", "label": "Workspace", "images": [{ "src": "house/EspaceTravail1.avif", "alt": "Desk" }, { "src": "house/EspaceTravail2.avif", "alt": "Desk - second view" }] },
-    { "key": "exterieur", "label": "Outdoor & garden", "images": [{ "src": "house/Exterieur1.avif", "alt": "Exterior" }, { "src": "house/ArriereCours1.avif", "alt": "Garden" }, { "src": "house/ArriereCours2.avif", "alt": "Backyard" }] }
+    {
+      "key": "salon",
+      "label": "Living room",
+      "images": [
+        { "src": "house/Salon1.avif", "alt": "Bright living room" },
+        { "src": "house/Salon2.avif", "alt": "Sitting area" }
+      ]
+    },
+    {
+      "key": "cuisine",
+      "label": "Kitchen",
+      "images": [
+        { "src": "house/Cuisine.avif", "alt": "Equipped kitchen" },
+        { "src": "house/Cuisine2.avif", "alt": "Kitchen - second view" }
+      ]
+    },
+    {
+      "key": "repas",
+      "label": "Dining area",
+      "images": [
+        { "src": "house/EspaceRepas1.avif", "alt": "Dining area" },
+        {
+          "src": "house/EspaceRepas2.avif",
+          "alt": "Dining area - second view"
+        },
+        { "src": "house/EspaceRepas3.avif", "alt": "Dining area - third view" }
+      ]
+    },
+    {
+      "key": "chambres",
+      "label": "Bedrooms",
+      "images": [
+        { "src": "house/Chambre1.avif", "alt": "Bedroom 1" },
+        { "src": "house/Chambre2.avif", "alt": "Bedroom 2" },
+        { "src": "house/ChambreDL1.avif", "alt": "Double bedroom" },
+        {
+          "src": "house/ChambreDL2.avif",
+          "alt": "Double bedroom - second view"
+        }
+      ]
+    },
+    {
+      "key": "sdb",
+      "label": "Bathroom & toilets",
+      "images": [
+        { "src": "house/SalleDeBain1.avif", "alt": "Bathroom" },
+        { "src": "house/SalleDeBain2.avif", "alt": "Bathroom - second view" },
+        { "src": "house/Toilettes1.avif", "alt": "Toilets" }
+      ]
+    },
+    {
+      "key": "travail",
+      "label": "Workspace",
+      "images": [
+        { "src": "house/EspaceTravail1.avif", "alt": "Desk" },
+        { "src": "house/EspaceTravail2.avif", "alt": "Desk - second view" }
+      ]
+    },
+    {
+      "key": "exterieur",
+      "label": "Outdoor & garden",
+      "images": [
+        { "src": "house/Exterieur1.avif", "alt": "Exterior" },
+        { "src": "house/ArriereCours1.avif", "alt": "Garden" },
+        { "src": "house/ArriereCours2.avif", "alt": "Backyard" }
+      ]
+    }
   ],
   "home.places": [
-    { "name": "Dinan", "km": "19 km", "img": "lieux/dinan-vue-remparts.jpg", "notes": ["Cobbled streets & half-timbered houses", "Dinan harbour on the Rance"] },
-    { "name": "Saint-Malo", "km": "30 km", "img": "lieux/saint-malo-remparts.jpg", "notes": ["Ramparts & Intra-Muros", "Sillon beach", "Corsair city"] },
-    { "name": "Cap Fréhel & Fort La Latte", "km": "18 km", "img": "lieux/cap-frehel_emmanuel-berthier.jpg", "notes": ["Panoramic cliffs", "Historic seaside fort"] },
-    { "name": "Saint-Cast-Le-Guildo", "km": "10 km", "img": "lieux/saint-cast-grande-plage.jpg", "notes": ["Large sandy beach", "Pointe de la Garde"] },
-    { "name": "Dinard - Plage de l'Écluse", "km": "23 km", "img": "lieux/dinard-ecluse.jpg", "notes": ["Promenade du Clair de Lune", "Belle Époque villas"] },
-    { "name": "Ebihens Archipelago", "km": "13 km", "img": "lieux/ebihens.jpg", "notes": ["Low-tide walks", "Preserved coastline"] },
-    { "name": "Château de la Hunaudaye", "km": "8.5 km", "img": "lieux/hunaudaye.jpg", "notes": ["Iconic medieval fortress", "Immersive family visit"] }
+    {
+      "name": "Dinan",
+      "km": "19 km",
+      "img": "lieux/dinan-vue-remparts.jpg",
+      "notes": [
+        "Cobbled streets & half-timbered houses",
+        "Dinan harbour on the Rance"
+      ]
+    },
+    {
+      "name": "Saint-Malo",
+      "km": "30 km",
+      "img": "lieux/saint-malo-remparts.jpg",
+      "notes": ["Ramparts & Intra-Muros", "Sillon beach", "Corsair city"]
+    },
+    {
+      "name": "Cap Fréhel & Fort La Latte",
+      "km": "18 km",
+      "img": "lieux/cap-frehel_emmanuel-berthier.jpg",
+      "notes": ["Panoramic cliffs", "Historic seaside fort"]
+    },
+    {
+      "name": "Saint-Cast-Le-Guildo",
+      "km": "10 km",
+      "img": "lieux/saint-cast-grande-plage.jpg",
+      "notes": ["Large sandy beach", "Pointe de la Garde"]
+    },
+    {
+      "name": "Dinard - Plage de l'Écluse",
+      "km": "23 km",
+      "img": "lieux/dinard-ecluse.jpg",
+      "notes": ["Promenade du Clair de Lune", "Belle Époque villas"]
+    },
+    {
+      "name": "Ebihens Archipelago",
+      "km": "13 km",
+      "img": "lieux/ebihens.jpg",
+      "notes": ["Low-tide walks", "Preserved coastline"]
+    },
+    {
+      "name": "Château de la Hunaudaye",
+      "km": "8.5 km",
+      "img": "lieux/hunaudaye.jpg",
+      "notes": ["Iconic medieval fortress", "Immersive family visit"]
+    }
   ],
   "home.activities": [
     "Zoo de la Bourbansais - Pleugueneuc (29 km)",
@@ -222,9 +401,18 @@
     "Escape Games - Erquy, Dinan, Lamballe, Dinard, Saint-Malo"
   ],
   "home.why.items": [
-    { "t": "Between land and sea", "d": "From Corseul, you can easily reach Dinan old town, Saint-Malo beaches and the Cap Fréhel coastline." },
-    { "t": "Beaches, heritage and local life", "d": "Alternate between beaches, walks in the Rance valley and medieval sites such as Dinan or Château de la Hunaudaye." },
-    { "t": "Comfort & flexibility", "d": "A peaceful setting, enclosed outdoor space and easy road access to the major destinations of northern Brittany." }
+    {
+      "t": "Between land and sea",
+      "d": "From Corseul, you can easily reach Dinan old town, Saint-Malo beaches and the Cap Fréhel coastline."
+    },
+    {
+      "t": "Beaches, heritage and local life",
+      "d": "Alternate between beaches, walks in the Rance valley and medieval sites such as Dinan or Château de la Hunaudaye."
+    },
+    {
+      "t": "Comfort & flexibility",
+      "d": "A peaceful setting, enclosed outdoor space and easy road access to the major destinations of northern Brittany."
+    }
   ],
   "home.rates": [
     { "label": "October to April", "price": "€61", "unit": "/ night" },
@@ -238,8 +426,17 @@
     "Final booking on Airbnb"
   ],
   "home.faqs": [
-    { "q": "Is the cottage close to the sea?", "a": "Yes. Several Côtes-d'Armor beaches are reachable in 15 to 25 minutes by car." },
-    { "q": "Is this a good base between Dinan and Saint-Malo?", "a": "Yes. Corseul is ideally located for exploring Dinan, Saint-Malo, Dinard and Cap Fréhel." },
-    { "q": "What kind of stay is this cottage best suited for?", "a": "It is ideal for a calm, high-quality family holiday in Brittany, with visits, beaches and local discoveries." }
+    {
+      "q": "Is the cottage close to the sea?",
+      "a": "Yes. Several Côtes-d'Armor beaches are reachable in 15 to 25 minutes by car."
+    },
+    {
+      "q": "Is this a good base between Dinan and Saint-Malo?",
+      "a": "Yes. Corseul is ideally located for exploring Dinan, Saint-Malo, Dinard and Cap Fréhel."
+    },
+    {
+      "q": "What kind of stay is this cottage best suited for?",
+      "a": "It is ideal for a calm, high-quality family holiday in Brittany, with visits, beaches and local discoveries."
+    }
   ]
 }
