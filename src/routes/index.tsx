@@ -699,7 +699,7 @@ function AirbnbCalendar() {
                 >
                   <div className="text-sm text-muted-foreground">{rate.label}</div>
                   <div className="whitespace-nowrap text-right">
-                    <span className="font-display text-2xl text-foreground">{rate.price}</span>
+                    <span className="font-display text-2xl text-foreground">≈ {rate.price}</span>
                     <span className="ml-1 text-xs text-muted-foreground">{rate.unit}</span>
                   </div>
                 </div>
