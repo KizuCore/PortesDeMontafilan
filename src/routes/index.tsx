@@ -559,6 +559,11 @@ function AirbnbCalendar() {
       return;
     }
 
+    if (estimate && !estimate.valid) {
+      setAirbnbError(estimate.warning ?? t("home.booking.estimateError"));
+      return;
+    }
+
     setAirbnbLoading(true);
     setAirbnbError(null);
 
@@ -752,6 +757,12 @@ function AirbnbCalendar() {
             <p className="mt-4 text-sm text-muted-foreground">
               {t("home.booking.longStay")}
             </p>
+            <p className="mt-3 text-sm text-muted-foreground">
+              <strong className="font-semibold text-foreground">{t("home.booking.minimumStayTitle")}</strong>{" "}
+              {pricingConfig.minNightsLowMid} {pricingConfig.minNightsLowMid > 1 ? t("home.booking.nightPlural") : t("home.booking.nightSingular")} {t("home.booking.minimumStayLowMid")}
+              {" · "}
+              {pricingConfig.minNightsHigh} {pricingConfig.minNightsHigh > 1 ? t("home.booking.nightPlural") : t("home.booking.nightSingular")} {t("home.booking.minimumStayHigh")}
+            </p>
           </AnimatedSection>
         </div>
         <div className="lg:col-span-7">
@@ -860,7 +871,7 @@ function AirbnbCalendar() {
                 <button
                   type="button"
                   onClick={handleRequestDates}
-                  disabled={airbnbLoading || !range?.from || !range?.to || selectedRangeUnavailable}
+                  disabled={airbnbLoading || !range?.from || !range?.to || selectedRangeUnavailable || Boolean(estimate && !estimate.valid)}
                   className="btn-primary disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {airbnbLoading ? t("home.booking.requestLoading") : t("home.booking.requestDates")}
