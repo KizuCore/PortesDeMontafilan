@@ -120,7 +120,7 @@
   "home.booking.longStay": "Des conditions préférentielles peuvent être proposées pour les longs séjours.",
   "home.booking.minimumStayTitle": "Séjour minimum :",
   "home.booking.minimumStayLowMid": "hors haute saison",
-  "home.booking.minimumStayHigh": "en haute saison",
+  "home.booking.minimumStayHigh": "en haute saison (vacances scolaires + juillet/août)",
   "home.booking.chooseDates": "Choisissez vos dates",
   "home.booking.estimate": "Estimation",
   "home.booking.estimateLoading": "Calcul de l'estimation...",

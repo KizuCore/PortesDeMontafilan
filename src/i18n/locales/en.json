@@ -122,7 +122,7 @@
   "home.booking.longStay": "Preferential terms may be offered for longer stays.",
   "home.booking.minimumStayTitle": "Minimum stay:",
   "home.booking.minimumStayLowMid": "outside high season",
-  "home.booking.minimumStayHigh": "in high season",
+  "home.booking.minimumStayHigh": "in high season (school holidays + July/August)",
   "home.booking.chooseDates": "Choose your dates",
   "home.booking.estimate": "Estimate",
   "home.booking.estimateLoading": "Calculating estimate...",
