@@ -36,10 +36,9 @@ export function LangSwitch({ tone = "dark" }: { tone?: "dark" | "light" }) {
     tone === "light"
       ? "border-background/30 text-background/80"
       : "border-border text-muted-foreground";
-  const active =
-    tone === "light"
-      ? "bg-background text-forest"
-      : "bg-forest text-primary-foreground";
+  const indicator = tone === "light" ? "bg-background" : "bg-forest";
+  const activeText =
+    tone === "light" ? "text-forest" : "text-primary-foreground";
   const opts: Array<{ lang: Lang; label: string; aria: string }> = [
     { lang: "fr", label: "FR", aria: "Passer le site en francais" },
     { lang: "en", label: "EN", aria: "Switch site to English" },
@@ -47,8 +46,12 @@ export function LangSwitch({ tone = "dark" }: { tone?: "dark" | "light" }) {
 
   return (
     <div
-      className={`inline-flex items-center rounded-full border ${base} p-0.5 text-[11px] font-semibold uppercase`}
+      className={`relative inline-flex items-center overflow-hidden rounded-full border ${base} p-0.5 text-[11px] font-semibold uppercase`}
     >
+      <span
+        aria-hidden="true"
+        className={`absolute inset-y-0.5 left-0.5 w-[calc(50%-2px)] rounded-full ${indicator} transition-transform duration-200 ease-out ${lang === "en" ? "translate-x-full" : "translate-x-0"}`}
+      />
       {opts.map((option) => (
         <button
           key={option.lang}
@@ -56,7 +59,7 @@ export function LangSwitch({ tone = "dark" }: { tone?: "dark" | "light" }) {
           onClick={() => setLang(option.lang)}
           aria-label={option.aria}
           aria-pressed={lang === option.lang}
-          className={`inline-flex min-w-14 cursor-pointer items-center justify-center gap-1.5 rounded-full px-2.5 py-1 text-center ${lang === option.lang ? active : ""}`}
+          className={`relative z-10 inline-flex min-w-14 cursor-pointer items-center justify-center gap-1.5 rounded-full px-2.5 py-1 text-center ${lang === option.lang ? activeText : ""}`}
         >
           <FlagIcon lang={option.lang} />
           <span>{option.label}</span>
