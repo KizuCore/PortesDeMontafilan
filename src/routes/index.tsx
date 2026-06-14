@@ -669,6 +669,10 @@ function Faq() {
 }
 
 function Contact() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitState, setSubmitState] = useState<"idle" | "success" | "error">("idle");
+  const [submitMessage, setSubmitMessage] = useState<string | null>(null);
+
   return (
     <section id="contact" className="bg-forest text-primary-foreground py-20 sm:py-28">
       <div className="container-x grid gap-10 lg:grid-cols-12">
@@ -692,15 +696,49 @@ function Contact() {
           <AnimatedSection delay={150}>
             <form
               className="rounded-2xl border border-background/15 bg-background/5 p-6 sm:p-8 backdrop-blur"
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
                 const f = e.currentTarget as HTMLFormElement;
                 const data = new FormData(f);
-                const body = encodeURIComponent(
-                  `Prénom: ${data.get("firstname")}\nNom: ${data.get("lastname")}\nTéléphone: ${data.get("phone")}\n\n${data.get("message")}`
-                );
-                const subject = encodeURIComponent(String(data.get("subject") || "Demande d'information"));
-                window.location.href = `mailto:lesportesdemontafilan@gmail.com?subject=${subject}&body=${body}`;
+
+                setIsSubmitting(true);
+                setSubmitState("idle");
+                setSubmitMessage(null);
+
+                try {
+                  const response = await fetch("/api/contact", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      language: "fr",
+                      form: {
+                        firstName: String(data.get("firstname") || "").trim(),
+                        lastName: String(data.get("lastname") || "").trim(),
+                        email: String(data.get("email") || "").trim(),
+                        phone: String(data.get("phone") || "").trim(),
+                        subject: String(data.get("subject") || "Demande d'information").trim(),
+                        message: String(data.get("message") || "").trim(),
+                      },
+                    }),
+                  });
+
+                  const result = (await response.json().catch(() => null)) as { error?: string; ok?: boolean } | null;
+
+                  if (!response.ok) {
+                    throw new Error(result?.error || `HTTP ${response.status}`);
+                  }
+
+                  f.reset();
+                  setSubmitState("success");
+                  setSubmitMessage("Message envoyé. Nous vous répondrons rapidement par email.");
+                } catch (error: unknown) {
+                  setSubmitState("error");
+                  setSubmitMessage(error instanceof Error ? error.message : "Erreur lors de l'envoi du message.");
+                } finally {
+                  setIsSubmitting(false);
+                }
               }}
             >
               <h3 className="text-background text-xl">Envoyer un message</h3>
@@ -712,7 +750,20 @@ function Contact() {
                 <Field name="subject" label="Sujet *" required className="sm:col-span-2" />
                 <Field name="message" label="Message *" required textarea className="sm:col-span-2" />
               </div>
-              <button type="submit" className="btn-primary mt-6 w-full">Envoyer le message</button>
+              {submitMessage ? (
+                <div
+                  className={`mt-6 rounded-xl border p-4 text-sm ${
+                    submitState === "success"
+                      ? "border-emerald-400/40 bg-emerald-400/10 text-emerald-50"
+                      : "border-destructive/40 bg-destructive/10 text-destructive-foreground"
+                  }`}
+                >
+                  {submitMessage}
+                </div>
+              ) : null}
+              <button type="submit" className="btn-primary mt-6 w-full" disabled={isSubmitting}>
+                {isSubmitting ? "Envoi en cours..." : "Envoyer le message"}
+              </button>
             </form>
           </AnimatedSection>
         </div>
