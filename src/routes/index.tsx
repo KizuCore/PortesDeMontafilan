@@ -813,6 +813,11 @@ function AirbnbCalendar() {
               {estimateWarning ? (
                 <p className="mt-3 text-sm text-muted-foreground">{estimateWarning}</p>
               ) : null}
+              {estimate && estimate.nights >= 7 ? (
+                <p className="mt-3 rounded-xl border border-border bg-background px-4 py-3 text-sm text-muted-foreground">
+                  {t("home.booking.weeklyDiscountNotice")}
+                </p>
+              ) : null}
               <div className="mt-5 rounded-xl border border-border bg-background p-4 sm:p-5">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <h4 className="text-sm font-semibold uppercase tracking-[0.16em] text-foreground">
