@@ -7,6 +7,7 @@ import { enUS, fr } from "date-fns/locale";
 import { useI18n } from "@/lib/i18n";
 import { LangSwitch } from "@/components/LangSwitch";
 import { AnimatedSection } from "@/components/AnimatedSection";
+import { getAirbnbRedirectUrl } from "@/lib/api/airbnb-link.functions";
 import type { BusyRange } from "../../shared/availability";
 
 export const Route = createFileRoute("/")({
@@ -48,6 +49,21 @@ function dateToYmd(date: Date) {
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
+}
+
+function dateRangeIncludesBusyDate(from: Date, to: Date, busyRanges: BusyRange[]) {
+  let cursor = dateToYmd(from);
+  const end = dateToYmd(to);
+
+  while (cursor < end) {
+    if (busyRanges.some((range) => cursor >= range.start && cursor < range.end)) {
+      return true;
+    }
+
+    cursor = dateToYmd(addDays(new Date(`${cursor}T00:00:00`), 1));
+  }
+
+  return false;
 }
 
 function Nav() {
@@ -482,9 +498,29 @@ function AirbnbCalendar() {
     setChildren(clampNumber(Number(value), MIN_CHILDREN, maxChildren));
   }
 
+  function handleRangeSelect(nextRange: DateRange | undefined) {
+    if (
+      nextRange?.from &&
+      nextRange?.to &&
+      dateRangeIncludesBusyDate(nextRange.from, nextRange.to, busyRanges)
+    ) {
+      setRange({ from: nextRange.from });
+      setAirbnbError(t("home.booking.unavailableRange"));
+      return;
+    }
+
+    setAirbnbError(null);
+    setRange(nextRange);
+  }
+
   async function handleRequestDates() {
     if (!range?.from || !range?.to) {
       setAirbnbError(t("home.booking.missingDates"));
+      return;
+    }
+
+    if (dateRangeIncludesBusyDate(range.from, range.to, busyRanges)) {
+      setAirbnbError(t("home.booking.unavailableRange"));
       return;
     }
 
@@ -492,24 +528,14 @@ function AirbnbCalendar() {
     setAirbnbError(null);
 
     try {
-      const response = await fetch("/api/airbnb-link", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      const result = await getAirbnbRedirectUrl({
+        data: {
           checkIn: dateToYmd(range.from),
           checkOut: dateToYmd(range.to),
           adults,
           children,
-        }),
+        },
       });
-
-      const result = (await response.json().catch(() => null)) as { redirectUrl?: string; error?: string } | null;
-
-      if (!response.ok || !result?.redirectUrl) {
-        throw new Error(result?.error || `HTTP ${response.status}`);
-      }
 
       window.location.assign(result.redirectUrl);
     } catch (error: unknown) {
@@ -567,6 +593,11 @@ function AirbnbCalendar() {
     return Math.max(0, differenceInCalendarDays(range.to, range.from));
   }, [range]);
 
+  const selectedRangeUnavailable = useMemo(() => {
+    if (!range?.from || !range?.to) return false;
+    return dateRangeIncludesBusyDate(range.from, range.to, busyRanges);
+  }, [busyRanges, range]);
+
   const selectedLabel = range?.from && range?.to
     ? `${range.from.toLocaleDateString(lang === "fr" ? "fr-FR" : "en-US")} → ${range.to.toLocaleDateString(lang === "fr" ? "fr-FR" : "en-US")}`
     : t("home.booking.emptySelection");
@@ -611,7 +642,7 @@ function AirbnbCalendar() {
                 <Calendar
                   mode="range"
                   selected={range}
-                  onSelect={setRange}
+                  onSelect={handleRangeSelect}
                   numberOfMonths={1}
                   locale={lang === "fr" ? fr : enUS}
                   disabled={[{ before: new Date() }, ...disabledRanges]}
@@ -676,7 +707,7 @@ function AirbnbCalendar() {
                 <button
                   type="button"
                   onClick={handleRequestDates}
-                  disabled={airbnbLoading || !range?.from || !range?.to}
+                  disabled={airbnbLoading || !range?.from || !range?.to || selectedRangeUnavailable}
                   className="btn-primary disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {airbnbLoading ? t("home.booking.requestLoading") : t("home.booking.requestDates")}

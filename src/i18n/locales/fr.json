@@ -92,6 +92,7 @@
   "home.booking.requestLoading": "Préparation...",
   "home.booking.viewMaps": "Voir sur Google Maps",
   "home.booking.missingDates": "Merci de sélectionner une date d'arrivée et une date de départ.",
+  "home.booking.unavailableRange": "Cette période contient une date indisponible. Merci de choisir une autre plage.",
   "home.booking.airbnbError": "Le lien Airbnb n'a pas pu être préparé.",
   "home.booking.nightSingular": "nuit",
   "home.booking.nightPlural": "nuits",

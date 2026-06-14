@@ -44,3 +44,4 @@ Thumbs.db
 *.sw?
 .vercel
 .env*.local
+.env*
