@@ -490,6 +490,11 @@ function AirbnbCalendar() {
   const [busyRanges, setBusyRanges] = useState<BusyRange[]>([]);
   const [availabilityLoading, setAvailabilityLoading] = useState(true);
   const [availabilityError, setAvailabilityError] = useState<string | null>(null);
+  const rates = [
+    { label: "Octobre à avril", price: "61 €", unit: "/ nuit" },
+    { label: "Mai à septembre", price: "68 €", unit: "/ nuit" },
+    { label: "Vacances + juillet/août", price: "100 €", unit: "/ nuit" },
+  ];
 
   useEffect(() => {
     let cancelled = false;
@@ -548,29 +553,28 @@ function AirbnbCalendar() {
       <div className="container-x grid gap-12 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <AnimatedSection>
-            <span className="eyebrow">Calendrier Airbnb</span>
-            <h2 className="mt-3 text-3xl sm:text-5xl">Vérifiez les dates disponibles.</h2>
+            <span className="eyebrow">Tarifs & réservation</span>
+            <h2 className="mt-3 text-3xl sm:text-5xl">Prêts à planifier votre séjour ?</h2>
             <p className="mt-5 text-muted-foreground leading-relaxed">
-              Le calendrier est alimenté par le flux iCal Airbnb du gîte. Les périodes occupées sont grisées automatiquement.
+              Sélectionnez vos dates pour une estimation instantanée. Le prix final sera confirmé sur Airbnb avant réservation.
             </p>
-            <div className="mt-6 rounded-2xl border border-border bg-card p-6">
-              <div className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-wider text-muted-foreground">
-                <span>Synchronisé avec Airbnb</span>
-                {availabilityLoading ? <span className="text-terra">Chargement...</span> : null}
-                {availabilityError ? <span className="text-destructive">Indisponible</span> : null}
-              </div>
-              <ul className="mt-4 grid gap-2 text-sm text-muted-foreground sm:grid-cols-2">
-                <li>· Sélectionnez une arrivée puis un départ</li>
-                <li>· Les nuits déjà réservées sont bloquées</li>
-                <li>· Les disponibilités se mettent à jour au chargement</li>
-                <li>· Réservation finale via Airbnb</li>
-              </ul>
-              <div className="mt-4 rounded-xl bg-secondary/70 p-4 text-sm text-muted-foreground">
-                {availabilityError
-                  ? `Le calendrier Airbnb n'est pas accessible pour le moment. (${availabilityError})`
-                  : `${busyRanges.length} plage${busyRanges.length > 1 ? "s" : ""} occupée${busyRanges.length > 1 ? "s" : ""} détectée${busyRanges.length > 1 ? "s" : ""}.`}
-              </div>
+            <div className="mt-6 overflow-hidden rounded-[24px] border border-border bg-card shadow-card">
+              {rates.map((rate, index) => (
+                <div
+                  key={rate.label}
+                  className={`flex items-center justify-between gap-4 px-5 py-5 ${index > 0 ? "border-t border-border" : ""}`}
+                >
+                  <div className="text-sm text-muted-foreground">{rate.label}</div>
+                  <div className="whitespace-nowrap text-right">
+                    <span className="font-display text-2xl text-foreground">{rate.price}</span>
+                    <span className="ml-1 text-xs text-muted-foreground">{rate.unit}</span>
+                  </div>
+                </div>
+              ))}
             </div>
+            <p className="mt-4 text-sm text-muted-foreground">
+              Des conditions préférentielles peuvent être proposées pour les longs séjours.
+            </p>
           </AnimatedSection>
         </div>
         <div className="lg:col-span-7">
