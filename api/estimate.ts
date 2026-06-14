@@ -8,6 +8,7 @@ interface Req {
     checkIn?: string;
     checkOut?: string;
     adults?: number;
+    children?: number;
     towelPacks?: number;
   };
 }
@@ -19,7 +20,10 @@ interface Res {
 
 const DEFAULT_ICAL_FETCH_TIMEOUT_MS = 6000;
 const MIN_ADULTS = 1;
-const MAX_ADULTS = 12;
+const MAX_ADULTS = 4;
+const MIN_CHILDREN = 0;
+const MAX_CHILDREN = 3;
+const MAX_GUESTS = 4;
 const MIN_TOWEL_PACKS = 0;
 const MAX_TOWEL_PACKS = 24;
 
@@ -86,6 +90,17 @@ export default async function handler(req: Req, res: Res) {
     const adults = parseBoundedInteger(req.body?.adults, MIN_ADULTS, MIN_ADULTS, MAX_ADULTS);
     if (adults === null) {
       res.status(400).json({ error: `Adults must be an integer between ${MIN_ADULTS} and ${MAX_ADULTS}.` });
+      return;
+    }
+
+    const children = parseBoundedInteger(req.body?.children, MIN_CHILDREN, MIN_CHILDREN, MAX_CHILDREN);
+    if (children === null) {
+      res.status(400).json({ error: `Children must be an integer between ${MIN_CHILDREN} and ${MAX_CHILDREN}.` });
+      return;
+    }
+
+    if (adults + children > MAX_GUESTS) {
+      res.status(400).json({ error: 'GUEST_CAPACITY_EXCEEDED' });
       return;
     }
 

@@ -36,6 +36,11 @@ const imageAssets = import.meta.glob("../assets/img/**/*.{avif,jpg,jpeg,png,webp
 
 const IMG = (path: string) => imageAssets[`../assets/img/${path}`] ?? path;
 const OG_IMAGE = IMG("house/ArriereCours1.avif");
+const MIN_ADULTS = 1;
+const MAX_ADULTS = 4;
+const MIN_CHILDREN = 0;
+const MAX_CHILDREN = 3;
+const MAX_GUESTS = 4;
 
 function Nav() {
   const [open, setOpen] = useState(false);
@@ -444,11 +449,28 @@ function Reviews() {
 function AirbnbCalendar() {
   const { lang, t, tm } = useI18n();
   const [range, setRange] = useState<DateRange | undefined>();
+  const [adults, setAdults] = useState(2);
+  const [children, setChildren] = useState(0);
   const [busyRanges, setBusyRanges] = useState<BusyRange[]>([]);
   const [availabilityLoading, setAvailabilityLoading] = useState(true);
   const [availabilityError, setAvailabilityError] = useState<string | null>(null);
   const rates = tm("home.rates");
   const practical = tm("home.practical");
+  const maxAdults = Math.max(MIN_ADULTS, MAX_GUESTS - children);
+  const maxChildren = Math.max(MIN_CHILDREN, MAX_GUESTS - adults);
+
+  function clampNumber(value: number, min: number, max: number) {
+    if (!Number.isFinite(value)) return min;
+    return Math.min(max, Math.max(min, Math.trunc(value)));
+  }
+
+  function handleAdultsChange(value: string) {
+    setAdults(clampNumber(Number(value), MIN_ADULTS, maxAdults));
+  }
+
+  function handleChildrenChange(value: string) {
+    setChildren(clampNumber(Number(value), MIN_CHILDREN, maxChildren));
+  }
 
   useEffect(() => {
     let cancelled = false;
@@ -559,6 +581,38 @@ function AirbnbCalendar() {
                 ) : (
                   <p className="text-sm text-muted-foreground">{t("home.booking.selectHint")}</p>
                 )}
+              </div>
+              <div className="mt-5 rounded-xl border border-border bg-background p-4 sm:p-5">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <h4 className="text-sm font-semibold uppercase tracking-[0.16em] text-foreground">
+                    {t("home.booking.guestsTitle")}
+                  </h4>
+                  <span className="text-xs text-muted-foreground">{t("home.booking.guestLimit")}</span>
+                </div>
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  <label className="block text-sm">
+                    <span className="block text-xs uppercase tracking-wider text-muted-foreground">{t("home.booking.adults")}</span>
+                    <input
+                      type="number"
+                      min={MIN_ADULTS}
+                      max={maxAdults}
+                      value={adults}
+                      onChange={(event) => handleAdultsChange(event.target.value)}
+                      className="mt-2 w-full rounded-lg border border-border bg-card px-4 py-3 text-foreground focus:border-terra focus:outline-none focus:ring-2 focus:ring-clay/30"
+                    />
+                  </label>
+                  <label className="block text-sm">
+                    <span className="block text-xs uppercase tracking-wider text-muted-foreground">{t("home.booking.children")}</span>
+                    <input
+                      type="number"
+                      min={MIN_CHILDREN}
+                      max={maxChildren}
+                      value={children}
+                      onChange={(event) => handleChildrenChange(event.target.value)}
+                      className="mt-2 w-full rounded-lg border border-border bg-card px-4 py-3 text-foreground focus:border-terra focus:outline-none focus:ring-2 focus:ring-clay/30"
+                    />
+                  </label>
+                </div>
               </div>
               <div className="mt-4 flex flex-wrap gap-3 text-xs uppercase tracking-wider text-muted-foreground">
                 <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5">

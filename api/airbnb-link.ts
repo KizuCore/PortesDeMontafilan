@@ -15,9 +15,10 @@ interface Res {
 
 const DEFAULT_AIRBNB_BASE_URL = 'https://www.airbnb.com';
 const MIN_ADULTS = 1;
-const MAX_ADULTS = 12;
+const MAX_ADULTS = 4;
 const MIN_CHILDREN = 0;
-const MAX_CHILDREN = 8;
+const MAX_CHILDREN = 3;
+const MAX_GUESTS = 4;
 
 // Construit une URL Airbnb valide a partir des variables d'environnement.
 function buildAirbnbRedirectUrl(checkIn: string, checkOut: string, adults: number, children: number): string | null {
@@ -87,6 +88,11 @@ export default function handler(req: Req, res: Res) {
 
   if (children === null) {
     res.status(400).json({ error: `Children must be an integer between ${MIN_CHILDREN} and ${MAX_CHILDREN}.` });
+    return;
+  }
+
+  if (adults + children > MAX_GUESTS) {
+    res.status(400).json({ error: 'GUEST_CAPACITY_EXCEEDED' });
     return;
   }
 
