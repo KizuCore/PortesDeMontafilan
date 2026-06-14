@@ -185,7 +185,7 @@
   ],
   "home.rates": [
     { "label": "October to April", "price": "€61", "unit": "/ night" },
-    { "label": "May to September", "price": "€68", "unit": "/ night" },
+    { "label": "May / September", "price": "€68", "unit": "/ night" },
     { "label": "Holidays + July/August", "price": "€100", "unit": "/ night" }
   ],
   "home.practical": [
