@@ -4,7 +4,7 @@ import { useI18n } from "@/lib/i18n";
 export const Route = createFileRoute("/cookies")({
   head: () => ({
     meta: [
-      { title: "Cookies — Les Portes de Montafilan" },
+      { title: "Cookies - Les Portes de Montafilan" },
       { name: "description", content: "Gestion des cookies sur le site Les Portes de Montafilan." },
       { name: "robots", content: "noindex" },
     ],
@@ -26,8 +26,8 @@ function Page() {
             <div>
               <h2 className="text-xl text-foreground">{fr ? "Cookies utilisés" : "Cookies used"}</h2>
               <ul className="mt-3 space-y-2">
-                <li>· <strong className="text-foreground">lang</strong> — {fr ? "mémorise votre langue préférée (FR / EN)." : "remembers your preferred language (FR / EN)."}</li>
-                <li>· <strong className="text-foreground">cookie-consent-v1</strong> — {fr ? "garde en mémoire votre acceptation de ce bandeau." : "remembers that you acknowledged this banner."}</li>
+                <li>· <strong className="text-foreground">lang</strong> - {fr ? "mémorise votre langue préférée (FR / EN)." : "remembers your preferred language (FR / EN)."}</li>
+                <li>· <strong className="text-foreground">cookie-consent-v1</strong> - {fr ? "garde en mémoire votre acceptation de ce bandeau." : "remembers that you acknowledged this banner."}</li>
               </ul>
             </div>
             <div>

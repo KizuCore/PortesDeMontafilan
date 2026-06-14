@@ -4,7 +4,7 @@ import { useI18n } from "@/lib/i18n";
 export const Route = createFileRoute("/mentions-legales")({
   head: () => ({
     meta: [
-      { title: "Mentions légales — Les Portes de Montafilan" },
+      { title: "Mentions légales - Les Portes de Montafilan" },
       { name: "description", content: "Mentions légales du site Les Portes de Montafilan, gîte à Corseul en Bretagne." },
       { name: "robots", content: "noindex" },
     ],
@@ -24,7 +24,7 @@ function Page() {
           <div className="prose-content mt-10 space-y-8 text-muted-foreground leading-relaxed">
             <div>
               <h2 className="text-xl text-foreground">{fr ? "Éditeur du site" : "Site publisher"}</h2>
-              <p className="mt-2">Jocelyne & Christian — Les Portes de Montafilan<br />Corseul, 22130, Côtes-d'Armor, France<br />Téléphone : +33 7 80 71 01 59<br />Email : lesportesdemontafilan@gmail.com</p>
+              <p className="mt-2">Jocelyne & Christian - Les Portes de Montafilan<br />Corseul, 22130, Côtes-d'Armor, France<br />Téléphone : +33 7 80 71 01 59<br />Email : lesportesdemontafilan@gmail.com</p>
             </div>
             <div>
               <h2 className="text-xl text-foreground">{fr ? "Hébergement du site" : "Hosting"}</h2>

@@ -75,10 +75,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Les Portes de Montafilan — Gîte à Corseul, entre Dinan & Saint-Malo" },
+      { title: "Les Portes de Montafilan - Gîte à Corseul, entre Dinan & Saint-Malo" },
       { name: "description", content: "Gîte chaleureux de 85 m² à Corseul, en Bretagne. Jardin clos de 350 m², jusqu'à 4 voyageurs, à 15 min des plages, entre Dinan, Saint-Malo et Cap Fréhel." },
       { name: "author", content: "Jocelyne & Christian" },
-      { property: "og:title", content: "Les Portes de Montafilan — Gîte en Bretagne" },
+      { property: "og:title", content: "Les Portes de Montafilan - Gîte en Bretagne" },
       { property: "og:description", content: "Une parenthèse bretonne à Corseul, entre Dinan, Saint-Malo et le Cap Fréhel." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

@@ -12,7 +12,7 @@ import type { BusyRange } from "../../shared/availability";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Les Portes de Montafilan — Gîte à Corseul, entre Dinan & Saint-Malo" },
+      { title: "Les Portes de Montafilan - Gîte à Corseul, entre Dinan & Saint-Malo" },
       {
         name: "description",
         content:
@@ -49,11 +49,11 @@ const amenities = [
 
 const gallerySections = [
   { key: "salon", label: "Salon", images: [{ src: "Salon1-CKgo11X-.avif", alt: "Salon lumineux" }, { src: "Salon2-TF7xTJww.avif", alt: "Coin salon" }] },
-  { key: "cuisine", label: "Cuisine", images: [{ src: "Cuisine-CPQmG56z.avif", alt: "Cuisine équipée" }, { src: "Cuisine2-Cu3HHk2F.avif", alt: "Cuisine — vue 2" }] },
-  { key: "repas", label: "Espace repas", images: [{ src: "EspaceRepas1-B1Iy2ABL.avif", alt: "Espace repas" }, { src: "EspaceRepas2-oOCWVkAK.avif", alt: "Espace repas — vue 2" }, { src: "EspaceRepas3-BwKAtya9.avif", alt: "Espace repas — vue 3" }] },
-  { key: "chambres", label: "Chambres", images: [{ src: "Chambre1-BkwhqxBc.avif", alt: "Chambre 1" }, { src: "Chambre2-CcV3UvXp.avif", alt: "Chambre 2" }, { src: "ChambreDL1-8JuMMFdL.avif", alt: "Chambre lit double" }, { src: "ChambreDL2-C93412cL.avif", alt: "Chambre lit double — vue 2" }] },
-  { key: "sdb", label: "Salle de bain & WC", images: [{ src: "SalleDeBain1-1iN7dSWs.avif", alt: "Salle de bain" }, { src: "SalleDeBain2-CfgyPoyM.avif", alt: "Salle de bain — vue 2" }, { src: "Toilettes1-C6Ny5zgS.avif", alt: "Toilettes" }] },
-  { key: "travail", label: "Espace de travail", images: [{ src: "EspaceTravail1-B3ofyv4J.avif", alt: "Bureau" }, { src: "EspaceTravail2-Dc8XjQyQ.avif", alt: "Bureau — vue 2" }] },
+  { key: "cuisine", label: "Cuisine", images: [{ src: "Cuisine-CPQmG56z.avif", alt: "Cuisine équipée" }, { src: "Cuisine2-Cu3HHk2F.avif", alt: "Cuisine - vue 2" }] },
+  { key: "repas", label: "Espace repas", images: [{ src: "EspaceRepas1-B1Iy2ABL.avif", alt: "Espace repas" }, { src: "EspaceRepas2-oOCWVkAK.avif", alt: "Espace repas - vue 2" }, { src: "EspaceRepas3-BwKAtya9.avif", alt: "Espace repas - vue 3" }] },
+  { key: "chambres", label: "Chambres", images: [{ src: "Chambre1-BkwhqxBc.avif", alt: "Chambre 1" }, { src: "Chambre2-CcV3UvXp.avif", alt: "Chambre 2" }, { src: "ChambreDL1-8JuMMFdL.avif", alt: "Chambre lit double" }, { src: "ChambreDL2-C93412cL.avif", alt: "Chambre lit double - vue 2" }] },
+  { key: "sdb", label: "Salle de bain & WC", images: [{ src: "SalleDeBain1-1iN7dSWs.avif", alt: "Salle de bain" }, { src: "SalleDeBain2-CfgyPoyM.avif", alt: "Salle de bain - vue 2" }, { src: "Toilettes1-C6Ny5zgS.avif", alt: "Toilettes" }] },
+  { key: "travail", label: "Espace de travail", images: [{ src: "EspaceTravail1-B3ofyv4J.avif", alt: "Bureau" }, { src: "EspaceTravail2-Dc8XjQyQ.avif", alt: "Bureau - vue 2" }] },
   { key: "exterieur", label: "Extérieur & jardin", images: [{ src: "Exterieur1-Md0P8o-N.avif", alt: "Extérieur" }, { src: "ArriereCours1-DthDVoyy.avif", alt: "Jardin" }, { src: "ArriereCours2-CdX0OFE-.avif", alt: "Arrière-cour" }] },
 ];
 
@@ -62,19 +62,19 @@ const places = [
   { name: "Saint-Malo", km: "30 km", img: "saint-malo-remparts-BYX5RS4m.jpg", notes: ["Remparts & Intra-Muros", "Plage du Sillon", "Cité corsaire"] },
   { name: "Cap Fréhel & Fort La Latte", km: "18 km", img: "cap-frehel_emmanuel-berthier-CfiBypsN.jpg", notes: ["Falaises panoramiques", "Fort historique en bord de mer"] },
   { name: "Saint-Cast-Le-Guildo", km: "10 km", img: "saint-cast-grande-plage-BT_2F98N.jpg", notes: ["Grande plage de sable", "Pointe de la Garde"] },
-  { name: "Dinard — Plage de l'Écluse", km: "23 km", img: "dinard-ecluse-BUjQ7rNP.jpg", notes: ["Promenade du Clair de Lune", "Villas Belle Époque"] },
+  { name: "Dinard - Plage de l'Écluse", km: "23 km", img: "dinard-ecluse-BUjQ7rNP.jpg", notes: ["Promenade du Clair de Lune", "Villas Belle Époque"] },
   { name: "Archipel des Ébihens", km: "13 km", img: "ebihens-B4_FVw3S.jpg", notes: ["Balades à marée basse", "Côte préservée"] },
   { name: "Château de la Hunaudaye", km: "8,5 km", img: "hunaudaye-wA2MljGv.jpg", notes: ["Forteresse médiévale emblématique", "Visite immersive en famille"] },
 ];
 
 const activities = [
-  "Zoo de la Bourbansais — Pleugueneuc (29 km)",
-  "Golf — Saint-Cast, Lancieux, Dinard, Saint-Michel-de-Plélan",
-  "Parcs aventure dans les arbres — Morieux, Saint-Cast",
-  "Karting — Lamballe",
+  "Zoo de la Bourbansais - Pleugueneuc (29 km)",
+  "Golf - Saint-Cast, Lancieux, Dinard, Saint-Michel-de-Plélan",
+  "Parcs aventure dans les arbres - Morieux, Saint-Cast",
+  "Karting - Lamballe",
   "Randonnées côtières et de campagne",
-  "Canoë / kayak — Plancoët",
-  "Escape Games — Erquy, Dinan, Lamballe, Dinard, Saint-Malo",
+  "Canoë / kayak - Plancoët",
+  "Escape Games - Erquy, Dinan, Lamballe, Dinard, Saint-Malo",
 ];
 
 const gallery = [
@@ -226,7 +226,7 @@ function Intro() {
               Une maison de 85 m² entièrement rénovée en 2018, avec un séjour clair ouvert sur une cuisine équipée. Deux chambres (un lit double, deux lits simples), une salle de bain, deux WC séparés et un espace de travail.
             </p>
             <p className="mt-4 text-muted-foreground leading-relaxed">
-              À l'extérieur, un grand jardin clos de 350 m² avec parking privatif — pour profiter du calme breton, en toute tranquillité.
+              À l'extérieur, un grand jardin clos de 350 m² avec parking privatif, pour profiter du calme breton, en toute tranquillité.
             </p>
             <div className="mt-8 flex flex-wrap gap-2">
               {["Wifi", "Lave-linge", "Lave-vaisselle", "TV", "Équipement bébé", "Jeux de société", "BBQ", "Garage"].map((t) => (
@@ -394,7 +394,7 @@ function Region() {
                 Les Portes de Montafilan, c'est un gîte des Côtes-d'Armor, idéalement placé entre campagne et mer. Une base pratique pour partir à la découverte de Dinan, Saint-Malo et du Cap Fréhel.
               </p>
               <p className="mt-4 text-muted-foreground leading-relaxed">
-                La région mêle patrimoine breton, marchés locaux et sentiers côtiers — parfait pour un week-end comme pour des vacances plus longues.
+                La région mêle patrimoine breton, marchés locaux et sentiers côtiers - parfait pour un week-end comme pour des vacances plus longues.
               </p>
               <div className="mt-8 rounded-2xl border border-border bg-card p-6 card-hover">
                 <h3 className="text-lg">À faire autour</h3>
@@ -478,7 +478,7 @@ function Reviews() {
           <p className="mt-6 text-sm text-muted-foreground">
             Jocelyne était accueillante, disponible et nous a donné de très bons conseils de visites. Une base idéale pour explorer la région, la côte et les villes voisines.
           </p>
-          <p className="mt-4 text-sm font-medium">— Mimouna</p>
+          <p className="mt-4 text-sm font-medium">- Mimouna</p>
         </AnimatedSection>
       </div>
     </section>
@@ -765,7 +765,7 @@ function Footer() {
         </div>
       </div>
       <div className="container-x mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6 text-xs text-muted-foreground">
-        <span>© {new Date().getFullYear()} Les Portes de Montafilan — Corseul, Bretagne</span>
+        <span>© {new Date().getFullYear()} Les Portes de Montafilan - Corseul, Bretagne</span>
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
           <Link to="/mentions-legales" className="hover:text-terra">Mentions légales</Link>
           <Link to="/confidentialite" className="hover:text-terra">Confidentialité</Link>

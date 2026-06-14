@@ -4,7 +4,7 @@ import { useI18n } from "@/lib/i18n";
 export const Route = createFileRoute("/confidentialite")({
   head: () => ({
     meta: [
-      { title: "Politique de confidentialité — Les Portes de Montafilan" },
+      { title: "Politique de confidentialité - Les Portes de Montafilan" },
       { name: "description", content: "Politique de confidentialité du gîte Les Portes de Montafilan à Corseul." },
       { name: "robots", content: "noindex" },
     ],
