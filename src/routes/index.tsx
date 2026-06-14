@@ -3,7 +3,7 @@ import { useEffect, useState, useMemo } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import type { DateRange } from "react-day-picker";
 import { addDays, differenceInCalendarDays } from "date-fns";
-import { fr } from "date-fns/locale";
+import { enUS, fr } from "date-fns/locale";
 import { useI18n } from "@/lib/i18n";
 import { LangSwitch } from "@/components/LangSwitch";
 import { AnimatedSection } from "@/components/AnimatedSection";
@@ -36,67 +36,6 @@ const imageAssets = import.meta.glob("../assets/img/**/*.{avif,jpg,jpeg,png,webp
 
 const IMG = (path: string) => imageAssets[`../assets/img/${path}`] ?? path;
 const OG_IMAGE = IMG("house/ArriereCours1.avif");
-
-const highlights = [
-  { k: "85 m²", v: "Maison rénovée en 2018" },
-  { k: "350 m²", v: "Jardin clos privatif" },
-  { k: "4 + bébé", v: "Jusqu'à 4 voyageurs" },
-  { k: "15 min", v: "Des plages bretonnes" },
-];
-
-const amenities = [
-  { title: "Cuisine & repas", items: ["Cuisine équipée", "Four BEKO inox", "Lave-vaisselle", "Réfrigérateur / congélateur", "Micro-ondes", "Bouilloire & cafetière filtre", "Grille-pain, plaque de cuisson", "Verres à vin, vaisselle complète", "Table à manger"] },
-  { title: "Extérieur", items: ["Jardin clos 350 m²", "Mobilier de jardin", "Coin repas extérieur", "Barbecue électrique privatif", "Bains de soleil"] },
-  { title: "Famille", items: ["Lit parapluie (sur demande)", "Draps fournis & volets occultants", "Livres & jouets (5+ ans)", "Chaise haute pliante (sur demande)", "Baignoire bébé, table à langer", "Barrières de sécurité, protections fenêtres", "Jeux de société"] },
-  { title: "Confort & services", items: ["Wifi & connexion Ethernet", "Espace de travail dédié", "Télévision", "Chauffage central", "Lave-linge gratuit", "Sèche-cheveux, fer à repasser", "Service de ménage en option", "Animaux acceptés"] },
-  { title: "Stationnement", items: ["Garage privatif sur place (2 places)", "Stationnement gratuit dans la rue"] },
-  { title: "Sécurité & arrivée", items: ["Détecteur de fumée", "Arrivée autonome avec boîte à clés", "Entrée privée"] },
-];
-
-const gallerySections = [
-  { key: "salon", label: "Salon", images: [{ src: "house/Salon1.avif", alt: "Salon lumineux" }, { src: "house/Salon2.avif", alt: "Coin salon" }] },
-  { key: "cuisine", label: "Cuisine", images: [{ src: "house/Cuisine.avif", alt: "Cuisine équipée" }, { src: "house/Cuisine2.avif", alt: "Cuisine - vue 2" }] },
-  { key: "repas", label: "Espace repas", images: [{ src: "house/EspaceRepas1.avif", alt: "Espace repas" }, { src: "house/EspaceRepas2.avif", alt: "Espace repas - vue 2" }, { src: "house/EspaceRepas3.avif", alt: "Espace repas - vue 3" }] },
-  { key: "chambres", label: "Chambres", images: [{ src: "house/Chambre1.avif", alt: "Chambre 1" }, { src: "house/Chambre2.avif", alt: "Chambre 2" }, { src: "house/ChambreDL1.avif", alt: "Chambre lit double" }, { src: "house/ChambreDL2.avif", alt: "Chambre lit double - vue 2" }] },
-  { key: "sdb", label: "Salle de bain & WC", images: [{ src: "house/SalleDeBain1.avif", alt: "Salle de bain" }, { src: "house/SalleDeBain2.avif", alt: "Salle de bain - vue 2" }, { src: "house/Toilettes1.avif", alt: "Toilettes" }] },
-  { key: "travail", label: "Espace de travail", images: [{ src: "house/EspaceTravail1.avif", alt: "Bureau" }, { src: "house/EspaceTravail2.avif", alt: "Bureau - vue 2" }] },
-  { key: "exterieur", label: "Extérieur & jardin", images: [{ src: "house/Exterieur1.avif", alt: "Extérieur" }, { src: "house/ArriereCours1.avif", alt: "Jardin" }, { src: "house/ArriereCours2.avif", alt: "Arrière-cour" }] },
-];
-
-const places = [
-  { name: "Dinan", km: "19 km", img: "lieux/dinan-vue-remparts.jpg", notes: ["Ruelles pavées & maisons à colombages", "Port de Dinan sur la Rance"] },
-  { name: "Saint-Malo", km: "30 km", img: "lieux/saint-malo-remparts.jpg", notes: ["Remparts & Intra-Muros", "Plage du Sillon", "Cité corsaire"] },
-  { name: "Cap Fréhel & Fort La Latte", km: "18 km", img: "lieux/cap-frehel_emmanuel-berthier.jpg", notes: ["Falaises panoramiques", "Fort historique en bord de mer"] },
-  { name: "Saint-Cast-Le-Guildo", km: "10 km", img: "lieux/saint-cast-grande-plage.jpg", notes: ["Grande plage de sable", "Pointe de la Garde"] },
-  { name: "Dinard - Plage de l'Écluse", km: "23 km", img: "lieux/dinard-ecluse.jpg", notes: ["Promenade du Clair de Lune", "Villas Belle Époque"] },
-  { name: "Archipel des Ébihens", km: "13 km", img: "lieux/ebihens.jpg", notes: ["Balades à marée basse", "Côte préservée"] },
-  { name: "Château de la Hunaudaye", km: "8,5 km", img: "lieux/hunaudaye.jpg", notes: ["Forteresse médiévale emblématique", "Visite immersive en famille"] },
-];
-
-const activities = [
-  "Zoo de la Bourbansais - Pleugueneuc (29 km)",
-  "Golf - Saint-Cast, Lancieux, Dinard, Saint-Michel-de-Plélan",
-  "Parcs aventure dans les arbres - Morieux, Saint-Cast",
-  "Karting - Lamballe",
-  "Randonnées côtières et de campagne",
-  "Canoë / kayak - Plancoët",
-  "Escape Games - Erquy, Dinan, Lamballe, Dinard, Saint-Malo",
-];
-
-const gallery = [
-  { src: "ArriereCours1-DthDVoyy.avif", alt: "Arrière-cour et jardin", span: "lg:col-span-2 lg:row-span-2" },
-  { src: "Cuisine-CPQmG56z.avif", alt: "Cuisine ouverte équipée" },
-  { src: "Chambre1-BkwhqxBc.avif", alt: "Chambre principale" },
-  { src: "Exterieur1-Md0P8o-N.avif", alt: "Extérieur du gîte" },
-  { src: "ArriereCours2-CdX0OFE-.avif", alt: "Espace extérieur" },
-  { src: "SalleDeBain1-1iN7dSWs.avif", alt: "Salle de bain" },
-];
-
-const faqs = [
-  { q: "Le gîte est-il proche de la mer ?", a: "Oui. Plusieurs plages des Côtes-d'Armor sont accessibles en 15 à 25 minutes en voiture." },
-  { q: "Est-ce une bonne base entre Dinan et Saint-Malo ?", a: "Oui. Corseul est idéalement placé pour rayonner vers Dinan, Saint-Malo, Dinard et le Cap Fréhel." },
-  { q: "Pour quel type de séjour ce gîte est-il le mieux adapté ?", a: "Idéal pour des vacances familiales calmes et qualitatives en Bretagne, entre visites, plages et découvertes locales." },
-];
 
 function Nav() {
   const [open, setOpen] = useState(false);
@@ -189,23 +128,26 @@ function Nav() {
 }
 
 function Hero() {
+  const { t, tm } = useI18n();
+  const highlights = tm("home.highlights");
+
   return (
     <section id="top" className="relative overflow-hidden">
       <div className="absolute inset-0">
-        <img src={IMG("house/ArriereCours1.avif")} alt="Jardin clos du gîte Les Portes de Montafilan" className="h-full w-full object-cover" />
+        <img src={IMG("house/ArriereCours1.avif")} alt={t("home.hero.imageAlt")} className="h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-forest/30 via-forest/40 to-forest/70" />
       </div>
       <div className="container-x relative flex min-h-[88vh] flex-col justify-end py-16 text-primary-foreground sm:py-24">
-        <span className="eyebrow !text-background/80 animate-fade-in">Corseul · Côtes-d'Armor · Bretagne</span>
+        <span className="eyebrow !text-background/80 animate-fade-in">{t("home.hero.eyebrow")}</span>
         <h1 className="mt-4 max-w-3xl text-4xl leading-[1.05] sm:text-6xl lg:text-7xl animate-fade-in-up delay-100">
-          Une parenthèse bretonne, entre <em className="not-italic text-background/90 underline decoration-terra decoration-2 underline-offset-8">terre et mer</em>.
+          {t("home.hero.titleBefore")}<em className="not-italic text-background/90 underline decoration-terra decoration-2 underline-offset-8">{t("home.hero.titleEm")}</em>{t("home.hero.titleAfter")}
         </h1>
         <p className="mt-5 max-w-xl text-base leading-relaxed text-background/85 sm:text-lg animate-fade-in-up delay-200">
-          Jocelyne et Christian vous accueillent dans leur gîte à Corseul, entre Saint-Malo et le Cap Fréhel. 85 m² rénovés, jardin clos, à 15 minutes des plages.
+          {t("home.hero.body")}
         </p>
         <div className="mt-8 flex flex-wrap gap-3 animate-fade-in-up delay-300">
-          <a href="#reservation" className="btn-primary">Vérifier les disponibilités</a>
-          <a href="#contact" className="btn-ghost !border-background/40 !text-background hover:!bg-background/10">Poser une question</a>
+          <a href="#reservation" className="btn-primary">{t("home.hero.primaryCta")}</a>
+          <a href="#contact" className="btn-ghost !border-background/40 !text-background hover:!bg-background/10">{t("home.hero.secondaryCta")}</a>
         </div>
         <div className="mt-12 grid grid-cols-2 gap-4 border-t border-background/20 pt-6 sm:grid-cols-4 sm:gap-8">
           {highlights.map((h, i) => (
@@ -221,22 +163,25 @@ function Hero() {
 }
 
 function Intro() {
+  const { t, tm } = useI18n();
+  const tags = tm("home.intro.tags");
+
   return (
     <section id="gite" className="py-20 sm:py-28">
       <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
           <AnimatedSection>
-            <span className="eyebrow">Le gîte</span>
-            <h2 className="mt-3 text-3xl sm:text-5xl">Un cocon lumineux, simple et chaleureux.</h2>
+            <span className="eyebrow">{t("home.intro.eyebrow")}</span>
+            <h2 className="mt-3 text-3xl sm:text-5xl">{t("home.intro.title")}</h2>
             <p className="mt-6 text-muted-foreground leading-relaxed">
-              Une maison de 85 m² entièrement rénovée en 2018, avec un séjour clair ouvert sur une cuisine équipée. Deux chambres (un lit double, deux lits simples), une salle de bain, deux WC séparés et un espace de travail.
+              {t("home.intro.p1")}
             </p>
             <p className="mt-4 text-muted-foreground leading-relaxed">
-              À l'extérieur, un grand jardin clos de 350 m² avec parking privatif, pour profiter du calme breton, en toute tranquillité.
+              {t("home.intro.p2")}
             </p>
             <div className="mt-8 flex flex-wrap gap-2">
-              {["Wifi", "Lave-linge", "Lave-vaisselle", "TV", "Équipement bébé", "Jeux de société", "BBQ", "Garage"].map((t) => (
-                <span key={t} className="rounded-full border border-border bg-secondary px-3 py-1.5 text-xs text-secondary-foreground">{t}</span>
+              {tags.map((tag) => (
+                <span key={tag} className="rounded-full border border-border bg-secondary px-3 py-1.5 text-xs text-secondary-foreground">{tag}</span>
               ))}
             </div>
           </AnimatedSection>
@@ -266,22 +211,18 @@ function Intro() {
 }
 
 function Spaces() {
+  const { t, tm } = useI18n();
+  const spaces = tm("home.spaces.items");
+
   return (
     <section className="bg-secondary/60 py-20 sm:py-28">
       <div className="container-x">
         <AnimatedSection className="max-w-2xl">
-          <span className="eyebrow">Espaces & agencement</span>
-          <h2 className="mt-3 text-3xl sm:text-4xl">Tout ce qu'il faut pour se sentir chez soi.</h2>
+          <span className="eyebrow">{t("home.spaces.eyebrow")}</span>
+          <h2 className="mt-3 text-3xl sm:text-4xl">{t("home.spaces.title")}</h2>
         </AnimatedSection>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {[
-            { t: "Séjour & cuisine", d: "Salon lumineux ouvert sur une cuisine entièrement équipée." },
-            { t: "2 chambres", d: "Un lit double, deux lits simples, et un lit bébé sur demande." },
-            { t: "Salle de bain", d: "Une salle de bain complète et deux WC séparés." },
-            { t: "Espace de travail", d: "Un coin bureau dédié, dans une pièce séparée." },
-            { t: "Jardin & terrasse", d: "350 m² clos, mobilier de jardin et coin repas extérieur." },
-            { t: "Garage & parking", d: "Garage privatif (2 places) et stationnement libre dans la rue." },
-          ].map((s, i) => (
+          {spaces.map((s, i) => (
             <AnimatedSection key={s.t} delay={i * 80}>
               <div className="rounded-2xl border border-border bg-card p-6 shadow-card card-hover h-full">
                 <h3 className="text-xl">{s.t}</h3>
@@ -296,14 +237,17 @@ function Spaces() {
 }
 
 function Amenities() {
+  const { t, tm } = useI18n();
+  const amenities = tm("home.amenities.items");
+
   return (
     <section id="equipements" className="py-20 sm:py-28">
       <div className="container-x">
         <AnimatedSection className="flex flex-wrap items-end justify-between gap-6">
           <div className="max-w-xl">
-            <span className="eyebrow">Équipements</span>
-            <h2 className="mt-3 text-3xl sm:text-4xl">Tout est prévu pour votre séjour.</h2>
-            <p className="mt-3 text-muted-foreground">Les équipements sont regroupés par catégorie pour vous repérer en un coup d'œil.</p>
+            <span className="eyebrow">{t("home.amenities.eyebrow")}</span>
+            <h2 className="mt-3 text-3xl sm:text-4xl">{t("home.amenities.title")}</h2>
+            <p className="mt-3 text-muted-foreground">{t("home.amenities.body")}</p>
           </div>
         </AnimatedSection>
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -325,7 +269,7 @@ function Amenities() {
         </div>
         <AnimatedSection delay={200}>
           <p className="mt-8 text-xs text-muted-foreground">
-            Non inclus : pas de détecteur de monoxyde de carbone.
+            {t("home.amenities.missing")}
           </p>
         </AnimatedSection>
       </div>
@@ -334,6 +278,8 @@ function Amenities() {
 }
 
 function Gallery() {
+  const { t, tm } = useI18n();
+  const gallerySections = tm("home.gallery.sections");
   const [active, setActive] = useState(gallerySections[0].key);
   const current = gallerySections.find((s) => s.key === active) ?? gallerySections[0];
   return (
@@ -341,9 +287,9 @@ function Gallery() {
       <div className="container-x">
         <AnimatedSection className="flex flex-wrap items-end justify-between gap-6">
           <div className="max-w-xl">
-            <span className="eyebrow">Galerie</span>
-            <h2 className="mt-3 text-3xl sm:text-4xl">Le gîte, pièce par pièce.</h2>
-            <p className="mt-3 text-muted-foreground">Choisissez une section pour parcourir uniquement ses photos.</p>
+            <span className="eyebrow">{t("home.gallery.eyebrow")}</span>
+            <h2 className="mt-3 text-3xl sm:text-4xl">{t("home.gallery.title")}</h2>
+            <p className="mt-3 text-muted-foreground">{t("home.gallery.body")}</p>
           </div>
         </AnimatedSection>
         <AnimatedSection delay={100}>
@@ -388,29 +334,33 @@ function Gallery() {
 }
 
 function Region() {
+  const { t, tm } = useI18n();
+  const activities = tm("home.activities");
+  const places = tm("home.places");
+
   return (
     <section id="region" className="py-20 sm:py-28">
       <div className="container-x">
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <AnimatedSection>
-              <span className="eyebrow">La région</span>
-              <h2 className="mt-3 text-3xl sm:text-5xl">S'échapper, à deux pas.</h2>
+              <span className="eyebrow">{t("home.region.eyebrow")}</span>
+              <h2 className="mt-3 text-3xl sm:text-5xl">{t("home.region.title")}</h2>
               <p className="mt-5 text-muted-foreground leading-relaxed">
-                Les Portes de Montafilan, c'est un gîte des Côtes-d'Armor, idéalement placé entre campagne et mer. Une base pratique pour partir à la découverte de Dinan, Saint-Malo et du Cap Fréhel.
+                {t("home.region.p1")}
               </p>
               <p className="mt-4 text-muted-foreground leading-relaxed">
-                La région mêle patrimoine breton, marchés locaux et sentiers côtiers - parfait pour un week-end comme pour des vacances plus longues.
+                {t("home.region.p2")}
               </p>
               <div className="mt-8 rounded-2xl border border-border bg-card p-6 card-hover">
-                <h3 className="text-lg">À faire autour</h3>
+                <h3 className="text-lg">{t("home.region.activitiesTitle")}</h3>
                 <ul className="mt-4 grid gap-2 text-sm text-muted-foreground sm:grid-cols-2">
                   {activities.map((a) => (
                     <li key={a} className="flex gap-2"><span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-terra" />{a}</li>
                   ))}
                 </ul>
                 <a href="https://www.dinan-capfrehel.com/" target="_blank" rel="noreferrer" className="mt-5 inline-block text-sm text-forest underline underline-offset-4">
-                  Office de tourisme Dinan – Cap Fréhel ↗
+                  {t("home.region.tourismOffice")}
                 </a>
               </div>
             </AnimatedSection>
@@ -444,17 +394,15 @@ function Region() {
 }
 
 function WhyHere() {
-  const blocks = [
-    { t: "Entre terre et mer", d: "Depuis Corseul, rejoignez facilement la vieille ville de Dinan, les plages de Saint-Malo et le littoral du Cap Fréhel." },
-    { t: "Plages, patrimoine, art de vivre", d: "Alternez plages, balades dans la vallée de la Rance et sites médiévaux comme Dinan ou le château de la Hunaudaye." },
-    { t: "Confort & flexibilité", d: "Un cadre calme, un extérieur clos, un accès routier facile aux grandes destinations du nord de la Bretagne." },
-  ];
+  const { t, tm } = useI18n();
+  const blocks = tm("home.why.items");
+
   return (
     <section className="bg-forest text-primary-foreground py-20 sm:py-28">
       <div className="container-x">
         <AnimatedSection className="max-w-2xl">
-          <span className="eyebrow !text-background/80">Pourquoi ici</span>
-          <h2 className="mt-3 text-3xl sm:text-5xl">Découvrir le nord de la Bretagne, depuis Corseul.</h2>
+          <span className="eyebrow !text-background/80">{t("home.why.eyebrow")}</span>
+          <h2 className="mt-3 text-3xl sm:text-5xl">{t("home.why.title")}</h2>
         </AnimatedSection>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {blocks.map((b, i) => (
@@ -472,17 +420,19 @@ function WhyHere() {
 }
 
 function Reviews() {
+  const { t } = useI18n();
+
   return (
     <section className="py-20 sm:py-28">
       <div className="container-x max-w-3xl text-center">
         <AnimatedSection>
-          <span className="eyebrow">Avis voyageurs</span>
-          <div className="mt-4 text-terra" aria-label="5 étoiles">★★★★★</div>
+          <span className="eyebrow">{t("home.reviews.eyebrow")}</span>
+          <div className="mt-4 text-terra" aria-label={t("home.reviews.ratingLabel")}>★★★★★</div>
           <blockquote className="mt-6 font-display text-2xl leading-snug sm:text-4xl">
-            « Très bel hébergement : spacieux, lumineux et propre, avec deux belles chambres et un grand salon avec baies vitrées. Nous avons profité du grand jardin clos et des équipements de qualité. »
+            {t("home.reviews.quote")}
           </blockquote>
           <p className="mt-6 text-sm text-muted-foreground">
-            Jocelyne était accueillante, disponible et nous a donné de très bons conseils de visites. Une base idéale pour explorer la région, la côte et les villes voisines.
+            {t("home.reviews.body")}
           </p>
           <p className="mt-4 text-sm font-medium">- Mimouna</p>
         </AnimatedSection>
@@ -492,15 +442,13 @@ function Reviews() {
 }
 
 function AirbnbCalendar() {
+  const { lang, t, tm } = useI18n();
   const [range, setRange] = useState<DateRange | undefined>();
   const [busyRanges, setBusyRanges] = useState<BusyRange[]>([]);
   const [availabilityLoading, setAvailabilityLoading] = useState(true);
   const [availabilityError, setAvailabilityError] = useState<string | null>(null);
-  const rates = [
-    { label: "Octobre à avril", price: "61 €", unit: "/ nuit" },
-    { label: "Mai à septembre", price: "68 €", unit: "/ nuit" },
-    { label: "Vacances + juillet/août", price: "100 €", unit: "/ nuit" },
-  ];
+  const rates = tm("home.rates");
+  const practical = tm("home.practical");
 
   useEffect(() => {
     let cancelled = false;
@@ -551,18 +499,18 @@ function AirbnbCalendar() {
   }, [range]);
 
   const selectedLabel = range?.from && range?.to
-    ? `${range.from.toLocaleDateString("fr-FR")} → ${range.to.toLocaleDateString("fr-FR")}`
-    : "Aucune date sélectionnée";
+    ? `${range.from.toLocaleDateString(lang === "fr" ? "fr-FR" : "en-US")} → ${range.to.toLocaleDateString(lang === "fr" ? "fr-FR" : "en-US")}`
+    : t("home.booking.emptySelection");
 
   return (
     <section id="reservation" className="bg-secondary/60 py-20 sm:py-28">
       <div className="container-x grid gap-12 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <AnimatedSection>
-            <span className="eyebrow">Tarifs & réservation</span>
-            <h2 className="mt-3 text-3xl sm:text-5xl">Prêts à planifier votre séjour ?</h2>
+            <span className="eyebrow">{t("home.booking.eyebrow")}</span>
+            <h2 className="mt-3 text-3xl sm:text-5xl">{t("home.booking.title")}</h2>
             <p className="mt-5 text-muted-foreground leading-relaxed">
-              Sélectionnez vos dates pour une estimation instantanée. Le prix final sera confirmé sur Airbnb avant réservation.
+              {t("home.booking.body")}
             </p>
             <div className="mt-6 overflow-hidden rounded-[24px] border border-border bg-card shadow-card">
               {rates.map((rate, index) => (
@@ -579,7 +527,7 @@ function AirbnbCalendar() {
               ))}
             </div>
             <p className="mt-4 text-sm text-muted-foreground">
-              Des conditions préférentielles peuvent être proposées pour les longs séjours.
+              {t("home.booking.longStay")}
             </p>
           </AnimatedSection>
         </div>
@@ -587,8 +535,8 @@ function AirbnbCalendar() {
           <AnimatedSection delay={150}>
             <div className="rounded-2xl border border-border bg-card p-5 sm:p-6">
               <div className="flex items-center justify-between gap-4 mb-4">
-                <h3 className="text-lg sm:text-xl">Choisissez vos dates</h3>
-                <span className="label-tiny">Estimation</span>
+                <h3 className="text-lg sm:text-xl">{t("home.booking.chooseDates")}</h3>
+                <span className="label-tiny">{t("home.booking.estimate")}</span>
               </div>
               <div className="flex justify-center">
                 <Calendar
@@ -596,7 +544,7 @@ function AirbnbCalendar() {
                   selected={range}
                   onSelect={setRange}
                   numberOfMonths={1}
-                  locale={fr}
+                  locale={lang === "fr" ? fr : enUS}
                   disabled={[{ before: new Date() }, ...disabledRanges]}
                   className="pointer-events-auto"
                 />
@@ -605,32 +553,29 @@ function AirbnbCalendar() {
                 {range?.from && range?.to ? (
                   <div className="flex flex-wrap items-end justify-between gap-3">
                     <div className="text-sm text-muted-foreground">
-                      {selectedLabel} · {nights} nuit{nights > 1 ? "s" : ""}
+                      {selectedLabel} · {nights} {nights > 1 ? t("home.booking.nightPlural") : t("home.booking.nightSingular")}
                     </div>
                   </div>
                 ) : (
-                  <p className="text-sm text-muted-foreground">Sélectionnez une arrivée puis un départ pour préparer votre séjour Airbnb.</p>
+                  <p className="text-sm text-muted-foreground">{t("home.booking.selectHint")}</p>
                 )}
               </div>
               <div className="mt-4 flex flex-wrap gap-3 text-xs uppercase tracking-wider text-muted-foreground">
                 <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5">
-                  <i className="legend-dot legend-available" /> Libre
+                  <i className="legend-dot legend-available" /> {t("home.booking.legendAvailable")}
                 </span>
                 <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5">
-                  <i className="legend-dot legend-unavailable" /> Réservé
+                  <i className="legend-dot legend-unavailable" /> {t("home.booking.legendUnavailable")}
                 </span>
                 <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5">
-                  <i className="legend-dot legend-selected" /> Sélection
+                  <i className="legend-dot legend-selected" /> {t("home.booking.legendSelected")}
                 </span>
               </div>
             </div>
             <div className="mt-6 rounded-2xl border border-border bg-card p-6">
-              <h3 className="text-lg">Infos pratiques</h3>
+              <h3 className="text-lg">{t("home.booking.practicalTitle")}</h3>
               <ul className="mt-3 grid gap-2 text-sm text-muted-foreground sm:grid-cols-2">
-                <li>· Arrivée à partir de 16h00</li>
-                <li>· Départ à 10h00</li>
-                <li>· Arrivée autonome avec boîte à clés</li>
-                <li>· Réservation finale sur Airbnb</li>
+                {practical.map((item) => <li key={item}>· {item}</li>)}
               </ul>
             </div>
           </AnimatedSection>
@@ -641,13 +586,16 @@ function AirbnbCalendar() {
 }
 
 function Faq() {
+  const { t, tm } = useI18n();
+  const faqs = tm("home.faqs");
+
   return (
     <section id="pratique" className="py-20 sm:py-28">
       <div className="container-x grid gap-10 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <AnimatedSection>
-            <span className="eyebrow">Questions fréquentes</span>
-            <h2 className="mt-3 text-3xl sm:text-4xl">Avant de réserver.</h2>
+            <span className="eyebrow">{t("home.faq.eyebrow")}</span>
+            <h2 className="mt-3 text-3xl sm:text-4xl">{t("home.faq.title")}</h2>
           </AnimatedSection>
         </div>
         <div className="lg:col-span-8 divide-y divide-border">
@@ -669,6 +617,7 @@ function Faq() {
 }
 
 function Contact() {
+  const { lang, t } = useI18n();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitState, setSubmitState] = useState<"idle" | "success" | "error">("idle");
   const [submitMessage, setSubmitMessage] = useState<string | null>(null);
@@ -678,15 +627,15 @@ function Contact() {
       <div className="container-x grid gap-10 lg:grid-cols-12">
         <div className="lg:col-span-6">
           <AnimatedSection>
-            <span className="eyebrow !text-background/70">Contact</span>
-            <h2 className="mt-3 text-3xl sm:text-5xl text-background">Une question ? Écrivez-nous.</h2>
+            <span className="eyebrow !text-background/70">{t("nav.contact")}</span>
+            <h2 className="mt-3 text-3xl sm:text-5xl text-background">{t("home.contact.title")}</h2>
             <p className="mt-5 max-w-md text-background/75 leading-relaxed">
-              Jocelyne et Christian vous répondent rapidement, par téléphone ou par email.
+              {t("home.contact.body")}
             </p>
             <ul className="mt-8 space-y-4 text-background/90">
-              <li><span className="text-background/60 text-xs uppercase tracking-wider">Hôtes</span><div>Jocelyne & Christian</div></li>
-              <li><span className="text-background/60 text-xs uppercase tracking-wider">Adresse</span><div>Corseul, Bretagne</div></li>
-              <li><span className="text-background/60 text-xs uppercase tracking-wider">Téléphone</span><div><a href="tel:+33780710159" className="hover:text-terra">+33 7 80 71 01 59</a></div></li>
+              <li><span className="text-background/60 text-xs uppercase tracking-wider">{t("home.contact.hosts")}</span><div>Jocelyne & Christian</div></li>
+              <li><span className="text-background/60 text-xs uppercase tracking-wider">{t("home.contact.address")}</span><div>Corseul, Bretagne</div></li>
+              <li><span className="text-background/60 text-xs uppercase tracking-wider">{t("home.contact.phone")}</span><div><a href="tel:+33780710159" className="hover:text-terra">+33 7 80 71 01 59</a></div></li>
               <li><span className="text-background/60 text-xs uppercase tracking-wider">Email</span><div><a href="mailto:lesportesdemontafilan@gmail.com" className="hover:text-terra break-all">lesportesdemontafilan@gmail.com</a></div></li>
               <li><span className="text-background/60 text-xs uppercase tracking-wider">Facebook</span><div><a href="https://www.facebook.com/LesPortesDeMontafilan" target="_blank" rel="noreferrer" className="hover:text-terra">Les Portes De Montafilan</a></div></li>
             </ul>
@@ -712,13 +661,13 @@ function Contact() {
                       "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                      language: "fr",
+                      language: lang,
                       form: {
                         firstName: String(data.get("firstname") || "").trim(),
                         lastName: String(data.get("lastname") || "").trim(),
                         email: String(data.get("email") || "").trim(),
                         phone: String(data.get("phone") || "").trim(),
-                        subject: String(data.get("subject") || "Demande d'information").trim(),
+                        subject: String(data.get("subject") || t("home.contact.defaultSubject")).trim(),
                         message: String(data.get("message") || "").trim(),
                       },
                     }),
@@ -732,23 +681,23 @@ function Contact() {
 
                   f.reset();
                   setSubmitState("success");
-                  setSubmitMessage("Message envoyé. Nous vous répondrons rapidement par email.");
+                  setSubmitMessage(t("home.contact.success"));
                 } catch (error: unknown) {
                   setSubmitState("error");
-                  setSubmitMessage(error instanceof Error ? error.message : "Erreur lors de l'envoi du message.");
+                  setSubmitMessage(error instanceof Error ? error.message : t("home.contact.error"));
                 } finally {
                   setIsSubmitting(false);
                 }
               }}
             >
-              <h3 className="text-background text-xl">Envoyer un message</h3>
+              <h3 className="text-background text-xl">{t("home.contact.messageTitle")}</h3>
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                <Field name="firstname" label="Prénom *" required />
-                <Field name="lastname" label="Nom *" required />
-                <Field name="email" type="email" label="Email *" required />
-                <Field name="phone" label="Téléphone" />
-                <Field name="subject" label="Sujet *" required className="sm:col-span-2" />
-                <Field name="message" label="Message *" required textarea className="sm:col-span-2" />
+                <Field name="firstname" label={t("home.contact.firstName")} required />
+                <Field name="lastname" label={t("home.contact.lastName")} required />
+                <Field name="email" type="email" label={t("home.contact.email")} required />
+                <Field name="phone" label={t("home.contact.phoneField")} />
+                <Field name="subject" label={t("home.contact.subject")} required className="sm:col-span-2" />
+                <Field name="message" label={t("home.contact.message")} required textarea className="sm:col-span-2" />
               </div>
               {submitMessage ? (
                 <div
@@ -762,7 +711,7 @@ function Contact() {
                 </div>
               ) : null}
               <button type="submit" className="btn-primary mt-6 w-full" disabled={isSubmitting}>
-                {isSubmitting ? "Envoi en cours..." : "Envoyer le message"}
+                {isSubmitting ? t("home.contact.sending") : t("home.contact.submit")}
               </button>
             </form>
           </AnimatedSection>
@@ -790,6 +739,8 @@ function Field({
 }
 
 function Footer() {
+  const { t } = useI18n();
+
   return (
     <footer className="border-t border-border bg-background py-12">
       <div className="container-x grid gap-8 sm:grid-cols-3">
@@ -798,21 +749,21 @@ function Footer() {
             <span className="grid h-9 w-9 place-items-center rounded-full bg-forest text-primary-foreground font-display">M</span>
             <span className="font-display text-lg">Les Portes de Montafilan</span>
           </div>
-          <p className="mt-3 text-sm text-muted-foreground">Gîte chaleureux à Corseul, entre Dinan, Saint-Malo et Cap Fréhel.</p>
+          <p className="mt-3 text-sm text-muted-foreground">{t("home.footer.body")}</p>
         </div>
         <div>
-          <div className="text-xs uppercase tracking-wider text-muted-foreground">Navigation</div>
+          <div className="text-xs uppercase tracking-wider text-muted-foreground">{t("home.footer.navigation")}</div>
           <ul className="mt-3 space-y-2 text-sm">
-            <li><a href="#gite" className="hover:text-terra">Le gîte</a></li>
-            <li><a href="#equipements" className="hover:text-terra">Équipements</a></li>
-            <li><a href="#galerie" className="hover:text-terra">Galerie</a></li>
-            <li><a href="#region" className="hover:text-terra">La région</a></li>
-            <li><a href="#reservation" className="hover:text-terra">Réservation</a></li>
-            <li><a href="#contact" className="hover:text-terra">Contact</a></li>
+            <li><a href="#gite" className="hover:text-terra">{t("nav.gite")}</a></li>
+            <li><a href="#equipements" className="hover:text-terra">{t("nav.equipements")}</a></li>
+            <li><a href="#galerie" className="hover:text-terra">{t("nav.galerie")}</a></li>
+            <li><a href="#region" className="hover:text-terra">{t("nav.region")}</a></li>
+            <li><a href="#reservation" className="hover:text-terra">{t("nav.reserve")}</a></li>
+            <li><a href="#contact" className="hover:text-terra">{t("nav.contact")}</a></li>
           </ul>
         </div>
         <div>
-          <div className="text-xs uppercase tracking-wider text-muted-foreground">Contact</div>
+          <div className="text-xs uppercase tracking-wider text-muted-foreground">{t("nav.contact")}</div>
           <ul className="mt-3 space-y-2 text-sm">
             <li><a href="tel:+33780710159" className="hover:text-terra">+33 7 80 71 01 59</a></li>
             <li><a href="mailto:lesportesdemontafilan@gmail.com" className="hover:text-terra break-all">lesportesdemontafilan@gmail.com</a></li>
@@ -822,11 +773,11 @@ function Footer() {
         </div>
       </div>
       <div className="container-x mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6 text-xs text-muted-foreground">
-        <span>© {new Date().getFullYear()} Les Portes de Montafilan - Corseul, Bretagne</span>
+        <span>© {new Date().getFullYear()} {t("home.footer.copyright")}</span>
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-          <Link to="/mentions-legales" className="hover:text-terra">Mentions légales</Link>
-          <Link to="/confidentialite" className="hover:text-terra">Confidentialité</Link>
-          <Link to="/cookies" className="hover:text-terra">Cookies</Link>
+          <Link to="/mentions-legales" className="hover:text-terra">{t("footer.legal")}</Link>
+          <Link to="/confidentialite" className="hover:text-terra">{t("footer.privacy")}</Link>
+          <Link to="/cookies" className="hover:text-terra">{t("footer.cookies")}</Link>
           <LangSwitch />
         </div>
       </div>

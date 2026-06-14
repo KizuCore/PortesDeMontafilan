@@ -13,31 +13,30 @@ export const Route = createFileRoute("/confidentialite")({
 });
 
 function Page() {
-  const { lang } = useI18n();
-  const fr = lang === "fr";
+  const { t } = useI18n();
   return (
     <main className="bg-background text-foreground">
       <section className="py-20 sm:py-28">
         <div className="container-x max-w-3xl">
-          <Link to="/" className="label-tiny hover:text-foreground">← {fr ? "Retour à l'accueil" : "Back to home"}</Link>
-          <h1 className="mt-6 text-4xl sm:text-5xl">{fr ? "Confidentialité" : "Privacy"}</h1>
+          <Link to="/" className="label-tiny hover:text-foreground">← {t("footer.back")}</Link>
+          <h1 className="mt-6 text-4xl sm:text-5xl">{t("privacy.title")}</h1>
           <div className="mt-10 space-y-8 text-muted-foreground leading-relaxed">
-            <p>{fr ? "Nous attachons une grande importance au respect de votre vie privée. Cette page décrit comment vos données sont traitées lorsque vous nous contactez via ce site." : "We take your privacy seriously. This page describes how your data is handled when you contact us via this site."}</p>
+            <p>{t("privacy.intro")}</p>
             <div>
-              <h2 className="text-xl text-foreground">{fr ? "Données collectées" : "Data collected"}</h2>
-              <p className="mt-2">{fr ? "Lorsque vous utilisez le formulaire de contact, votre prénom, nom, email, téléphone et message nous sont transmis par email. Aucune donnée n'est enregistrée sur ce site." : "When using the contact form, your first name, last name, email, phone and message are sent to us by email. No data is stored on this site."}</p>
+              <h2 className="text-xl text-foreground">{t("privacy.dataTitle")}</h2>
+              <p className="mt-2">{t("privacy.dataText")}</p>
             </div>
             <div>
-              <h2 className="text-xl text-foreground">{fr ? "Finalité" : "Purpose"}</h2>
-              <p className="mt-2">{fr ? "Ces informations sont utilisées uniquement pour répondre à votre demande de réservation ou de renseignement. Elles ne sont jamais partagées ni revendues." : "This information is used solely to respond to your booking or information request. It is never shared or sold."}</p>
+              <h2 className="text-xl text-foreground">{t("privacy.purposeTitle")}</h2>
+              <p className="mt-2">{t("privacy.purposeText")}</p>
             </div>
             <div>
-              <h2 className="text-xl text-foreground">{fr ? "Conservation" : "Retention"}</h2>
-              <p className="mt-2">{fr ? "Les échanges sont conservés le temps nécessaire au suivi de votre séjour, puis archivés selon les obligations légales applicables aux locations saisonnières." : "Communications are kept for the time needed to follow up on your stay, then archived in accordance with legal obligations applicable to seasonal rentals."}</p>
+              <h2 className="text-xl text-foreground">{t("privacy.retentionTitle")}</h2>
+              <p className="mt-2">{t("privacy.retentionText")}</p>
             </div>
             <div>
-              <h2 className="text-xl text-foreground">{fr ? "Vos droits" : "Your rights"}</h2>
-              <p className="mt-2">{fr ? "Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour exercer ces droits, écrivez-nous à " : "Under GDPR, you have a right of access, rectification and deletion of your data. To exercise these rights, write to us at "}<a href="mailto:lesportesdemontafilan@gmail.com" className="text-terra hover:underline">lesportesdemontafilan@gmail.com</a>.</p>
+              <h2 className="text-xl text-foreground">{t("privacy.rightsTitle")}</h2>
+              <p className="mt-2">{t("privacy.rightsText")}<a href="mailto:lesportesdemontafilan@gmail.com" className="text-terra hover:underline">lesportesdemontafilan@gmail.com</a>.</p>
             </div>
           </div>
         </div>
