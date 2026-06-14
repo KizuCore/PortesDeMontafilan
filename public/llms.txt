@@ -1,0 +1,35 @@
+﻿# Les Portes de Montafilan
+
+Site officiel du gîte Les Portes de Montafilan à Corseul (France), entre Dinan, Saint-Malo et Cap Fréhel.
+
+## Contact rapide
+- Téléphone: +33 7 80 71 01 59
+- Email: lesportesdemontafilan@gmail.com
+
+## À propos
+- Gîte 3 étoiles
+- Maison de 85 m² rénovée
+- 2 chambres, jusqu'à 4 voyageurs + bébé
+- Espace extérieur de 350 m²
+- Parking privé
+
+## Réservation
+- L'utilisateur choisit ses dates sur le site.
+- Le site affiche une estimation locale.
+- Le parcours se finalise sur Airbnb via redirection.
+
+## Équipements
+- Wifi
+- Lave-linge
+- Lave-vaisselle
+- Télévision
+- Équipement bébé
+- Jeux de société
+
+## Pages importantes
+- Accueil: https://lesportesdemontafilan.fr/
+- Mentions légales: https://lesportesdemontafilan.fr/mentions-legales
+- Confidentialité & cookies: https://lesportesdemontafilan.fr/confidentialite-cookies
+
+## Données structurées
+Le site expose des données structurées schema.org (LodgingBusiness, WebSite, WebPage, FAQPage).
