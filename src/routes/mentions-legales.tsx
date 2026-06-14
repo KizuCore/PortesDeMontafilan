@@ -1,17 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import type { ReactNode } from "react";
 import { useI18n } from "@/lib/i18n";
-
-export const Route = createFileRoute("/mentions-legales")({
-  head: () => ({
-    meta: [
-      { title: "Mentions légales - Les Portes de Montafilan" },
-      { name: "description", content: "Mentions légales du site Les Portes de Montafilan, gîte à Corseul en Bretagne." },
-      { name: "robots", content: "noindex" },
-    ],
-  }),
-  component: Page,
-});
 
 function renderLine(line: string): ReactNode {
   const urlMatch = line.match(/https?:\/\/\S+/);
@@ -22,13 +11,22 @@ function renderLine(line: string): ReactNode {
     return (
       <>
         {prefix ? `${prefix} ` : ""}
-        <a href={url} target="_blank" rel="noreferrer" className="text-terra hover:underline">{url}</a>
+        <a
+          href={url}
+          target="_blank"
+          rel="noreferrer"
+          className="text-terra hover:underline"
+        >
+          {url}
+        </a>
         {suffix ? ` ${suffix}` : ""}
       </>
     );
   }
 
-  const emailMatch = line.match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/);
+  const emailMatch = line.match(
+    /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/,
+  );
   if (emailMatch) {
     const email = emailMatch[0].replace(/[.,;:!?]+$/, "");
     const prefix = line.slice(0, emailMatch.index).trim();
@@ -36,7 +34,9 @@ function renderLine(line: string): ReactNode {
     return (
       <>
         {prefix ? `${prefix} ` : ""}
-        <a href={`mailto:${email}`} className="text-terra hover:underline">{email}</a>
+        <a href={`mailto:${email}`} className="text-terra hover:underline">
+          {email}
+        </a>
         {suffix ? ` ${suffix}` : ""}
       </>
     );
@@ -45,7 +45,7 @@ function renderLine(line: string): ReactNode {
   return line;
 }
 
-function Page() {
+export function MentionsLegalesPage() {
   const { t, tm } = useI18n();
   const blocks = [
     { title: t("legal.publisherTitle"), lines: tm("legal.publisherLines") },
@@ -57,7 +57,9 @@ function Page() {
     <main className="bg-background text-foreground">
       <section className="py-20 sm:py-28">
         <div className="container-x max-w-3xl">
-          <Link to="/" className="label-tiny hover:text-foreground">← {t("footer.back")}</Link>
+          <Link to="/" className="label-tiny hover:text-foreground">
+            ← {t("footer.back")}
+          </Link>
           <h1 className="mt-6 text-4xl sm:text-5xl">{t("legal.title")}</h1>
           <div className="mt-10 space-y-8 text-muted-foreground leading-relaxed">
             <p>{t("legal.lead")}</p>

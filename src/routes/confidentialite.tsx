@@ -1,20 +1,11 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import type { ReactNode } from "react";
 import { useI18n } from "@/lib/i18n";
 
-export const Route = createFileRoute("/confidentialite")({
-  head: () => ({
-    meta: [
-      { title: "Politique de confidentialité - Les Portes de Montafilan" },
-      { name: "description", content: "Politique de confidentialité du gîte Les Portes de Montafilan à Corseul." },
-      { name: "robots", content: "noindex" },
-    ],
-  }),
-  component: Page,
-});
-
 function renderLine(line: string): ReactNode {
-  const emailMatch = line.match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/);
+  const emailMatch = line.match(
+    /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/,
+  );
   if (emailMatch) {
     const email = emailMatch[0].replace(/[.,;:!?]+$/, "");
     const prefix = line.slice(0, emailMatch.index).trim();
@@ -22,7 +13,9 @@ function renderLine(line: string): ReactNode {
     return (
       <>
         {prefix ? `${prefix} ` : ""}
-        <a href={`mailto:${email}`} className="text-terra hover:underline">{email}</a>
+        <a href={`mailto:${email}`} className="text-terra hover:underline">
+          {email}
+        </a>
         {suffix ? `${suffix}` : ""}
       </>
     );
@@ -31,7 +24,7 @@ function renderLine(line: string): ReactNode {
   return line;
 }
 
-function Page() {
+export function ConfidentialitePage() {
   const { t, tm } = useI18n();
   const blocks = [
     { title: t("privacy.dataTitle"), lines: tm("privacy.dataLines") },
@@ -42,7 +35,9 @@ function Page() {
     <main className="bg-background text-foreground">
       <section className="py-20 sm:py-28">
         <div className="container-x max-w-3xl">
-          <Link to="/" className="label-tiny hover:text-foreground">← {t("footer.back")}</Link>
+          <Link to="/" className="label-tiny hover:text-foreground">
+            ← {t("footer.back")}
+          </Link>
           <h1 className="mt-6 text-4xl sm:text-5xl">{t("privacy.title")}</h1>
           <div className="mt-10 space-y-8 text-muted-foreground leading-relaxed">
             <p>{t("privacy.lead")}</p>
@@ -57,11 +52,15 @@ function Page() {
               </div>
             ))}
             <div>
-              <h2 className="text-xl text-foreground">{t("privacy.rightsTitle")}</h2>
+              <h2 className="text-xl text-foreground">
+                {t("privacy.rightsTitle")}
+              </h2>
               <p className="mt-2">{renderLine(t("privacy.rightsBody"))}</p>
             </div>
             <div>
-              <h2 className="text-xl text-foreground">{t("privacy.updateTitle")}</h2>
+              <h2 className="text-xl text-foreground">
+                {t("privacy.updateTitle")}
+              </h2>
               <p className="mt-2">{t("privacy.updateBody")}</p>
             </div>
           </div>

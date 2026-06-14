@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { useEffect, useState, useMemo } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import type { DateRange } from "react-day-picker";
@@ -8,34 +8,24 @@ import { useI18n } from "@/lib/i18n";
 import { LangSwitch } from "@/components/LangSwitch";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { getAirbnbRedirectUrl } from "@/lib/api/airbnb-link.functions";
-import { getPricingConfig, getReservationEstimate } from "@/lib/api/estimate.functions";
+import {
+  getPricingConfig,
+  getReservationEstimate,
+} from "@/lib/api/estimate.functions";
 import type { BusyRange } from "../../shared/availability";
-import { defaultPricingConfig, type EstimateResult, type PricingConfig } from "../../shared/pricing";
+import {
+  defaultPricingConfig,
+  type EstimateResult,
+  type PricingConfig,
+} from "../../shared/pricing";
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Les Portes de Montafilan - Gîte à Corseul, entre Dinan & Saint-Malo" },
-      {
-        name: "description",
-        content:
-          "Gîte chaleureux de 85 m² à Corseul, en Bretagne. Jardin clos, 4 voyageurs + bébé, à 15 min des plages, entre Dinan, Saint-Malo et Cap Fréhel.",
-      },
-      { property: "og:title", content: "Les Portes de Montafilan" },
-      { property: "og:description", content: "Une parenthèse bretonne entre Dinan, Saint-Malo et le Cap Fréhel." },
-      {
-        property: "og:image",
-        content: OG_IMAGE,
-      },
-    ],
-  }),
-  component: Home,
-});
-
-const imageAssets = import.meta.glob("../assets/img/**/*.{avif,jpg,jpeg,png,webp}", {
-  eager: true,
-  import: "default",
-}) as Record<string, string>;
+const imageAssets = import.meta.glob(
+  "../assets/img/**/*.{avif,jpg,jpeg,png,webp}",
+  {
+    eager: true,
+    import: "default",
+  },
+) as Record<string, string>;
 
 const IMG = (path: string) => imageAssets[`../assets/img/${path}`] ?? path;
 const OG_IMAGE = IMG("house/ArriereCours1.avif");
@@ -45,7 +35,8 @@ const MAX_ADULTS = 4;
 const MIN_CHILDREN = 0;
 const MAX_CHILDREN = 3;
 const MAX_GUESTS = 4;
-const GOOGLE_MAPS_URL = "https://maps.google.com/?q=G%C3%AEte%20-%20Les%20Portes%20de%20Montafilan";
+const GOOGLE_MAPS_URL =
+  "https://maps.google.com/?q=G%C3%AEte%20-%20Les%20Portes%20de%20Montafilan";
 
 function dateToYmd(date: Date) {
   const year = date.getFullYear();
@@ -70,12 +61,18 @@ function formatMoney(amount: number, locale: string) {
   }).format(amount);
 }
 
-function dateRangeIncludesBusyDate(from: Date, to: Date, busyRanges: BusyRange[]) {
+function dateRangeIncludesBusyDate(
+  from: Date,
+  to: Date,
+  busyRanges: BusyRange[],
+) {
   let cursor = dateToYmd(from);
   const end = dateToYmd(to);
 
   while (cursor < end) {
-    if (busyRanges.some((range) => cursor >= range.start && cursor < range.end)) {
+    if (
+      busyRanges.some((range) => cursor >= range.start && cursor < range.end)
+    ) {
       return true;
     }
 
@@ -90,7 +87,9 @@ function Nav() {
   const { t } = useI18n();
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [open]);
   const links = [
     { href: "#gite", label: t("nav.gite") },
@@ -111,18 +110,31 @@ function Nav() {
               aria-hidden="true"
               className="h-10 w-10 shrink-0 rounded-full object-cover"
             />
-            <span className="font-display text-lg leading-tight">Les Portes de Montafilan</span>
+            <span className="font-display text-lg leading-tight">
+              Les Portes de Montafilan
+            </span>
           </a>
           <nav className="hidden flex-1 items-center justify-center gap-5 xl:flex">
             {links.map((l) => (
-              <a key={l.href} href={l.href} className="whitespace-nowrap text-sm text-muted-foreground transition-colors hover:text-foreground">
+              <a
+                key={l.href}
+                href={l.href}
+                className="whitespace-nowrap text-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
                 {l.label}
               </a>
             ))}
           </nav>
           <div className="flex shrink-0 items-center justify-end gap-3">
-            <div className="hidden sm:block"><LangSwitch /></div>
-            <a href="#reservation" className="btn-primary hidden min-w-36 xl:inline-flex !py-2.5 !text-sm">{t("nav.reserve")}</a>
+            <div className="hidden sm:block">
+              <LangSwitch />
+            </div>
+            <a
+              href="#reservation"
+              className="btn-primary hidden min-w-36 xl:inline-flex !py-2.5 !text-sm"
+            >
+              {t("nav.reserve")}
+            </a>
             <button
               type="button"
               aria-label={t("nav.menu")}
@@ -143,7 +155,9 @@ function Nav() {
         <div className="fixed inset-0 z-[60] lg:hidden">
           <div className="absolute inset-0 bg-forest text-primary-foreground">
             <div className="container-x flex h-16 items-center justify-between">
-              <span className="font-display text-lg text-background">Les Portes de Montafilan</span>
+              <span className="font-display text-lg text-background">
+                Les Portes de Montafilan
+              </span>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
@@ -161,7 +175,9 @@ function Nav() {
                     onClick={() => setOpen(false)}
                     className="group flex items-baseline gap-4 border-b border-background/15 py-5"
                   >
-                    <span className="label-tiny !text-background/50 w-6">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="label-tiny !text-background/50 w-6">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
                     <span className="font-display text-3xl text-background transition-colors group-hover:text-terra sm:text-4xl">
                       {l.label}
                     </span>
@@ -170,7 +186,13 @@ function Nav() {
               </nav>
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <LangSwitch tone="light" />
-                <a href="#reservation" onClick={() => setOpen(false)} className="btn-accent">{t("nav.reserveLong")}</a>
+                <a
+                  href="#reservation"
+                  onClick={() => setOpen(false)}
+                  className="btn-accent"
+                >
+                  {t("nav.reserveLong")}
+                </a>
               </div>
             </div>
           </div>
@@ -187,26 +209,48 @@ function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
       <div className="absolute inset-0">
-        <img src={IMG("house/ArriereCours1.avif")} alt={t("home.hero.imageAlt")} className="h-full w-full object-cover" />
+        <img
+          src={IMG("house/ArriereCours1.avif")}
+          alt={t("home.hero.imageAlt")}
+          className="h-full w-full object-cover"
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-forest/30 via-forest/40 to-forest/70" />
       </div>
       <div className="container-x relative flex min-h-[88vh] flex-col justify-end py-16 text-primary-foreground sm:py-24">
-        <span className="eyebrow !text-background/80 animate-fade-in">{t("home.hero.eyebrow")}</span>
+        <span className="eyebrow !text-background/80 animate-fade-in">
+          {t("home.hero.eyebrow")}
+        </span>
         <h1 className="mt-4 max-w-3xl text-4xl leading-[1.05] sm:text-6xl lg:text-7xl animate-fade-in-up delay-100">
-          {t("home.hero.titleBefore")}<em className="not-italic text-background/90 underline decoration-terra decoration-2 underline-offset-8">{t("home.hero.titleEm")}</em>{t("home.hero.titleAfter")}
+          {t("home.hero.titleBefore")}
+          <em className="not-italic text-background/90 underline decoration-terra decoration-2 underline-offset-8">
+            {t("home.hero.titleEm")}
+          </em>
+          {t("home.hero.titleAfter")}
         </h1>
         <p className="mt-5 max-w-xl text-base leading-relaxed text-background/85 sm:text-lg animate-fade-in-up delay-200">
           {t("home.hero.body")}
         </p>
         <div className="mt-8 flex flex-wrap gap-3 animate-fade-in-up delay-300">
-          <a href="#reservation" className="btn-primary">{t("home.hero.primaryCta")}</a>
-          <a href="#contact" className="btn-ghost !border-background/40 !text-background hover:!bg-background/10">{t("home.hero.secondaryCta")}</a>
+          <a href="#reservation" className="btn-primary">
+            {t("home.hero.primaryCta")}
+          </a>
+          <a
+            href="#contact"
+            className="btn-ghost !border-background/40 !text-background hover:!bg-background/10"
+          >
+            {t("home.hero.secondaryCta")}
+          </a>
         </div>
         <div className="mt-12 grid grid-cols-2 gap-4 border-t border-background/20 pt-6 sm:grid-cols-4 sm:gap-8">
           {highlights.map((h, i) => (
-            <div key={h.k} className={`animate-fade-in-up delay-${(i + 4) * 100}`}>
+            <div
+              key={h.k}
+              className={`animate-fade-in-up delay-${(i + 4) * 100}`}
+            >
               <div className="font-display text-2xl sm:text-3xl">{h.k}</div>
-              <div className="text-xs uppercase tracking-wider text-background/70 sm:text-sm">{h.v}</div>
+              <div className="text-xs uppercase tracking-wider text-background/70 sm:text-sm">
+                {h.v}
+              </div>
             </div>
           ))}
         </div>
@@ -225,7 +269,9 @@ function Intro() {
         <div className="lg:col-span-5">
           <AnimatedSection>
             <span className="eyebrow">{t("home.intro.eyebrow")}</span>
-            <h2 className="mt-3 text-3xl sm:text-5xl">{t("home.intro.title")}</h2>
+            <h2 className="mt-3 text-3xl sm:text-5xl">
+              {t("home.intro.title")}
+            </h2>
             <p className="mt-6 text-muted-foreground leading-relaxed">
               {t("home.intro.p1")}
             </p>
@@ -234,7 +280,12 @@ function Intro() {
             </p>
             <div className="mt-8 flex flex-wrap gap-2">
               {tags.map((tag) => (
-                <span key={tag} className="rounded-full border border-border bg-secondary px-3 py-1.5 text-xs text-secondary-foreground">{tag}</span>
+                <span
+                  key={tag}
+                  className="rounded-full border border-border bg-secondary px-3 py-1.5 text-xs text-secondary-foreground"
+                >
+                  {tag}
+                </span>
               ))}
             </div>
           </AnimatedSection>
@@ -242,19 +293,39 @@ function Intro() {
         <div className="lg:col-span-7">
           <div className="grid grid-cols-2 gap-3 sm:gap-4">
             <AnimatedSection delay={100} className="col-span-2">
-              <img src={IMG("house/Cuisine.avif")} alt="Cuisine ouverte équipée" className="aspect-[16/10] w-full rounded-2xl object-cover shadow-card img-reveal" />
+              <img
+                src={IMG("house/Cuisine.avif")}
+                alt="Cuisine ouverte équipée"
+                className="aspect-[16/10] w-full rounded-2xl object-cover shadow-card img-reveal"
+              />
             </AnimatedSection>
             <AnimatedSection delay={200}>
-              <img src={IMG("house/Chambre1.avif")} alt="Chambre" className="aspect-[4/5] w-full rounded-2xl object-cover shadow-card img-reveal" />
+              <img
+                src={IMG("house/Chambre1.avif")}
+                alt="Chambre"
+                className="aspect-[4/5] w-full rounded-2xl object-cover shadow-card img-reveal"
+              />
             </AnimatedSection>
             <AnimatedSection delay={300}>
-              <img src={IMG("house/ArriereCours2.avif")} alt="Jardin" className="aspect-[4/5] w-full rounded-2xl object-cover shadow-card img-reveal" />
+              <img
+                src={IMG("house/ArriereCours2.avif")}
+                alt="Jardin"
+                className="aspect-[4/5] w-full rounded-2xl object-cover shadow-card img-reveal"
+              />
             </AnimatedSection>
             <AnimatedSection delay={400}>
-              <img src={IMG("house/SalleDeBain1.avif")} alt="Salle de bain" className="aspect-[4/3] w-full rounded-2xl object-cover shadow-card img-reveal" />
+              <img
+                src={IMG("house/SalleDeBain1.avif")}
+                alt="Salle de bain"
+                className="aspect-[4/3] w-full rounded-2xl object-cover shadow-card img-reveal"
+              />
             </AnimatedSection>
             <AnimatedSection delay={500}>
-              <img src={IMG("house/Exterieur1.avif")} alt="Extérieur" className="aspect-[4/3] w-full rounded-2xl object-cover shadow-card img-reveal" />
+              <img
+                src={IMG("house/Exterieur1.avif")}
+                alt="Extérieur"
+                className="aspect-[4/3] w-full rounded-2xl object-cover shadow-card img-reveal"
+              />
             </AnimatedSection>
           </div>
         </div>
@@ -272,14 +343,18 @@ function Spaces() {
       <div className="container-x">
         <AnimatedSection className="max-w-2xl">
           <span className="eyebrow">{t("home.spaces.eyebrow")}</span>
-          <h2 className="mt-3 text-3xl sm:text-4xl">{t("home.spaces.title")}</h2>
+          <h2 className="mt-3 text-3xl sm:text-4xl">
+            {t("home.spaces.title")}
+          </h2>
         </AnimatedSection>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {spaces.map((s, i) => (
             <AnimatedSection key={s.t} delay={i * 80}>
               <div className="rounded-2xl border border-border bg-card p-6 shadow-card card-hover h-full">
                 <h3 className="text-xl">{s.t}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.d}</p>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                  {s.d}
+                </p>
               </div>
             </AnimatedSection>
           ))}
@@ -299,8 +374,12 @@ function Amenities() {
         <AnimatedSection className="flex flex-wrap items-end justify-between gap-6">
           <div className="max-w-xl">
             <span className="eyebrow">{t("home.amenities.eyebrow")}</span>
-            <h2 className="mt-3 text-3xl sm:text-4xl">{t("home.amenities.title")}</h2>
-            <p className="mt-3 text-muted-foreground">{t("home.amenities.body")}</p>
+            <h2 className="mt-3 text-3xl sm:text-4xl">
+              {t("home.amenities.title")}
+            </h2>
+            <p className="mt-3 text-muted-foreground">
+              {t("home.amenities.body")}
+            </p>
           </div>
         </AnimatedSection>
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -310,7 +389,10 @@ function Amenities() {
                 <h3 className="text-lg">{cat.title}</h3>
                 <ul className="mt-4 space-y-2">
                   {cat.items.map((i) => (
-                    <li key={i} className="flex gap-2 text-sm text-muted-foreground">
+                    <li
+                      key={i}
+                      className="flex gap-2 text-sm text-muted-foreground"
+                    >
                       <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-terra" />
                       <span>{i}</span>
                     </li>
@@ -334,15 +416,20 @@ function Gallery() {
   const { t, tm } = useI18n();
   const gallerySections = tm("home.gallery.sections");
   const [active, setActive] = useState(gallerySections[0].key);
-  const current = gallerySections.find((s) => s.key === active) ?? gallerySections[0];
+  const current =
+    gallerySections.find((s) => s.key === active) ?? gallerySections[0];
   return (
     <section id="galerie" className="bg-secondary/60 py-20 sm:py-28">
       <div className="container-x">
         <AnimatedSection className="flex flex-wrap items-end justify-between gap-6">
           <div className="max-w-xl">
             <span className="eyebrow">{t("home.gallery.eyebrow")}</span>
-            <h2 className="mt-3 text-3xl sm:text-4xl">{t("home.gallery.title")}</h2>
-            <p className="mt-3 text-muted-foreground">{t("home.gallery.body")}</p>
+            <h2 className="mt-3 text-3xl sm:text-4xl">
+              {t("home.gallery.title")}
+            </h2>
+            <p className="mt-3 text-muted-foreground">
+              {t("home.gallery.body")}
+            </p>
           </div>
         </AnimatedSection>
         <AnimatedSection delay={100}>
@@ -361,7 +448,11 @@ function Gallery() {
                   }`}
                 >
                   {s.label}
-                  <span className={`ml-2 text-xs ${isActive ? "text-background/70" : "text-muted-foreground"}`}>{s.images.length}</span>
+                  <span
+                    className={`ml-2 text-xs ${isActive ? "text-background/70" : "text-muted-foreground"}`}
+                  >
+                    {s.images.length}
+                  </span>
                 </button>
               );
             })}
@@ -398,7 +489,9 @@ function Region() {
           <div className="lg:col-span-5">
             <AnimatedSection>
               <span className="eyebrow">{t("home.region.eyebrow")}</span>
-              <h2 className="mt-3 text-3xl sm:text-5xl">{t("home.region.title")}</h2>
+              <h2 className="mt-3 text-3xl sm:text-5xl">
+                {t("home.region.title")}
+              </h2>
               <p className="mt-5 text-muted-foreground leading-relaxed">
                 {t("home.region.p1")}
               </p>
@@ -409,10 +502,18 @@ function Region() {
                 <h3 className="text-lg">{t("home.region.activitiesTitle")}</h3>
                 <ul className="mt-4 grid gap-2 text-sm text-muted-foreground sm:grid-cols-2">
                   {activities.map((a) => (
-                    <li key={a} className="flex gap-2"><span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-terra" />{a}</li>
+                    <li key={a} className="flex gap-2">
+                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-terra" />
+                      {a}
+                    </li>
                   ))}
                 </ul>
-                <a href="https://www.dinan-capfrehel.com/" target="_blank" rel="noreferrer" className="mt-5 inline-block text-sm text-forest underline underline-offset-4">
+                <a
+                  href="https://www.dinan-capfrehel.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-5 inline-block text-sm text-forest underline underline-offset-4"
+                >
                   {t("home.region.tourismOffice")}
                 </a>
               </div>
@@ -421,10 +522,23 @@ function Region() {
           <div className="lg:col-span-7">
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
               {places.map((p, i) => (
-                <AnimatedSection key={p.name} delay={i * 70} className={i === 0 ? "col-span-2" : ""}>
-                  <article className={`overflow-hidden rounded-2xl border border-border bg-card card-hover h-full ${i === 0 ? "col-span-2" : ""}`}>
-                    <div className={`relative ${i === 0 ? "aspect-[16/9]" : "aspect-[4/3]"}`}>
-                      <img src={IMG(p.img)} alt={p.name} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 hover:scale-105" loading="lazy" />
+                <AnimatedSection
+                  key={p.name}
+                  delay={i * 70}
+                  className={i === 0 ? "col-span-2" : ""}
+                >
+                  <article
+                    className={`overflow-hidden rounded-2xl border border-border bg-card card-hover h-full ${i === 0 ? "col-span-2" : ""}`}
+                  >
+                    <div
+                      className={`relative ${i === 0 ? "aspect-[16/9]" : "aspect-[4/3]"}`}
+                    >
+                      <img
+                        src={IMG(p.img)}
+                        alt={p.name}
+                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                        loading="lazy"
+                      />
                     </div>
                     <div className="p-4 sm:p-5">
                       <div className="flex items-baseline justify-between gap-3">
@@ -432,7 +546,9 @@ function Region() {
                         <span className="text-xs text-terra">{p.km}</span>
                       </div>
                       <ul className="mt-2 space-y-1 text-xs text-muted-foreground sm:text-sm">
-                        {p.notes.map((n) => <li key={n}>· {n}</li>)}
+                        {p.notes.map((n) => (
+                          <li key={n}>· {n}</li>
+                        ))}
                       </ul>
                     </div>
                   </article>
@@ -454,7 +570,9 @@ function WhyHere() {
     <section className="bg-forest text-primary-foreground py-20 sm:py-28">
       <div className="container-x">
         <AnimatedSection className="max-w-2xl">
-          <span className="eyebrow !text-background/80">{t("home.why.eyebrow")}</span>
+          <span className="eyebrow !text-background/80">
+            {t("home.why.eyebrow")}
+          </span>
           <h2 className="mt-3 text-3xl sm:text-5xl">{t("home.why.title")}</h2>
         </AnimatedSection>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
@@ -462,7 +580,9 @@ function WhyHere() {
             <AnimatedSection key={b.t} delay={i * 100}>
               <div className="rounded-2xl border border-background/15 bg-background/5 p-6 backdrop-blur card-hover h-full">
                 <h3 className="text-xl text-background">{b.t}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-background/80">{b.d}</p>
+                <p className="mt-3 text-sm leading-relaxed text-background/80">
+                  {b.d}
+                </p>
               </div>
             </AnimatedSection>
           ))}
@@ -480,7 +600,12 @@ function Reviews() {
       <div className="container-x max-w-3xl text-center">
         <AnimatedSection>
           <span className="eyebrow">{t("home.reviews.eyebrow")}</span>
-          <div className="mt-4 text-terra" aria-label={t("home.reviews.ratingLabel")}>★★★★★</div>
+          <div
+            className="mt-4 text-terra"
+            aria-label={t("home.reviews.ratingLabel")}
+          >
+            ★★★★★
+          </div>
           <blockquote className="mt-6 font-display text-2xl leading-snug sm:text-4xl">
             {t("home.reviews.quote")}
           </blockquote>
@@ -501,23 +626,44 @@ function AirbnbCalendar() {
   const [children, setChildren] = useState(0);
   const [busyRanges, setBusyRanges] = useState<BusyRange[]>([]);
   const [availabilityLoading, setAvailabilityLoading] = useState(true);
-  const [availabilityError, setAvailabilityError] = useState<string | null>(null);
+  const [availabilityError, setAvailabilityError] = useState<string | null>(
+    null,
+  );
   const [airbnbLoading, setAirbnbLoading] = useState(false);
   const [airbnbError, setAirbnbError] = useState<string | null>(null);
   const [estimate, setEstimate] = useState<EstimateResult | null>(null);
   const [estimateLoading, setEstimateLoading] = useState(false);
   const [estimateError, setEstimateError] = useState<string | null>(null);
   const [estimateWarning, setEstimateWarning] = useState<string | null>(null);
-  const [pricingConfig, setPricingConfig] = useState<PricingConfig>(defaultPricingConfig);
+  const [pricingConfig, setPricingConfig] =
+    useState<PricingConfig>(defaultPricingConfig);
   const [pricingWarning, setPricingWarning] = useState<string | null>(null);
   const rateLabels = tm("home.rates");
   const practical = tm("home.practical");
   const maxAdults = Math.max(MIN_ADULTS, MAX_GUESTS - children);
   const maxChildren = Math.max(MIN_CHILDREN, MAX_GUESTS - adults);
   const displayedRates = [
-    { ...rateLabels[0], price: formatMoney(pricingConfig.lowSeasonNight, lang === "fr" ? "fr-FR" : "en-US") },
-    { ...rateLabels[1], price: formatMoney(pricingConfig.midSeasonNight, lang === "fr" ? "fr-FR" : "en-US") },
-    { ...rateLabels[2], price: formatMoney(pricingConfig.highSeasonNight, lang === "fr" ? "fr-FR" : "en-US") },
+    {
+      ...rateLabels[0],
+      price: formatMoney(
+        pricingConfig.lowSeasonNight,
+        lang === "fr" ? "fr-FR" : "en-US",
+      ),
+    },
+    {
+      ...rateLabels[1],
+      price: formatMoney(
+        pricingConfig.midSeasonNight,
+        lang === "fr" ? "fr-FR" : "en-US",
+      ),
+    },
+    {
+      ...rateLabels[2],
+      price: formatMoney(
+        pricingConfig.highSeasonNight,
+        lang === "fr" ? "fr-FR" : "en-US",
+      ),
+    },
   ];
 
   function clampNumber(value: number, min: number, max: number) {
@@ -579,7 +725,9 @@ function AirbnbCalendar() {
 
       window.location.assign(result.redirectUrl);
     } catch (error: unknown) {
-      setAirbnbError(error instanceof Error ? error.message : t("home.booking.airbnbError"));
+      setAirbnbError(
+        error instanceof Error ? error.message : t("home.booking.airbnbError"),
+      );
     } finally {
       setAirbnbLoading(false);
     }
@@ -599,7 +747,11 @@ function AirbnbCalendar() {
       } catch (error: unknown) {
         if (!cancelled) {
           setPricingConfig(defaultPricingConfig);
-          setPricingWarning(error instanceof Error ? error.message : t("home.booking.estimateError"));
+          setPricingWarning(
+            error instanceof Error
+              ? error.message
+              : t("home.booking.estimateError"),
+          );
         }
       }
     }
@@ -630,7 +782,9 @@ function AirbnbCalendar() {
       } catch (error: unknown) {
         if (!cancelled) {
           setBusyRanges([]);
-          setAvailabilityError(error instanceof Error ? error.message : "AVAILABILITY_FAILED");
+          setAvailabilityError(
+            error instanceof Error ? error.message : "AVAILABILITY_FAILED",
+          );
         }
       } finally {
         if (!cancelled) {
@@ -682,7 +836,11 @@ function AirbnbCalendar() {
         if (!cancelled) {
           setEstimate(null);
           setEstimateWarning(null);
-          setEstimateError(error instanceof Error ? error.message : t("home.booking.estimateError"));
+          setEstimateError(
+            error instanceof Error
+              ? error.message
+              : t("home.booking.estimateError"),
+          );
         }
       } finally {
         if (!cancelled) {
@@ -699,10 +857,11 @@ function AirbnbCalendar() {
   }, [adults, busyRanges, children, range, t]);
 
   const disabledRanges = useMemo(
-    () => busyRanges.map((rangeItem) => ({
-      from: new Date(`${rangeItem.start}T00:00:00`),
-      to: addDays(new Date(`${rangeItem.end}T00:00:00`), -1),
-    })),
+    () =>
+      busyRanges.map((rangeItem) => ({
+        from: new Date(`${rangeItem.start}T00:00:00`),
+        to: addDays(new Date(`${rangeItem.end}T00:00:00`), -1),
+      })),
     [busyRanges],
   );
 
@@ -716,15 +875,17 @@ function AirbnbCalendar() {
     return dateRangeIncludesBusyDate(range.from, range.to, busyRanges);
   }, [busyRanges, range]);
 
-  const selectedLabel = range?.from && range?.to
-    ? `${range.from.toLocaleDateString(lang === "fr" ? "fr-FR" : "en-US")} → ${range.to.toLocaleDateString(lang === "fr" ? "fr-FR" : "en-US")}`
-    : t("home.booking.emptySelection");
+  const selectedLabel =
+    range?.from && range?.to
+      ? `${range.from.toLocaleDateString(lang === "fr" ? "fr-FR" : "en-US")} → ${range.to.toLocaleDateString(lang === "fr" ? "fr-FR" : "en-US")}`
+      : t("home.booking.emptySelection");
 
   const locale = lang === "fr" ? "fr-FR" : "en-US";
   const rateBreakdownLabel = estimate?.rateBreakdown
-    .map((item) => (
-      `${item.nights} ${item.nights > 1 ? t("home.booking.nightPlural") : t("home.booking.nightSingular")} × ${formatMoney(item.nightlyRate, locale)}`
-    ))
+    .map(
+      (item) =>
+        `${item.nights} ${item.nights > 1 ? t("home.booking.nightPlural") : t("home.booking.nightSingular")} × ${formatMoney(item.nightlyRate, locale)}`,
+    )
     .join(" + ");
 
   return (
@@ -733,7 +894,9 @@ function AirbnbCalendar() {
         <div className="lg:col-span-5">
           <AnimatedSection>
             <span className="eyebrow">{t("home.booking.eyebrow")}</span>
-            <h2 className="mt-3 text-3xl sm:text-5xl">{t("home.booking.title")}</h2>
+            <h2 className="mt-3 text-3xl sm:text-5xl">
+              {t("home.booking.title")}
+            </h2>
             <p className="mt-5 text-muted-foreground leading-relaxed">
               {t("home.booking.body")}
             </p>
@@ -743,25 +906,43 @@ function AirbnbCalendar() {
                   key={rate.label}
                   className={`flex items-center justify-between gap-4 px-5 py-5 ${index > 0 ? "border-t border-border" : ""}`}
                 >
-                  <div className="text-sm text-muted-foreground">{rate.label}</div>
+                  <div className="text-sm text-muted-foreground">
+                    {rate.label}
+                  </div>
                   <div className="whitespace-nowrap text-right">
-                    <span className="font-display text-2xl text-foreground">≈ {rate.price}</span>
-                    <span className="ml-1 text-xs text-muted-foreground">{rate.unit}</span>
+                    <span className="font-display text-2xl text-foreground">
+                      ≈ {rate.price}
+                    </span>
+                    <span className="ml-1 text-xs text-muted-foreground">
+                      {rate.unit}
+                    </span>
                   </div>
                 </div>
               ))}
             </div>
             {pricingWarning ? (
-              <p className="mt-3 text-xs text-muted-foreground">{pricingWarning}</p>
+              <p className="mt-3 text-xs text-muted-foreground">
+                {pricingWarning}
+              </p>
             ) : null}
             <p className="mt-4 text-sm text-muted-foreground">
               {t("home.booking.longStay")}
             </p>
             <p className="mt-3 text-sm text-muted-foreground">
-              <strong className="font-semibold text-foreground">{t("home.booking.minimumStayTitle")}</strong>{" "}
-              {pricingConfig.minNightsLowMid} {pricingConfig.minNightsLowMid > 1 ? t("home.booking.nightPlural") : t("home.booking.nightSingular")} {t("home.booking.minimumStayLowMid")}
+              <strong className="font-semibold text-foreground">
+                {t("home.booking.minimumStayTitle")}
+              </strong>{" "}
+              {pricingConfig.minNightsLowMid}{" "}
+              {pricingConfig.minNightsLowMid > 1
+                ? t("home.booking.nightPlural")
+                : t("home.booking.nightSingular")}{" "}
+              {t("home.booking.minimumStayLowMid")}
               {" · "}
-              {pricingConfig.minNightsHigh} {pricingConfig.minNightsHigh > 1 ? t("home.booking.nightPlural") : t("home.booking.nightSingular")} {t("home.booking.minimumStayHigh")}
+              {pricingConfig.minNightsHigh}{" "}
+              {pricingConfig.minNightsHigh > 1
+                ? t("home.booking.nightPlural")
+                : t("home.booking.nightSingular")}{" "}
+              {t("home.booking.minimumStayHigh")}
             </p>
           </AnimatedSection>
         </div>
@@ -769,7 +950,9 @@ function AirbnbCalendar() {
           <AnimatedSection delay={150}>
             <div className="rounded-2xl border border-border bg-card p-5 sm:p-6">
               <div className="flex items-center justify-between gap-4 mb-4">
-                <h3 className="text-lg sm:text-xl">{t("home.booking.chooseDates")}</h3>
+                <h3 className="text-lg sm:text-xl">
+                  {t("home.booking.chooseDates")}
+                </h3>
                 <span className="label-tiny">{t("home.booking.estimate")}</span>
               </div>
               <div className="flex justify-center">
@@ -783,26 +966,34 @@ function AirbnbCalendar() {
                   className="pointer-events-auto"
                 />
               </div>
-                            <div className="mt-4 flex flex-wrap gap-3 text-xs uppercase tracking-wider text-muted-foreground">
+              <div className="mt-4 flex flex-wrap gap-3 text-xs uppercase tracking-wider text-muted-foreground">
                 <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5">
-                  <i className="legend-dot legend-available" /> {t("home.booking.legendAvailable")}
+                  <i className="legend-dot legend-available" />{" "}
+                  {t("home.booking.legendAvailable")}
                 </span>
                 <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5">
-                  <i className="legend-dot legend-unavailable" /> {t("home.booking.legendUnavailable")}
+                  <i className="legend-dot legend-unavailable" />{" "}
+                  {t("home.booking.legendUnavailable")}
                 </span>
                 <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3 py-1.5">
-                  <i className="legend-dot legend-selected" /> {t("home.booking.legendSelected")}
+                  <i className="legend-dot legend-selected" />{" "}
+                  {t("home.booking.legendSelected")}
                 </span>
               </div>
               <div className="mt-5 rounded-xl bg-secondary/70 p-4 sm:p-5">
                 {range?.from && range?.to ? (
                   <div className="flex flex-wrap items-end justify-between gap-3">
                     <div className="text-sm text-muted-foreground">
-                      {selectedLabel} · {nights} {nights > 1 ? t("home.booking.nightPlural") : t("home.booking.nightSingular")}
+                      {selectedLabel} · {nights}{" "}
+                      {nights > 1
+                        ? t("home.booking.nightPlural")
+                        : t("home.booking.nightSingular")}
                     </div>
                   </div>
                 ) : (
-                  <p className="text-sm text-muted-foreground">{t("home.booking.selectHint")}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {t("home.booking.selectHint")}
+                  </p>
                 )}
               </div>
               {estimateLoading ? (
@@ -812,12 +1003,19 @@ function AirbnbCalendar() {
               ) : estimate && range?.from && range?.to ? (
                 <div className="mt-5 flex flex-wrap items-center justify-between gap-4 rounded-xl bg-secondary/70 p-4 sm:p-5">
                   <div className="text-sm text-muted-foreground">
-                    {t("home.booking.from")} <strong className="font-semibold text-foreground">{formatStayDate(range.from, locale)}</strong>{" "}
-                    {t("home.booking.to")} <strong className="font-semibold text-foreground">{formatStayDate(range.to, locale)}</strong>
+                    {t("home.booking.from")}{" "}
+                    <strong className="font-semibold text-foreground">
+                      {formatStayDate(range.from, locale)}
+                    </strong>{" "}
+                    {t("home.booking.to")}{" "}
+                    <strong className="font-semibold text-foreground">
+                      {formatStayDate(range.to, locale)}
+                    </strong>
                     {" · "}
                     {rateBreakdownLabel}
                     <div className="mt-1 text-xs">
-                      {t("home.booking.touristTaxIncluded")} {formatMoney(estimate.touristTax, locale)}
+                      {t("home.booking.touristTaxIncluded")}{" "}
+                      {formatMoney(estimate.touristTax, locale)}
                     </div>
                   </div>
                   <div className="font-display text-3xl text-foreground">
@@ -828,7 +1026,9 @@ function AirbnbCalendar() {
                 <p className="mt-3 text-sm text-destructive">{estimateError}</p>
               ) : null}
               {estimateWarning ? (
-                <p className="mt-3 text-sm text-muted-foreground">{estimateWarning}</p>
+                <p className="mt-3 text-sm text-muted-foreground">
+                  {estimateWarning}
+                </p>
               ) : null}
               {estimate && estimate.nights >= 7 ? (
                 <p className="mt-3 rounded-xl border border-border bg-background px-4 py-3 text-sm text-muted-foreground">
@@ -840,28 +1040,38 @@ function AirbnbCalendar() {
                   <h4 className="text-sm font-semibold uppercase tracking-[0.16em] text-foreground">
                     {t("home.booking.guestsTitle")}
                   </h4>
-                  <span className="text-xs text-muted-foreground">{t("home.booking.guestLimit")}</span>
+                  <span className="text-xs text-muted-foreground">
+                    {t("home.booking.guestLimit")}
+                  </span>
                 </div>
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
                   <label className="block text-sm">
-                    <span className="block text-xs uppercase tracking-wider text-muted-foreground">{t("home.booking.adults")}</span>
+                    <span className="block text-xs uppercase tracking-wider text-muted-foreground">
+                      {t("home.booking.adults")}
+                    </span>
                     <input
                       type="number"
                       min={MIN_ADULTS}
                       max={maxAdults}
                       value={adults}
-                      onChange={(event) => handleAdultsChange(event.target.value)}
+                      onChange={(event) =>
+                        handleAdultsChange(event.target.value)
+                      }
                       className="mt-2 w-full rounded-lg border border-border bg-card px-4 py-3 text-foreground focus:border-terra focus:outline-none focus:ring-2 focus:ring-clay/30"
                     />
                   </label>
                   <label className="block text-sm">
-                    <span className="block text-xs uppercase tracking-wider text-muted-foreground">{t("home.booking.children")}</span>
+                    <span className="block text-xs uppercase tracking-wider text-muted-foreground">
+                      {t("home.booking.children")}
+                    </span>
                     <input
                       type="number"
                       min={MIN_CHILDREN}
                       max={maxChildren}
                       value={children}
-                      onChange={(event) => handleChildrenChange(event.target.value)}
+                      onChange={(event) =>
+                        handleChildrenChange(event.target.value)
+                      }
                       className="mt-2 w-full rounded-lg border border-border bg-card px-4 py-3 text-foreground focus:border-terra focus:outline-none focus:ring-2 focus:ring-clay/30"
                     />
                   </label>
@@ -871,10 +1081,18 @@ function AirbnbCalendar() {
                 <button
                   type="button"
                   onClick={handleRequestDates}
-                  disabled={airbnbLoading || !range?.from || !range?.to || selectedRangeUnavailable || Boolean(estimate && !estimate.valid)}
+                  disabled={
+                    airbnbLoading ||
+                    !range?.from ||
+                    !range?.to ||
+                    selectedRangeUnavailable ||
+                    Boolean(estimate && !estimate.valid)
+                  }
                   className="btn-primary disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  {airbnbLoading ? t("home.booking.requestLoading") : t("home.booking.requestDates")}
+                  {airbnbLoading
+                    ? t("home.booking.requestLoading")
+                    : t("home.booking.requestDates")}
                 </button>
                 <a
                   href={GOOGLE_MAPS_URL}
@@ -888,12 +1106,13 @@ function AirbnbCalendar() {
               {airbnbError ? (
                 <p className="mt-3 text-sm text-destructive">{airbnbError}</p>
               ) : null}
-
             </div>
             <div className="mt-6 rounded-2xl border border-border bg-card p-6">
               <h3 className="text-lg">{t("home.booking.practicalTitle")}</h3>
               <ul className="mt-3 grid gap-2 text-sm text-muted-foreground sm:grid-cols-2">
-                {practical.map((item) => <li key={item}>· {item}</li>)}
+                {practical.map((item) => (
+                  <li key={item}>· {item}</li>
+                ))}
               </ul>
             </div>
           </AnimatedSection>
@@ -922,9 +1141,13 @@ function Faq() {
               <details className="group py-5">
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
                   <span className="font-display text-lg sm:text-xl">{f.q}</span>
-                  <span className="text-terra text-2xl leading-none transition-transform group-open:rotate-45">+</span>
+                  <span className="text-terra text-2xl leading-none transition-transform group-open:rotate-45">
+                    +
+                  </span>
                 </summary>
-                <p className="mt-3 text-muted-foreground leading-relaxed">{f.a}</p>
+                <p className="mt-3 text-muted-foreground leading-relaxed">
+                  {f.a}
+                </p>
               </details>
             </AnimatedSection>
           ))}
@@ -937,25 +1160,79 @@ function Faq() {
 function Contact() {
   const { lang, t } = useI18n();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitState, setSubmitState] = useState<"idle" | "success" | "error">("idle");
+  const [submitState, setSubmitState] = useState<"idle" | "success" | "error">(
+    "idle",
+  );
   const [submitMessage, setSubmitMessage] = useState<string | null>(null);
 
   return (
-    <section id="contact" className="bg-forest text-primary-foreground py-20 sm:py-28">
+    <section
+      id="contact"
+      className="bg-forest text-primary-foreground py-20 sm:py-28"
+    >
       <div className="container-x grid gap-10 lg:grid-cols-12">
         <div className="lg:col-span-6">
           <AnimatedSection>
-            <span className="eyebrow !text-background/70">{t("nav.contact")}</span>
-            <h2 className="mt-3 text-3xl sm:text-5xl text-background">{t("home.contact.title")}</h2>
+            <span className="eyebrow !text-background/70">
+              {t("nav.contact")}
+            </span>
+            <h2 className="mt-3 text-3xl sm:text-5xl text-background">
+              {t("home.contact.title")}
+            </h2>
             <p className="mt-5 max-w-md text-background/75 leading-relaxed">
               {t("home.contact.body")}
             </p>
             <ul className="mt-8 space-y-4 text-background/90">
-              <li><span className="text-background/60 text-xs uppercase tracking-wider">{t("home.contact.hosts")}</span><div>Jocelyne & Christian</div></li>
-              <li><span className="text-background/60 text-xs uppercase tracking-wider">{t("home.contact.address")}</span><div>Corseul, Bretagne</div></li>
-              <li><span className="text-background/60 text-xs uppercase tracking-wider">{t("home.contact.phone")}</span><div><a href="tel:+33780710159" className="hover:text-terra">+33 7 80 71 01 59</a></div></li>
-              <li><span className="text-background/60 text-xs uppercase tracking-wider">Email</span><div><a href="mailto:lesportesdemontafilan@gmail.com" className="hover:text-terra break-all">lesportesdemontafilan@gmail.com</a></div></li>
-              <li><span className="text-background/60 text-xs uppercase tracking-wider">Facebook</span><div><a href="https://www.facebook.com/LesPortesDeMontafilan" target="_blank" rel="noreferrer" className="hover:text-terra">Les Portes De Montafilan</a></div></li>
+              <li>
+                <span className="text-background/60 text-xs uppercase tracking-wider">
+                  {t("home.contact.hosts")}
+                </span>
+                <div>Jocelyne & Christian</div>
+              </li>
+              <li>
+                <span className="text-background/60 text-xs uppercase tracking-wider">
+                  {t("home.contact.address")}
+                </span>
+                <div>Corseul, Bretagne</div>
+              </li>
+              <li>
+                <span className="text-background/60 text-xs uppercase tracking-wider">
+                  {t("home.contact.phone")}
+                </span>
+                <div>
+                  <a href="tel:+33780710159" className="hover:text-terra">
+                    +33 7 80 71 01 59
+                  </a>
+                </div>
+              </li>
+              <li>
+                <span className="text-background/60 text-xs uppercase tracking-wider">
+                  Email
+                </span>
+                <div>
+                  <a
+                    href="mailto:lesportesdemontafilan@gmail.com"
+                    className="hover:text-terra break-all"
+                  >
+                    lesportesdemontafilan@gmail.com
+                  </a>
+                </div>
+              </li>
+              <li>
+                <span className="text-background/60 text-xs uppercase tracking-wider">
+                  Facebook
+                </span>
+                <div>
+                  <a
+                    href="https://www.facebook.com/LesPortesDeMontafilan"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="hover:text-terra"
+                  >
+                    Les Portes De Montafilan
+                  </a>
+                </div>
+              </li>
             </ul>
           </AnimatedSection>
         </div>
@@ -985,13 +1262,19 @@ function Contact() {
                         lastName: String(data.get("lastname") || "").trim(),
                         email: String(data.get("email") || "").trim(),
                         phone: String(data.get("phone") || "").trim(),
-                        subject: String(data.get("subject") || t("home.contact.defaultSubject")).trim(),
+                        subject: String(
+                          data.get("subject") ||
+                            t("home.contact.defaultSubject"),
+                        ).trim(),
                         message: String(data.get("message") || "").trim(),
                       },
                     }),
                   });
 
-                  const result = (await response.json().catch(() => null)) as { error?: string; ok?: boolean } | null;
+                  const result = (await response.json().catch(() => null)) as {
+                    error?: string;
+                    ok?: boolean;
+                  } | null;
 
                   if (!response.ok) {
                     throw new Error(result?.error || `HTTP ${response.status}`);
@@ -1002,20 +1285,50 @@ function Contact() {
                   setSubmitMessage(t("home.contact.success"));
                 } catch (error: unknown) {
                   setSubmitState("error");
-                  setSubmitMessage(error instanceof Error ? error.message : t("home.contact.error"));
+                  setSubmitMessage(
+                    error instanceof Error
+                      ? error.message
+                      : t("home.contact.error"),
+                  );
                 } finally {
                   setIsSubmitting(false);
                 }
               }}
             >
-              <h3 className="text-background text-xl">{t("home.contact.messageTitle")}</h3>
+              <h3 className="text-background text-xl">
+                {t("home.contact.messageTitle")}
+              </h3>
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                <Field name="firstname" label={t("home.contact.firstName")} required />
-                <Field name="lastname" label={t("home.contact.lastName")} required />
-                <Field name="email" type="email" label={t("home.contact.email")} required />
+                <Field
+                  name="firstname"
+                  label={t("home.contact.firstName")}
+                  required
+                />
+                <Field
+                  name="lastname"
+                  label={t("home.contact.lastName")}
+                  required
+                />
+                <Field
+                  name="email"
+                  type="email"
+                  label={t("home.contact.email")}
+                  required
+                />
                 <Field name="phone" label={t("home.contact.phoneField")} />
-                <Field name="subject" label={t("home.contact.subject")} required className="sm:col-span-2" />
-                <Field name="message" label={t("home.contact.message")} required textarea className="sm:col-span-2" />
+                <Field
+                  name="subject"
+                  label={t("home.contact.subject")}
+                  required
+                  className="sm:col-span-2"
+                />
+                <Field
+                  name="message"
+                  label={t("home.contact.message")}
+                  required
+                  textarea
+                  className="sm:col-span-2"
+                />
               </div>
               {submitMessage ? (
                 <div
@@ -1028,8 +1341,14 @@ function Contact() {
                   {submitMessage}
                 </div>
               ) : null}
-              <button type="submit" className="btn-primary mt-6 w-full" disabled={isSubmitting}>
-                {isSubmitting ? t("home.contact.sending") : t("home.contact.submit")}
+              <button
+                type="submit"
+                className="btn-primary mt-6 w-full"
+                disabled={isSubmitting}
+              >
+                {isSubmitting
+                  ? t("home.contact.sending")
+                  : t("home.contact.submit")}
               </button>
             </form>
           </AnimatedSection>
@@ -1040,17 +1359,41 @@ function Contact() {
 }
 
 function Field({
-  name, label, type = "text", required, textarea, className = "",
-}: { name: string; label: string; type?: string; required?: boolean; textarea?: boolean; className?: string }) {
+  name,
+  label,
+  type = "text",
+  required,
+  textarea,
+  className = "",
+}: {
+  name: string;
+  label: string;
+  type?: string;
+  required?: boolean;
+  textarea?: boolean;
+  className?: string;
+}) {
   const base =
     "w-full rounded-lg border border-background/20 bg-background/5 px-4 py-3 text-background placeholder:text-background/40 focus:border-terra focus:outline-none focus:ring-2 focus:ring-clay/30 transition-colors";
   return (
     <label className={`block text-sm ${className}`}>
-      <span className="block text-background/70 text-xs uppercase tracking-wider">{label}</span>
+      <span className="block text-background/70 text-xs uppercase tracking-wider">
+        {label}
+      </span>
       {textarea ? (
-        <textarea name={name} required={required} rows={5} className={`${base} mt-2 resize-none`} />
+        <textarea
+          name={name}
+          required={required}
+          rows={5}
+          className={`${base} mt-2 resize-none`}
+        />
       ) : (
-        <input name={name} type={type} required={required} className={`${base} mt-2`} />
+        <input
+          name={name}
+          type={type}
+          required={required}
+          className={`${base} mt-2`}
+        />
       )}
     </label>
   );
@@ -1070,37 +1413,106 @@ function Footer() {
               aria-hidden="true"
               className="h-10 w-10 rounded-full object-cover"
             />
-            <span className="font-display text-lg">Les Portes de Montafilan</span>
+            <span className="font-display text-lg">
+              Les Portes de Montafilan
+            </span>
           </div>
-          <p className="mt-3 text-sm text-muted-foreground">{t("home.footer.body")}</p>
+          <p className="mt-3 text-sm text-muted-foreground">
+            {t("home.footer.body")}
+          </p>
         </div>
         <div>
-          <div className="text-xs uppercase tracking-wider text-muted-foreground">{t("home.footer.navigation")}</div>
+          <div className="text-xs uppercase tracking-wider text-muted-foreground">
+            {t("home.footer.navigation")}
+          </div>
           <ul className="mt-3 space-y-2 text-sm">
-            <li><a href="#gite" className="hover:text-terra">{t("nav.gite")}</a></li>
-            <li><a href="#equipements" className="hover:text-terra">{t("nav.equipements")}</a></li>
-            <li><a href="#galerie" className="hover:text-terra">{t("nav.galerie")}</a></li>
-            <li><a href="#region" className="hover:text-terra">{t("nav.region")}</a></li>
-            <li><a href="#reservation" className="hover:text-terra">{t("nav.reserve")}</a></li>
-            <li><a href="#contact" className="hover:text-terra">{t("nav.contact")}</a></li>
+            <li>
+              <a href="#gite" className="hover:text-terra">
+                {t("nav.gite")}
+              </a>
+            </li>
+            <li>
+              <a href="#equipements" className="hover:text-terra">
+                {t("nav.equipements")}
+              </a>
+            </li>
+            <li>
+              <a href="#galerie" className="hover:text-terra">
+                {t("nav.galerie")}
+              </a>
+            </li>
+            <li>
+              <a href="#region" className="hover:text-terra">
+                {t("nav.region")}
+              </a>
+            </li>
+            <li>
+              <a href="#reservation" className="hover:text-terra">
+                {t("nav.reserve")}
+              </a>
+            </li>
+            <li>
+              <a href="#contact" className="hover:text-terra">
+                {t("nav.contact")}
+              </a>
+            </li>
           </ul>
         </div>
         <div>
-          <div className="text-xs uppercase tracking-wider text-muted-foreground">{t("nav.contact")}</div>
+          <div className="text-xs uppercase tracking-wider text-muted-foreground">
+            {t("nav.contact")}
+          </div>
           <ul className="mt-3 space-y-2 text-sm">
-            <li><a href="tel:+33780710159" className="hover:text-terra">+33 7 80 71 01 59</a></li>
-            <li><a href="mailto:lesportesdemontafilan@gmail.com" className="hover:text-terra break-all">lesportesdemontafilan@gmail.com</a></li>
-            <li><a href="https://www.facebook.com/LesPortesDeMontafilan" target="_blank" rel="noreferrer" className="hover:text-terra">Facebook</a></li>
-            <li><a href="https://maps.google.com/?q=G%C3%AEte%20-%20Les%20Portes%20de%20Montafilan" target="_blank" rel="noreferrer" className="hover:text-terra">Google Maps</a></li>
+            <li>
+              <a href="tel:+33780710159" className="hover:text-terra">
+                +33 7 80 71 01 59
+              </a>
+            </li>
+            <li>
+              <a
+                href="mailto:lesportesdemontafilan@gmail.com"
+                className="hover:text-terra break-all"
+              >
+                lesportesdemontafilan@gmail.com
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.facebook.com/LesPortesDeMontafilan"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-terra"
+              >
+                Facebook
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://maps.google.com/?q=G%C3%AEte%20-%20Les%20Portes%20de%20Montafilan"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-terra"
+              >
+                Google Maps
+              </a>
+            </li>
           </ul>
         </div>
       </div>
       <div className="container-x mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6 text-xs text-muted-foreground">
-        <span>© {new Date().getFullYear()} {t("home.footer.copyright")}</span>
+        <span>
+          © {new Date().getFullYear()} {t("home.footer.copyright")}
+        </span>
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-          <Link to="/mentions-legales" className="hover:text-terra">{t("footer.legal")}</Link>
-          <Link to="/confidentialite" className="hover:text-terra">{t("footer.privacy")}</Link>
-          <Link to="/cookies" className="hover:text-terra">{t("footer.cookies")}</Link>
+          <Link to="/mentions-legales" className="hover:text-terra">
+            {t("footer.legal")}
+          </Link>
+          <Link to="/confidentialite" className="hover:text-terra">
+            {t("footer.privacy")}
+          </Link>
+          <Link to="/cookies" className="hover:text-terra">
+            {t("footer.cookies")}
+          </Link>
           <LangSwitch />
         </div>
       </div>
@@ -1108,7 +1520,7 @@ function Footer() {
   );
 }
 
-function Home() {
+export function Home() {
   return (
     <main className="bg-background text-foreground">
       <Nav />
