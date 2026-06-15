@@ -7,6 +7,20 @@ export interface MailPayload {
   replyTo?: string;
 }
 
+function isValidEmail(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+}
+
+function cleanEmail(value: string, errorCode: string): string {
+  const email = value.trim();
+
+  if (!isValidEmail(email)) {
+    throw new Error(errorCode);
+  }
+
+  return email;
+}
+
 function buildSender(): { email: string; name?: string } {
   const from = process.env.EMAIL_FROM;
   const name = process.env.EMAIL_FROM_NAME;
@@ -19,14 +33,14 @@ function buildSender(): { email: string; name?: string } {
 
   if (!match) {
     return {
-      email: from.trim(),
+      email: cleanEmail(from, 'EMAIL_FROM_INVALID'),
       name: name?.trim() || undefined,
     };
   }
 
   return {
     name: name?.trim() || match[1].trim() || undefined,
-    email: match[2].trim(),
+    email: cleanEmail(match[2], 'EMAIL_FROM_INVALID'),
   };
 }
 
@@ -55,13 +69,13 @@ export async function sendMail(payload: MailPayload): Promise<void> {
     replyTo?: { email: string };
   } = {
     sender: buildSender(),
-    to: [{ email: payload.to }],
+    to: [{ email: cleanEmail(payload.to, 'EMAIL_TO_INVALID') }],
     templateId: parseTemplateId(payload.templateId),
     params: payload.params,
   };
 
   if (payload.replyTo) {
-    body.replyTo = { email: payload.replyTo };
+    body.replyTo = { email: cleanEmail(payload.replyTo, 'EMAIL_REPLY_TO_INVALID') };
   }
 
   const response = await fetch('https://api.brevo.com/v3/smtp/email', {

@@ -25,6 +25,10 @@ function required(value: string | undefined): value is string {
   return !!value && value.trim().length > 0;
 }
 
+function validEmail(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+}
+
 // Endpoint serverless d'envoi mail proprietaire + accuse de reception voyageur.
 export default async function handler(req: Req, res: Res) {
   try {
@@ -49,6 +53,11 @@ export default async function handler(req: Req, res: Res) {
     const guestEmail = (form.email ?? '').trim();
     if (!required(guestEmail)) {
       res.status(400).json({ error: 'Missing guest email.' });
+      return;
+    }
+
+    if (!validEmail(guestEmail)) {
+      res.status(400).json({ error: 'Invalid guest email.' });
       return;
     }
 
