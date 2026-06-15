@@ -21,7 +21,7 @@ interface Res {
 }
 
 // Verifie qu'une chaine existe et contient du texte utile.
-function required(value: string | undefined): boolean {
+function required(value: string | undefined): value is string {
   return !!value && value.trim().length > 0;
 }
 
@@ -53,50 +53,50 @@ export default async function handler(req: Req, res: Res) {
     }
 
     const ownerMail = process.env.OWNER_EMAIL;
+    const ownerTemplateId = process.env.BREVO_OWNER_TEMPLATE_ID;
+    const clientTemplateId = process.env.BREVO_CLIENT_TEMPLATE_ID;
     const language = req.body?.language === 'en' ? 'en' : 'fr';
 
-    const ownerSummary = [
-      'Nouveau message de contact',
-      `Nom: ${form.firstName} ${form.lastName}`,
-      `Email: ${form.email}`,
-      `Téléphone: ${form.phone || 'Non renseigné'}`,
-      `Sujet: ${form.subject}`,
-      `Message: ${form.message}`,
-    ].join('\n');
-
-    if (ownerMail) {
-      await sendMail({
-        to: ownerMail,
-        subject: `[Contact] ${form.subject}`,
-        text: ownerSummary,
-      });
+    if (!ownerMail) {
+      throw new Error('OWNER_EMAIL_MISSING');
     }
 
-    const guestTextFr = [
-      `Bonjour ${form.firstName},`,
-      '',
-      'Nous avons bien reçu votre message et nous vous répondrons rapidement.',
-      '',
-      'À bientôt,',
-      'Les Portes de Montafilan',
-    ].join('\n');
+    if (!ownerTemplateId) {
+      throw new Error('BREVO_OWNER_TEMPLATE_ID_MISSING');
+    }
 
-    const guestTextEn = [
-      `Hello ${form.firstName},`,
-      '',
-      'We have received your message and will get back to you shortly.',
-      '',
-      'Best regards,',
-      'Les Portes de Montafilan',
-    ].join('\n');
+    if (!clientTemplateId) {
+      throw new Error('BREVO_CLIENT_TEMPLATE_ID_MISSING');
+    }
+
+    const firstName = form.firstName.trim();
+    const lastName = form.lastName.trim();
+    const subject = form.subject.trim();
+    const message = form.message.trim();
+
+    const templateParams = {
+      firstName,
+      lastName,
+      name: `${firstName} ${lastName}`,
+      email: guestEmail,
+      phone: form.phone?.trim() || 'Non renseigné',
+      subject,
+      message,
+      language,
+      siteName: 'Les Portes de Montafilan',
+    };
+
+    await sendMail({
+      to: ownerMail,
+      templateId: ownerTemplateId,
+      params: templateParams,
+      replyTo: guestEmail,
+    });
 
     await sendMail({
       to: guestEmail,
-      subject:
-        language === 'fr'
-          ? 'Votre message - Les Portes de Montafilan'
-          : 'Your message - Les Portes de Montafilan',
-      text: language === 'fr' ? guestTextFr : guestTextEn,
+      templateId: clientTemplateId,
+      params: templateParams,
     });
 
     res.status(200).json({ ok: true });

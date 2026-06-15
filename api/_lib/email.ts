@@ -1,37 +1,82 @@
-﻿export interface MailPayload {
+export type MailTemplateParams = Record<string, string | number | boolean | null | undefined>;
+
+export interface MailPayload {
   to: string;
-  subject: string;
-  text: string;
+  templateId: string | number;
+  params: MailTemplateParams;
+  replyTo?: string;
 }
 
-// Envoi d'email via Resend.
-export async function sendMail(payload: MailPayload): Promise<void> {
-  const apiKey = process.env.RESEND_API_KEY;
+function buildSender(): { email: string; name?: string } {
   const from = process.env.EMAIL_FROM;
+  const name = process.env.EMAIL_FROM_NAME;
 
-  // On ne bloque pas la réservation si l'email n'est pas configuré.
-  if (!apiKey || !from) {
-    return;
+  if (!from) {
+    throw new Error('EMAIL_FROM_MISSING');
   }
 
-  const response = await fetch('https://api.resend.com/emails', {
+  const match = from.match(/^\s*(.*?)\s*<([^>]+)>\s*$/);
+
+  if (!match) {
+    return {
+      email: from.trim(),
+      name: name?.trim() || undefined,
+    };
+  }
+
+  return {
+    name: name?.trim() || match[1].trim() || undefined,
+    email: match[2].trim(),
+  };
+}
+
+function parseTemplateId(value: string | number): number {
+  const templateId = typeof value === 'number' ? value : Number(value);
+
+  if (!Number.isInteger(templateId) || templateId <= 0) {
+    throw new Error('BREVO_TEMPLATE_ID_INVALID');
+  }
+
+  return templateId;
+}
+
+export async function sendMail(payload: MailPayload): Promise<void> {
+  const apiKey = process.env.BREVO_API_KEY;
+
+  if (!apiKey) {
+    throw new Error('BREVO_API_KEY_MISSING');
+  }
+
+  const body: {
+    sender: { email: string; name?: string };
+    to: Array<{ email: string }>;
+    templateId: number;
+    params: MailTemplateParams;
+    replyTo?: { email: string };
+  } = {
+    sender: buildSender(),
+    to: [{ email: payload.to }],
+    templateId: parseTemplateId(payload.templateId),
+    params: payload.params,
+  };
+
+  if (payload.replyTo) {
+    body.replyTo = { email: payload.replyTo };
+  }
+
+  const response = await fetch('https://api.brevo.com/v3/smtp/email', {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${apiKey}`,
+      'api-key': apiKey,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      from,
-      to: [payload.to],
-      subject: payload.subject,
-      text: payload.text,
-    }),
+    body: JSON.stringify(body),
   });
 
   if (!response.ok) {
     const errorBody = await response.text();
     throw new Error(
-      `RESEND_SEND_FAILED (${response.status} ${response.statusText})${errorBody ? `: ${errorBody}` : ''}`,
+      `BREVO_SEND_FAILED (${response.status} ${response.statusText})${errorBody ? `: ${errorBody}` : ''}`,
     );
   }
 }
