@@ -82,6 +82,16 @@ export default async function handler(req: Req, res: Res) {
     const lastName = form.lastName.trim();
     const subject = form.subject.trim();
     const message = form.message.trim();
+    const now = new Date();
+    const sentDate = new Intl.DateTimeFormat('fr-FR', {
+      dateStyle: 'long',
+      timeZone: 'Europe/Paris',
+    }).format(now);
+    const sentTime = new Intl.DateTimeFormat('fr-FR', {
+      timeStyle: 'short',
+      timeZone: 'Europe/Paris',
+    }).format(now);
+    const sentAt = `${sentDate} à ${sentTime}`;
 
     const templateParams = {
       firstName,
@@ -93,6 +103,10 @@ export default async function handler(req: Req, res: Res) {
       message,
       language,
       siteName: 'Les Portes de Montafilan',
+      sentAt,
+      sentDate,
+      sentTime,
+      date: sentAt,
     };
 
     await sendMail({
