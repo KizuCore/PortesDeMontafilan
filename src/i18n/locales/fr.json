@@ -13,7 +13,7 @@
   "footer.privacy": "Confidentialité",
   "footer.cookies": "Cookies",
   "footer.back": "Retour à l'accueil",
-  "cookies.text": "Ce site utilise uniquement des cookies strictement nécessaires à son fonctionnement. Aucun traceur publicitaire.",
+  "cookies.text": "Ce site utilise uniquement des cookies nécessaires et un service anti-spam sur le formulaire de contact. Aucun traceur publicitaire.",
   "cookies.ok": "J'ai compris",
   "cookies.more": "En savoir plus",
   "legal.title": "Mentions légales",
@@ -62,6 +62,7 @@
   "privacy.dataLines": [
     "Le formulaire de contact collecte: prénom, nom, email, téléphone (optionnel), objet et message.",
     "Ces données sont utilisées uniquement pour répondre à votre demande.",
+    "Le formulaire de contact est protégé par Google reCAPTCHA v3, qui peut analyser des signaux techniques afin d'évaluer le risque de spam.",
     "Les dates et informations de réservation sont traitées via Airbnb, pas stockées comme réservation sur ce site."
   ],
   "privacy.purposeTitle": "Finalité",
@@ -71,21 +72,24 @@
   "privacy.cookiesTitle": "Cookies",
   "privacy.cookiesLines": [
     "Ce site ne dépose pas de cookie publicitaire propre à ce jour.",
-    "Des cookies techniques peuvent être déposés par des services tiers (hébergement, mesures techniques)."
+    "Des cookies techniques peuvent être déposés par des services tiers (hébergement, mesures techniques).",
+    "Lors de l'utilisation du formulaire de contact, Google reCAPTCHA v3 peut traiter des données techniques et retourner un score anti-spam."
   ],
   "privacy.rightsTitle": "Vos droits",
   "privacy.rightsText": "Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour exercer ces droits, écrivez-nous à ",
   "privacy.rightsBody": "Vous pouvez demander l'accès, la rectification ou la suppression de vos données en écrivant à lesportesdemontafilan@gmail.com.",
   "privacy.updateTitle": "Mise à jour",
-  "privacy.updateBody": "Dernière mise à jour: mai 2026.",
+  "privacy.updateBody": "Dernière mise à jour: juin 2026.",
   "cookies.pageIntro": "Cette page reprend les informations relatives aux cookies et services techniques utilisés par le site.",
   "cookies.usedTitle": "Cookies utilisés",
   "cookies.langDescription": "mémorise votre langue préférée (FR / EN).",
   "cookies.consentDescription": "garde en mémoire votre acceptation de ce bandeau.",
+  "cookies.recaptchaDescription": "protège le formulaire de contact contre les envois automatisés.",
   "cookies.policyTitle": "Politique cookies",
   "cookies.policyLines": [
     "Ce site ne dépose pas de cookie publicitaire propre à ce jour.",
-    "Des cookies techniques peuvent être déposés par des services tiers (hébergement, mesures techniques)."
+    "Des cookies techniques peuvent être déposés par des services tiers (hébergement, mesures techniques).",
+    "Google reCAPTCHA v3 est chargé au moment de l'envoi du formulaire de contact pour attribuer un score anti-spam."
   ],
   "cookies.removalTitle": "Suppression",
   "cookies.removalText": "Vous pouvez à tout moment effacer ces préférences depuis les paramètres de votre navigateur.",

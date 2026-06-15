@@ -29,6 +29,13 @@ export function CookiesPage() {
                   <strong className="text-foreground">cookie-consent-v1</strong>{" "}
                   - {t("cookies.consentDescription")}
                 </li>
+                <li>
+                  ·{" "}
+                  <strong className="text-foreground">
+                    Google reCAPTCHA v3
+                  </strong>{" "}
+                  - {t("cookies.recaptchaDescription")}
+                </li>
               </ul>
             </div>
             <div>
