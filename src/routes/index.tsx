@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import type { DateRange } from "react-day-picker";
 import { addDays, differenceInCalendarDays } from "date-fns";
@@ -37,6 +37,9 @@ const MAX_CHILDREN = 3;
 const MAX_GUESTS = 4;
 const MIN_INFANTS = 0;
 const MAX_INFANTS = 1;
+const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY as
+  | string
+  | undefined;
 const GOOGLE_MAPS_URL =
   "https://maps.google.com/?q=G%C3%AEte%20-%20Les%20Portes%20de%20Montafilan";
 
@@ -1210,6 +1213,76 @@ function Faq() {
   );
 }
 
+declare global {
+  interface Window {
+    grecaptcha?: {
+      ready: (callback: () => void) => void;
+      execute: (
+        siteKey: string,
+        options: { action: string },
+      ) => Promise<string>;
+    };
+  }
+}
+
+let recaptchaScriptPromise: Promise<void> | null = null;
+
+function loadRecaptchaScript(siteKey: string): Promise<void> {
+  if (window.grecaptcha) {
+    return Promise.resolve();
+  }
+
+  if (recaptchaScriptPromise) {
+    return recaptchaScriptPromise;
+  }
+
+  recaptchaScriptPromise = new Promise((resolve, reject) => {
+    const existingScript = document.querySelector<HTMLScriptElement>(
+      'script[src^="https://www.google.com/recaptcha/api.js"]',
+    );
+
+    if (existingScript) {
+      if (window.grecaptcha) {
+        resolve();
+        return;
+      }
+
+      existingScript.addEventListener("load", () => resolve(), { once: true });
+      existingScript.addEventListener("error", () => reject(), { once: true });
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = `https://www.google.com/recaptcha/api.js?render=${encodeURIComponent(
+      siteKey,
+    )}`;
+    script.async = true;
+    script.defer = true;
+    script.addEventListener("load", () => resolve(), { once: true });
+    script.addEventListener("error", () => reject(), { once: true });
+    document.head.appendChild(script);
+  });
+
+  return recaptchaScriptPromise;
+}
+
+async function getRecaptchaToken(siteKey: string): Promise<string> {
+  await loadRecaptchaScript(siteKey);
+
+  if (!window.grecaptcha) {
+    throw new Error("RECAPTCHA_NOT_LOADED");
+  }
+
+  return new Promise((resolve, reject) => {
+    window.grecaptcha?.ready(() => {
+      window.grecaptcha
+        ?.execute(siteKey, { action: "contact" })
+        .then(resolve)
+        .catch(reject);
+    });
+  });
+}
+
 function Contact() {
   const { lang, t } = useI18n();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -1298,11 +1371,21 @@ function Contact() {
                 const f = e.currentTarget as HTMLFormElement;
                 const data = new FormData(f);
 
-                setIsSubmitting(true);
                 setSubmitState("idle");
                 setSubmitMessage(null);
 
+                if (!RECAPTCHA_SITE_KEY) {
+                  setSubmitState("error");
+                  setSubmitMessage(t("home.contact.captchaNotConfigured"));
+                  return;
+                }
+
+                setIsSubmitting(true);
+
                 try {
+                  const captchaToken =
+                    await getRecaptchaToken(RECAPTCHA_SITE_KEY);
+
                   const response = await fetch("/api/contact", {
                     method: "POST",
                     headers: {
@@ -1321,6 +1404,7 @@ function Contact() {
                         ).trim(),
                         message: String(data.get("message") || "").trim(),
                       },
+                      captchaToken,
                     }),
                   });
 
@@ -1383,6 +1467,11 @@ function Contact() {
                   className="sm:col-span-2"
                 />
               </div>
+              {!RECAPTCHA_SITE_KEY ? (
+                <div className="mt-6 rounded-xl border border-destructive/40 bg-destructive/10 p-4 text-sm text-destructive-foreground">
+                  {t("home.contact.captchaNotConfigured")}
+                </div>
+              ) : null}
               {submitMessage ? (
                 <div
                   className={`mt-6 rounded-xl border p-4 text-sm ${
@@ -1397,7 +1486,7 @@ function Contact() {
               <button
                 type="submit"
                 className="btn-primary mt-6 w-full"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !RECAPTCHA_SITE_KEY}
               >
                 {isSubmitting
                   ? t("home.contact.sending")

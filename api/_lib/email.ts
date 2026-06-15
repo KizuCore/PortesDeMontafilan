@@ -1,4 +1,7 @@
-export type MailTemplateParams = Record<string, string | number | boolean | null | undefined>;
+export type MailTemplateParams = Record<
+  string,
+  string | number | boolean | null | undefined
+>;
 
 export interface MailPayload {
   to: string;
@@ -26,29 +29,29 @@ function buildSender(): { email: string; name?: string } {
   const name = process.env.EMAIL_FROM_NAME;
 
   if (!from) {
-    throw new Error('EMAIL_FROM_MISSING');
+    throw new Error("EMAIL_FROM_MISSING");
   }
 
   const match = from.match(/^\s*(.*?)\s*<([^>]+)>\s*$/);
 
   if (!match) {
     return {
-      email: cleanEmail(from, 'EMAIL_FROM_INVALID'),
+      email: cleanEmail(from, "EMAIL_FROM_INVALID"),
       name: name?.trim() || undefined,
     };
   }
 
   return {
     name: name?.trim() || match[1].trim() || undefined,
-    email: cleanEmail(match[2], 'EMAIL_FROM_INVALID'),
+    email: cleanEmail(match[2], "EMAIL_FROM_INVALID"),
   };
 }
 
 function parseTemplateId(value: string | number): number {
-  const templateId = typeof value === 'number' ? value : Number(value);
+  const templateId = typeof value === "number" ? value : Number(value);
 
   if (!Number.isInteger(templateId) || templateId <= 0) {
-    throw new Error('BREVO_TEMPLATE_ID_INVALID');
+    throw new Error("BREVO_TEMPLATE_ID_INVALID");
   }
 
   return templateId;
@@ -58,7 +61,7 @@ export async function sendMail(payload: MailPayload): Promise<void> {
   const apiKey = process.env.BREVO_API_KEY;
 
   if (!apiKey) {
-    throw new Error('BREVO_API_KEY_MISSING');
+    throw new Error("BREVO_API_KEY_MISSING");
   }
 
   const body: {
@@ -69,20 +72,22 @@ export async function sendMail(payload: MailPayload): Promise<void> {
     replyTo?: { email: string };
   } = {
     sender: buildSender(),
-    to: [{ email: cleanEmail(payload.to, 'EMAIL_TO_INVALID') }],
+    to: [{ email: cleanEmail(payload.to, "EMAIL_TO_INVALID") }],
     templateId: parseTemplateId(payload.templateId),
     params: payload.params,
   };
 
   if (payload.replyTo) {
-    body.replyTo = { email: cleanEmail(payload.replyTo, 'EMAIL_REPLY_TO_INVALID') };
+    body.replyTo = {
+      email: cleanEmail(payload.replyTo, "EMAIL_REPLY_TO_INVALID"),
+    };
   }
 
-  const response = await fetch('https://api.brevo.com/v3/smtp/email', {
-    method: 'POST',
+  const response = await fetch("https://api.brevo.com/v3/smtp/email", {
+    method: "POST",
     headers: {
-      'api-key': apiKey,
-      'Content-Type': 'application/json',
+      "api-key": apiKey,
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(body),
   });
@@ -90,7 +95,7 @@ export async function sendMail(payload: MailPayload): Promise<void> {
   if (!response.ok) {
     const errorBody = await response.text();
     throw new Error(
-      `BREVO_SEND_FAILED (${response.status} ${response.statusText})${errorBody ? `: ${errorBody}` : ''}`,
+      `BREVO_SEND_FAILED (${response.status} ${response.statusText})${errorBody ? `: ${errorBody}` : ""}`,
     );
   }
 }
