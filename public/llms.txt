@@ -27,10 +27,10 @@ Site officiel du gîte Les Portes de Montafilan à Corseul (France), entre Dinan
 - Jeux de société
 
 ## Pages importantes
-- Accueil: https://lesportesdemontafilan.com/
-- Mentions légales: https://lesportesdemontafilan.com/mentions-legales
-- Confidentialité: https://lesportesdemontafilan.com/confidentialite
-- Cookies: https://lesportesdemontafilan.com/cookies
+- Accueil: https://www.lesportesdemontafilan.com/
+- Mentions légales: https://www.lesportesdemontafilan.com/mentions-legales
+- Confidentialité: https://www.lesportesdemontafilan.com/confidentialite
+- Cookies: https://www.lesportesdemontafilan.com/cookies
 
 ## Localisation
 - Pays: France

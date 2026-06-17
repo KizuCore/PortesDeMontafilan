@@ -8,7 +8,7 @@ import { CookiesPage } from "@/routes/cookies";
 import { Home } from "@/routes/index";
 import { MentionsLegalesPage } from "@/routes/mentions-legales";
 
-const SITE_ORIGIN = "https://lesportesdemontafilan.com";
+const SITE_ORIGIN = "https://www.lesportesdemontafilan.com";
 
 function upsertMeta(
   attribute: "name" | "property",
