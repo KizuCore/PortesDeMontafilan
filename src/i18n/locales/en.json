@@ -52,7 +52,11 @@
   "privacy.title": "Privacy & cookies policy",
   "privacy.intro": "This page explains what data may be collected, why it is collected, and how it is handled.",
   "privacy.lead": "This page explains what data may be collected, why it is collected, and how it is handled.",
-  "privacy.pills": ["Data minimization", "Booking-only usage", "GDPR rights"],
+  "privacy.pills": [
+    "Data minimization",
+    "Booking-only usage",
+    "GDPR rights"
+  ],
   "privacy.dataTitle": "Data collected",
   "privacy.dataText": "The contact form collects: first name, last name, email, phone (optional), subject, and message. This data is used only to reply to your request. Booking dates and booking details are handled through Airbnb, not stored as bookings on this website.",
   "privacy.dataLines": [
@@ -182,10 +186,22 @@
   "home.footer.navigation": "Navigation",
   "home.footer.copyright": "Les Portes de Montafilan - Corseul, Brittany",
   "home.highlights": [
-    { "k": "85 sqm", "v": "House renovated in 2018" },
-    { "k": "350 sqm", "v": "Private enclosed garden" },
-    { "k": "4 + baby", "v": "Up to 4 guests" },
-    { "k": "15 min", "v": "From Breton beaches" }
+    {
+      "k": "85 sqm",
+      "v": "House renovated in 2018"
+    },
+    {
+      "k": "350 sqm",
+      "v": "Private enclosed garden"
+    },
+    {
+      "k": "4 + baby",
+      "v": "Up to 4 guests"
+    },
+    {
+      "k": "15 min",
+      "v": "From Breton beaches"
+    }
   ],
   "home.intro.tags": [
     "Wifi",
@@ -206,8 +222,14 @@
       "t": "2 bedrooms",
       "d": "One double bed, two single beds, and a baby cot on request."
     },
-    { "t": "Bathroom", "d": "One complete bathroom and two separate toilets." },
-    { "t": "Workspace", "d": "A dedicated desk area in a separate room." },
+    {
+      "t": "Bathroom",
+      "d": "One complete bathroom and two separate toilets."
+    },
+    {
+      "t": "Workspace",
+      "d": "A dedicated desk area in a separate room."
+    },
     {
       "t": "Garden & terrace",
       "d": "350 sqm enclosed garden, outdoor furniture, outdoor dining area and plancha with exterior power socket."
@@ -222,7 +244,6 @@
       "title": "Kitchen & dining",
       "items": [
         "Equipped kitchen",
-        "BEKO stainless steel oven",
         "Dishwasher",
         "Refrigerator / freezer",
         "Microwave",
@@ -289,37 +310,64 @@
       "key": "salon",
       "label": "Living room",
       "images": [
-        { "src": "house/Salon1.avif", "alt": "Bright living room" },
-        { "src": "house/Salon2.avif", "alt": "Sitting area" }
+        {
+          "src": "house/Salon1.avif",
+          "alt": "Bright living room"
+        },
+        {
+          "src": "house/Salon2.avif",
+          "alt": "Sitting area"
+        }
       ]
     },
     {
       "key": "cuisine",
       "label": "Kitchen",
       "images": [
-        { "src": "house/Cuisine.avif", "alt": "Equipped kitchen" },
-        { "src": "house/Cuisine2.avif", "alt": "Kitchen - second view" }
+        {
+          "src": "house/Cuisine.avif",
+          "alt": "Equipped kitchen"
+        },
+        {
+          "src": "house/Cuisine2.avif",
+          "alt": "Kitchen - second view"
+        }
       ]
     },
     {
       "key": "repas",
       "label": "Dining area",
       "images": [
-        { "src": "house/EspaceRepas1.avif", "alt": "Dining area" },
+        {
+          "src": "house/EspaceRepas1.avif",
+          "alt": "Dining area"
+        },
         {
           "src": "house/EspaceRepas2.avif",
           "alt": "Dining area - second view"
         },
-        { "src": "house/EspaceRepas3.avif", "alt": "Dining area - third view" }
+        {
+          "src": "house/EspaceRepas3.avif",
+          "alt": "Dining area - third view"
+        }
       ]
     },
     {
       "key": "chambres",
       "label": "Bedrooms",
       "images": [
-        { "src": "house/Chambre1.avif", "alt": "Bedroom 1" },
-        { "src": "house/Chambre2.avif", "alt": "Bedroom 2" },
-        { "src": "house/ChambreDL1.avif", "alt": "Double bedroom" },
+        {
+          "src": "house/Chambre1.avif",
+          "alt": "Bedroom 1"
+        },
+        {
+          "src": "house/Chambre2.avif",
+          "alt": "Bedroom 2"
+        },
+        {
+          "src": "house/ChambreDL1.avif",
+          "alt": "Double bedroom"
+        },
         {
           "src": "house/ChambreDL2.avif",
           "alt": "Double bedroom - second view"
@@ -330,26 +378,50 @@
       "key": "sdb",
       "label": "Bathroom & toilets",
       "images": [
-        { "src": "house/SalleDeBain1.avif", "alt": "Bathroom" },
-        { "src": "house/SalleDeBain2.avif", "alt": "Bathroom - second view" },
-        { "src": "house/Toilettes1.avif", "alt": "Toilets" }
+        {
+          "src": "house/SalleDeBain1.avif",
+          "alt": "Bathroom"
+        },
+        {
+          "src": "house/SalleDeBain2.avif",
+          "alt": "Bathroom - second view"
+        },
+        {
+          "src": "house/Toilettes1.avif",
+          "alt": "Toilets"
+        }
       ]
     },
     {
       "key": "travail",
       "label": "Workspace",
       "images": [
-        { "src": "house/EspaceTravail1.avif", "alt": "Desk" },
-        { "src": "house/EspaceTravail2.avif", "alt": "Desk - second view" }
+        {
+          "src": "house/EspaceTravail1.avif",
+          "alt": "Desk"
+        },
+        {
+          "src": "house/EspaceTravail2.avif",
+          "alt": "Desk - second view"
+        }
       ]
     },
     {
       "key": "exterieur",
       "label": "Outdoor & garden",
       "images": [
-        { "src": "house/Exterieur1.avif", "alt": "Exterior" },
-        { "src": "house/ArriereCours1.avif", "alt": "Garden" },
-        { "src": "house/ArriereCours2.avif", "alt": "Backyard" }
+        {
+          "src": "house/Exterieur1.avif",
+          "alt": "Exterior"
+        },
+        {
+          "src": "house/ArriereCours1.avif",
+          "alt": "Garden"
+        },
+        {
+          "src": "house/ArriereCours2.avif",
+          "alt": "Backyard"
+        }
       ]
     }
   ],
@@ -367,37 +439,56 @@
       "name": "Saint-Malo",
       "km": "30 km",
       "img": "lieux/saint-malo-remparts.jpg",
-      "notes": ["Ramparts & Intra-Muros", "Sillon beach", "Corsair city"]
+      "notes": [
+        "Ramparts & Intra-Muros",
+        "Sillon beach",
+        "Corsair city"
+      ]
     },
     {
       "name": "Cap Fréhel & Fort La Latte",
       "km": "18 km",
       "img": "lieux/cap-frehel_emmanuel-berthier.jpg",
-      "notes": ["Panoramic cliffs", "Historic seaside fort"]
+      "notes": [
+        "Panoramic cliffs",
+        "Historic seaside fort"
+      ]
     },
     {
       "name": "Saint-Cast-Le-Guildo",
       "km": "10 km",
       "img": "lieux/saint-cast-grande-plage.jpg",
-      "notes": ["Large sandy beach", "Pointe de la Garde"]
+      "notes": [
+        "Large sandy beach",
+        "Pointe de la Garde"
+      ]
     },
     {
       "name": "Dinard - Plage de l'Écluse",
       "km": "23 km",
       "img": "lieux/dinard-ecluse.jpg",
-      "notes": ["Promenade du Clair de Lune", "Belle Époque villas"]
+      "notes": [
+        "Promenade du Clair de Lune",
+        "Belle Époque villas"
+      ]
     },
     {
       "name": "Ebihens Archipelago",
       "km": "13 km",
       "img": "lieux/ebihens.jpg",
-      "notes": ["Low-tide walks", "Preserved coastline"]
+      "notes": [
+        "Low-tide walks",
+        "Preserved coastline"
+      ]
     },
     {
       "name": "Château de la Hunaudaye",
       "km": "8.5 km",
       "img": "lieux/hunaudaye.jpg",
-      "notes": ["Iconic medieval fortress", "Immersive family visit"]
+      "notes": [
+        "Iconic medieval fortress",
+        "Immersive family visit"
+      ]
     }
   ],
   "home.activities": [
@@ -426,9 +517,21 @@
     }
   ],
   "home.rates": [
-    { "label": "October to April", "price": "€61", "unit": "/ night" },
-    { "label": "May / September", "price": "€68", "unit": "/ night" },
-    { "label": "Holidays + July/August", "price": "€100", "unit": "/ night" }
+    {
+      "label": "October to April",
+      "price": "€61",
+      "unit": "/ night"
+    },
+    {
+      "label": "May / September",
+      "price": "€68",
+      "unit": "/ night"
+    },
+    {
+      "label": "Holidays + July/August",
+      "price": "€100",
+      "unit": "/ night"
+    }
   ],
   "home.practical": [
     "Check-in from 4:00 PM",

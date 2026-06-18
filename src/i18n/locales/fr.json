@@ -186,10 +186,22 @@
   "home.footer.navigation": "Navigation",
   "home.footer.copyright": "Les Portes de Montafilan - Corseul, Bretagne",
   "home.highlights": [
-    { "k": "85 m²", "v": "Maison rénovée en 2018" },
-    { "k": "350 m²", "v": "Jardin clos privatif" },
-    { "k": "4 + bébé", "v": "Jusqu'à 4 voyageurs" },
-    { "k": "15 min", "v": "Des plages bretonnes" }
+    {
+      "k": "85 m²",
+      "v": "Maison rénovée en 2018"
+    },
+    {
+      "k": "350 m²",
+      "v": "Jardin clos privatif"
+    },
+    {
+      "k": "4 + bébé",
+      "v": "Jusqu'à 4 voyageurs"
+    },
+    {
+      "k": "15 min",
+      "v": "Des plages bretonnes"
+    }
   ],
   "home.intro.tags": [
     "Wifi",
@@ -232,7 +244,6 @@
       "title": "Cuisine & repas",
       "items": [
         "Cuisine équipée",
-        "Four BEKO inox",
         "Lave-vaisselle",
         "Réfrigérateur / congélateur",
         "Micro-ondes",
@@ -299,61 +310,118 @@
       "key": "salon",
       "label": "Salon",
       "images": [
-        { "src": "house/Salon1.avif", "alt": "Salon lumineux" },
-        { "src": "house/Salon2.avif", "alt": "Coin salon" }
+        {
+          "src": "house/Salon1.avif",
+          "alt": "Salon lumineux"
+        },
+        {
+          "src": "house/Salon2.avif",
+          "alt": "Coin salon"
+        }
       ]
     },
     {
       "key": "cuisine",
       "label": "Cuisine",
       "images": [
-        { "src": "house/Cuisine.avif", "alt": "Cuisine équipée" },
-        { "src": "house/Cuisine2.avif", "alt": "Cuisine - vue 2" }
+        {
+          "src": "house/Cuisine.avif",
+          "alt": "Cuisine équipée"
+        },
+        {
+          "src": "house/Cuisine2.avif",
+          "alt": "Cuisine - vue 2"
+        }
       ]
     },
     {
       "key": "repas",
       "label": "Espace repas",
       "images": [
-        { "src": "house/EspaceRepas1.avif", "alt": "Espace repas" },
-        { "src": "house/EspaceRepas2.avif", "alt": "Espace repas - vue 2" },
-        { "src": "house/EspaceRepas3.avif", "alt": "Espace repas - vue 3" }
+        {
+          "src": "house/EspaceRepas1.avif",
+          "alt": "Espace repas"
+        },
+        {
+          "src": "house/EspaceRepas2.avif",
+          "alt": "Espace repas - vue 2"
+        },
+        {
+          "src": "house/EspaceRepas3.avif",
+          "alt": "Espace repas - vue 3"
+        }
       ]
     },
     {
       "key": "chambres",
       "label": "Chambres",
       "images": [
-        { "src": "house/Chambre1.avif", "alt": "Chambre 1" },
-        { "src": "house/Chambre2.avif", "alt": "Chambre 2" },
-        { "src": "house/ChambreDL1.avif", "alt": "Chambre lit double" },
-        { "src": "house/ChambreDL2.avif", "alt": "Chambre lit double - vue 2" }
+        {
+          "src": "house/Chambre1.avif",
+          "alt": "Chambre 1"
+        },
+        {
+          "src": "house/Chambre2.avif",
+          "alt": "Chambre 2"
+        },
+        {
+          "src": "house/ChambreDL1.avif",
+          "alt": "Chambre lit double"
+        },
+        {
+          "src": "house/ChambreDL2.avif",
+          "alt": "Chambre lit double - vue 2"
+        }
       ]
     },
     {
       "key": "sdb",
       "label": "Salle de bain & WC",
       "images": [
-        { "src": "house/SalleDeBain1.avif", "alt": "Salle de bain" },
-        { "src": "house/SalleDeBain2.avif", "alt": "Salle de bain - vue 2" },
-        { "src": "house/Toilettes1.avif", "alt": "Toilettes" }
+        {
+          "src": "house/SalleDeBain1.avif",
+          "alt": "Salle de bain"
+        },
+        {
+          "src": "house/SalleDeBain2.avif",
+          "alt": "Salle de bain - vue 2"
+        },
+        {
+          "src": "house/Toilettes1.avif",
+          "alt": "Toilettes"
+        }
       ]
     },
     {
       "key": "travail",
       "label": "Espace de travail",
       "images": [
-        { "src": "house/EspaceTravail1.avif", "alt": "Bureau" },
-        { "src": "house/EspaceTravail2.avif", "alt": "Bureau - vue 2" }
+        {
+          "src": "house/EspaceTravail1.avif",
+          "alt": "Bureau"
+        },
+        {
+          "src": "house/EspaceTravail2.avif",
+          "alt": "Bureau - vue 2"
+        }
       ]
     },
     {
       "key": "exterieur",
       "label": "Extérieur & jardin",
       "images": [
-        { "src": "house/Exterieur1.avif", "alt": "Extérieur" },
-        { "src": "house/ArriereCours1.avif", "alt": "Jardin" },
-        { "src": "house/ArriereCours2.avif", "alt": "Arrière-cour" }
+        {
+          "src": "house/Exterieur1.avif",
+          "alt": "Extérieur"
+        },
+        {
+          "src": "house/ArriereCours1.avif",
+          "alt": "Jardin"
+        },
+        {
+          "src": "house/ArriereCours2.avif",
+          "alt": "Arrière-cour"
+        }
       ]
     }
   ],
@@ -371,31 +439,47 @@
       "name": "Saint-Malo",
       "km": "30 km",
       "img": "lieux/saint-malo-remparts.jpg",
-      "notes": ["Remparts & Intra-Muros", "Plage du Sillon", "Cité corsaire"]
+      "notes": [
+        "Remparts & Intra-Muros",
+        "Plage du Sillon",
+        "Cité corsaire"
+      ]
     },
     {
       "name": "Cap Fréhel & Fort La Latte",
       "km": "18 km",
       "img": "lieux/cap-frehel_emmanuel-berthier.jpg",
-      "notes": ["Falaises panoramiques", "Fort historique en bord de mer"]
+      "notes": [
+        "Falaises panoramiques",
+        "Fort historique en bord de mer"
+      ]
     },
     {
       "name": "Saint-Cast-Le-Guildo",
       "km": "10 km",
       "img": "lieux/saint-cast-grande-plage.jpg",
-      "notes": ["Grande plage de sable", "Pointe de la Garde"]
+      "notes": [
+        "Grande plage de sable",
+        "Pointe de la Garde"
+      ]
     },
     {
       "name": "Dinard - Plage de l'Écluse",
       "km": "23 km",
       "img": "lieux/dinard-ecluse.jpg",
-      "notes": ["Promenade du Clair de Lune", "Villas Belle Époque"]
+      "notes": [
+        "Promenade du Clair de Lune",
+        "Villas Belle Époque"
+      ]
     },
     {
       "name": "Archipel des Ébihens",
       "km": "13 km",
       "img": "lieux/ebihens.jpg",
-      "notes": ["Balades à marée basse", "Côte préservée"]
+      "notes": [
+        "Balades à marée basse",
+        "Côte préservée"
+      ]
     },
     {
       "name": "Château de la Hunaudaye",
@@ -433,9 +517,21 @@
     }
   ],
   "home.rates": [
-    { "label": "Octobre à avril", "price": "61 €", "unit": "/ nuit" },
-    { "label": "Mai / septembre", "price": "68 €", "unit": "/ nuit" },
-    { "label": "Vacances + juillet/août", "price": "100 €", "unit": "/ nuit" }
+    {
+      "label": "Octobre à avril",
+      "price": "61 €",
+      "unit": "/ nuit"
+    },
+    {
+      "label": "Mai / septembre",
+      "price": "68 €",
+      "unit": "/ nuit"
+    },
+    {
+      "label": "Vacances + juillet/août",
+      "price": "100 €",
+      "unit": "/ nuit"
+    }
   ],
   "home.practical": [
     "Arrivée à partir de 16h00",
