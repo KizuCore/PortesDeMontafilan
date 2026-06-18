@@ -32,7 +32,7 @@ export function Gallery() {
                   key={s.key}
                   type="button"
                   onClick={() => setActive(s.key)}
-                  className={`rounded-full border px-4 py-2 text-sm transition-all duration-300 ${
+                  className={`cursor-pointer rounded-full border px-4 py-2 text-sm transition-all duration-300 ${
                     isActive
                       ? "border-forest bg-forest text-primary-foreground shadow-soft"
                       : "border-border bg-card text-foreground hover:bg-secondary"
