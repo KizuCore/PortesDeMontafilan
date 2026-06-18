@@ -91,16 +91,16 @@
   "cookies.removalText": "You can erase these preferences at any time from your browser settings.",
   "home.hero.imageAlt": "Enclosed garden at Les Portes de Montafilan cottage",
   "home.hero.eyebrow": "Corseul · Côtes-d'Armor · Brittany",
-  "home.hero.titleBefore": "A peaceful Breton escape, between ",
+  "home.hero.titleBefore": "In the heart of the Emerald Coast, between ",
   "home.hero.titleEm": "land and sea",
   "home.hero.titleAfter": ".",
-  "home.hero.body": "Les Portes de Montafilan - family cottage in Corseul, between Dinan, Saint-Malo and Cap Fréhel.",
+  "home.hero.body": "Les Portes de Montafilan - family cottage in Corseul, in the heart of the Emerald Coast, between Dinan, Saint-Malo and Cap Fréhel.",
   "home.hero.primaryCta": "Check availability",
   "home.hero.secondaryCta": "Ask a question",
   "home.intro.eyebrow": "The cottage",
   "home.intro.title": "A bright, simple and welcoming retreat.",
   "home.intro.p1": "An 85 sqm house fully renovated in 2018, with a bright living room opening onto a fully equipped kitchen. Two bedrooms (one double bed, two single beds), one bathroom, two separate toilets and a workspace.",
-  "home.intro.p2": "Outside, a large 350 sqm enclosed garden with private parking lets you enjoy peaceful Brittany in complete comfort.",
+  "home.intro.p2": "Outside, a large 350 sqm enclosed garden includes a one-car garage, outdoor parking for 2 cars (up to 3 depending on vehicle size) and a dining area with plancha.",
   "home.spaces.eyebrow": "Spaces & layout",
   "home.spaces.title": "Everything you need to feel at home.",
   "home.amenities.eyebrow": "Amenities",
@@ -112,7 +112,7 @@
   "home.gallery.body": "Choose a section to browse only those photos.",
   "home.region.eyebrow": "The region",
   "home.region.title": "A getaway on your doorstep.",
-  "home.region.p1": "Les Portes de Montafilan is a cottage in Côtes-d'Armor, ideally set between countryside and sea. It is a practical base for discovering Dinan, Saint-Malo and Cap Fréhel.",
+  "home.region.p1": "Les Portes de Montafilan is a cottage in Côtes-d'Armor, set in the heart of the Emerald Coast. It is a practical base for discovering Dinan, Saint-Malo, Cap Fréhel, Pléneuf-Val-André and Erquy.",
   "home.region.p2": "The area blends Breton heritage, local markets and coastal trails - perfect for a weekend or a longer holiday.",
   "home.region.activitiesTitle": "Things to do nearby",
   "home.region.tourismOffice": "Dinan - Cap Fréhel tourism office ↗",
@@ -178,7 +178,7 @@
   "home.contact.captchaRequired": "Please complete the anti-spam check before sending.",
   "home.contact.captchaError": "The anti-spam check could not load. Please try again.",
   "home.contact.captchaNotConfigured": "The anti-spam protection is not configured.",
-  "home.footer.body": "Warm cottage in Corseul, between Dinan, Saint-Malo and Cap Fréhel.",
+  "home.footer.body": "Warm cottage in Corseul, in the heart of the Emerald Coast.",
   "home.footer.navigation": "Navigation",
   "home.footer.copyright": "Les Portes de Montafilan - Corseul, Brittany",
   "home.highlights": [
@@ -194,8 +194,8 @@
     "TV",
     "Baby equipment",
     "Board games",
-    "BBQ",
-    "Garage"
+    "Plancha",
+    "1-car garage"
   ],
   "home.spaces.items": [
     {
@@ -210,11 +210,11 @@
     { "t": "Workspace", "d": "A dedicated desk area in a separate room." },
     {
       "t": "Garden & terrace",
-      "d": "350 sqm enclosed garden, outdoor furniture and dining area."
+      "d": "350 sqm enclosed garden, outdoor furniture, outdoor dining area and plancha with exterior power socket."
     },
     {
       "t": "Garage & parking",
-      "d": "Private garage (2 spaces) and free street parking."
+      "d": "Private one-car garage and outdoor parking for 2 cars, up to 3 depending on vehicle size."
     }
   ],
   "home.amenities.items": [
@@ -238,7 +238,7 @@
         "350 sqm enclosed garden",
         "Outdoor furniture",
         "Outdoor dining area",
-        "Private electric BBQ",
+        "Plancha with exterior power socket",
         "Sun loungers"
       ]
     },
@@ -269,7 +269,11 @@
     },
     {
       "title": "Parking",
-      "items": ["Private garage on site (2 spaces)", "Free street parking"]
+      "items": [
+        "Private garage on site (1 space)",
+        "Outdoor parking for 2 cars",
+        "Up to 3 spaces depending on vehicle size"
+      ]
     },
     {
       "title": "Safety & arrival",
@@ -398,6 +402,8 @@
   ],
   "home.activities": [
     "Zoo de la Bourbansais - Pleugueneuc (29 km)",
+    "Dolo Aquapark & Wakepark",
+    "Pléneuf-Val-André and Erquy",
     "Golf - Saint-Cast, Lancieux, Dinard, Saint-Michel-de-Plélan",
     "Tree adventure parks - Morieux, Saint-Cast",
     "Karting - Lamballe",
@@ -416,7 +422,7 @@
     },
     {
       "t": "Comfort & flexibility",
-      "d": "A peaceful setting, enclosed outdoor space and easy road access to the major destinations of northern Brittany."
+      "d": "An enclosed outdoor space, a central position on the Emerald Coast and easy road access to the major destinations of northern Brittany."
     }
   ],
   "home.rates": [
@@ -441,7 +447,7 @@
     },
     {
       "q": "What kind of stay is this cottage best suited for?",
-      "a": "It is ideal for a calm, high-quality family holiday in Brittany, with visits, beaches and local discoveries."
+      "a": "It is ideal for a high-quality family holiday in Brittany, with visits, beaches and local discoveries."
     }
   ]
 }

@@ -95,16 +95,16 @@
   "cookies.removalText": "Vous pouvez à tout moment effacer ces préférences depuis les paramètres de votre navigateur.",
   "home.hero.imageAlt": "Jardin clos du gîte Les Portes de Montafilan",
   "home.hero.eyebrow": "Corseul · Côtes-d'Armor · Bretagne",
-  "home.hero.titleBefore": "Une parenthèse bretonne, entre ",
+  "home.hero.titleBefore": "Au cœur de la Côte d'Émeraude, entre ",
   "home.hero.titleEm": "terre et mer",
   "home.hero.titleAfter": ".",
-  "home.hero.body": "Les Portes de Montafilan - gîte familial à Corseul, entre Dinan, Saint-Malo et le Cap Fréhel.",
+  "home.hero.body": "Les Portes de Montafilan - gîte familial à Corseul, au centre de la Côte d'Émeraude, entre Dinan, Saint-Malo et le Cap Fréhel.",
   "home.hero.primaryCta": "Vérifier les disponibilités",
   "home.hero.secondaryCta": "Poser une question",
   "home.intro.eyebrow": "Le gîte",
   "home.intro.title": "Un cocon lumineux, simple et chaleureux.",
   "home.intro.p1": "Une maison de 85 m² entièrement rénovée en 2018, avec un séjour clair ouvert sur une cuisine équipée. Deux chambres (un lit double, deux lits simples), une salle de bain, deux WC séparés et un espace de travail.",
-  "home.intro.p2": "À l'extérieur, un grand jardin clos de 350 m² avec parking privatif, pour profiter du calme breton, en toute tranquillité.",
+  "home.intro.p2": "À l'extérieur, un grand jardin clos de 350 m² avec garage une place, parking extérieur pour 2 voitures (voire 3 selon les véhicules) et coin repas avec plancha.",
   "home.spaces.eyebrow": "Espaces & agencement",
   "home.spaces.title": "Tout ce qu'il faut pour se sentir chez soi.",
   "home.amenities.eyebrow": "Équipements",
@@ -116,7 +116,7 @@
   "home.gallery.body": "Choisissez une section pour parcourir uniquement ses photos.",
   "home.region.eyebrow": "La région",
   "home.region.title": "S'échapper, à deux pas.",
-  "home.region.p1": "Les Portes de Montafilan, c'est un gîte des Côtes-d'Armor, idéalement placé entre campagne et mer. Une base pratique pour partir à la découverte de Dinan, Saint-Malo et du Cap Fréhel.",
+  "home.region.p1": "Les Portes de Montafilan, c'est un gîte des Côtes-d'Armor situé au centre de la Côte d'Émeraude. Une base pratique pour partir à la découverte de Dinan, Saint-Malo, du Cap Fréhel, de Pléneuf-Val-André et d'Erquy.",
   "home.region.p2": "La région mêle patrimoine breton, marchés locaux et sentiers côtiers - parfait pour un week-end comme pour des vacances plus longues.",
   "home.region.activitiesTitle": "À faire autour",
   "home.region.tourismOffice": "Office de tourisme Dinan - Cap Fréhel ↗",
@@ -182,7 +182,7 @@
   "home.contact.captchaRequired": "Merci de valider la protection anti-spam avant l'envoi.",
   "home.contact.captchaError": "La protection anti-spam n'a pas pu être chargée. Merci de réessayer.",
   "home.contact.captchaNotConfigured": "La protection anti-spam n'est pas configurée.",
-  "home.footer.body": "Gîte chaleureux à Corseul, entre Dinan, Saint-Malo et Cap Fréhel.",
+  "home.footer.body": "Gîte chaleureux à Corseul, au centre de la Côte d'Émeraude.",
   "home.footer.navigation": "Navigation",
   "home.footer.copyright": "Les Portes de Montafilan - Corseul, Bretagne",
   "home.highlights": [
@@ -198,8 +198,8 @@
     "TV",
     "Équipement bébé",
     "Jeux de société",
-    "BBQ",
-    "Garage"
+    "Plancha",
+    "Garage 1 place"
   ],
   "home.spaces.items": [
     {
@@ -220,11 +220,11 @@
     },
     {
       "t": "Jardin & terrasse",
-      "d": "350 m² clos, mobilier de jardin et coin repas extérieur."
+      "d": "350 m² clos, mobilier de jardin, coin repas extérieur et plancha avec prise extérieure."
     },
     {
       "t": "Garage & parking",
-      "d": "Garage privatif (2 places) et stationnement libre dans la rue."
+      "d": "Garage privatif 1 place et parking extérieur pour 2 voitures, voire 3 selon les véhicules."
     }
   ],
   "home.amenities.items": [
@@ -248,7 +248,7 @@
         "Jardin clos 350 m²",
         "Mobilier de jardin",
         "Coin repas extérieur",
-        "Barbecue électrique privatif",
+        "Plancha avec prise extérieure",
         "Bains de soleil"
       ]
     },
@@ -280,8 +280,9 @@
     {
       "title": "Stationnement",
       "items": [
-        "Garage privatif sur place (2 places)",
-        "Stationnement gratuit dans la rue"
+        "Garage privatif sur place (1 place)",
+        "Parking extérieur pour 2 voitures",
+        "Possibilité de 3 places selon les véhicules"
       ]
     },
     {
@@ -408,6 +409,8 @@
   ],
   "home.activities": [
     "Zoo de la Bourbansais - Pleugueneuc (29 km)",
+    "Dolo Aquapark & Wakepark",
+    "Pléneuf-Val-André et Erquy",
     "Golf - Saint-Cast, Lancieux, Dinard, Saint-Michel-de-Plélan",
     "Parcs aventure dans les arbres - Morieux, Saint-Cast",
     "Karting - Lamballe",
@@ -426,7 +429,7 @@
     },
     {
       "t": "Confort & flexibilité",
-      "d": "Un cadre calme, un extérieur clos, un accès routier facile aux grandes destinations du nord de la Bretagne."
+      "d": "Un extérieur clos, une position centrale sur la Côte d'Émeraude et un accès routier facile aux grandes destinations du nord de la Bretagne."
     }
   ],
   "home.rates": [
@@ -451,7 +454,7 @@
     },
     {
       "q": "Pour quel type de séjour ce gîte est-il le mieux adapté ?",
-      "a": "Idéal pour des vacances familiales calmes et qualitatives en Bretagne, entre visites, plages et découvertes locales."
+      "a": "Idéal pour des vacances familiales et qualitatives en Bretagne, entre visites, plages et découvertes locales."
     }
   ]
 }
