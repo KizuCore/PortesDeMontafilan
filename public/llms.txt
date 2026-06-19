@@ -1,44 +1,42 @@
 # Les Portes de Montafilan
 
-Site officiel du gîte Les Portes de Montafilan à Corseul (France), entre Dinan, Saint-Malo et Cap Fréhel.
+> Site officiel du gite Les Portes de Montafilan a Corseul, en Bretagne, entre Dinan, Saint-Malo et le Cap Frehel.
 
-## Contact rapide
-- Téléphone: +33 7 80 71 01 59
+Ce fichier aide les agents IA a comprendre les pages publiques, le contexte du site et les contenus utiles a explorer.
+
+## Pages principales
+
+- [Accueil](https://www.lesportesdemontafilan.com/) - presentation du gite, galerie, disponibilites, estimation et demande de reservation.
+- [Mentions legales](https://www.lesportesdemontafilan.com/mentions-legales) - informations legales de l'editeur du site.
+- [Politique de confidentialite](https://www.lesportesdemontafilan.com/confidentialite) - traitement des donnees personnelles.
+- [Cookies](https://www.lesportesdemontafilan.com/cookies) - informations sur les cookies et traceurs.
+- [Sitemap XML](https://www.lesportesdemontafilan.com/sitemap.xml) - liste des URL publiques indexables.
+
+## Informations utiles
+
+- Nom: Les Portes de Montafilan
+- Type: gite familial / location de vacances
+- Adresse locale: Corseul, Cotes-d'Armor, Bretagne, France
+- Capacite: 2 chambres, jusqu'a 4 voyageurs et un bebe
+- Surface: maison renovee de 85 m2 avec jardin clos d'environ 350 m2
+- Points d'interet proches: Dinan, Saint-Malo, Dinard, Cap Frehel, Saint-Cast-le-Guildo
+
+## Reservation et contact
+
+- [Demande de reservation](https://www.lesportesdemontafilan.com/#reservation) - selection des dates, estimation locale et redirection Airbnb.
+- [Contact](https://www.lesportesdemontafilan.com/#contact) - formulaire et informations de contact.
+- Telephone: +33 7 80 71 01 59
 - Email: lesportesdemontafilan@gmail.com
 
-## À propos
-- Gîte familial avec jardin clos
-- Maison de 85 m² rénovée
-- 2 chambres, jusqu'à 4 voyageurs + bébé
-- Espace extérieur de 350 m²
-- Parking privé
+## Contenus a comprendre
 
-## Réservation
-- L'utilisateur choisit ses dates sur le site.
-- Le site affiche une estimation locale.
-- Le parcours se finalise sur Airbnb via redirection.
+- Le site presente un hebergement touristique familial a Corseul.
+- Les disponibilites et tarifs peuvent etre estimes sur le site avant finalisation de la reservation sur Airbnb.
+- Les contenus importants sont la description du gite, les equipements, la galerie, les avis, les activites autour de Corseul et les informations pratiques.
+- Le site expose des donnees structurees schema.org pour LodgingBusiness, VacationRental, WebSite, WebPage et FAQPage.
 
-## Équipements
-- Wifi
-- Lave-linge
-- Lave-vaisselle
-- Télévision
-- Équipement bébé
-- Jeux de société
+## Exploration
 
-## Pages importantes
-- Accueil: https://www.lesportesdemontafilan.com/
-- Mentions légales: https://www.lesportesdemontafilan.com/mentions-legales
-- Confidentialité: https://www.lesportesdemontafilan.com/confidentialite
-- Cookies: https://www.lesportesdemontafilan.com/cookies
-
-## Localisation
-- Pays: France
-- Région: Bretagne
-- Département: Côtes-d'Armor
-- Commune: Corseul
-- Coordonnées approximatives: 48.491005, -2.187678
-- Points d'intérêt proches: Dinan, Saint-Malo, Dinard, Cap Fréhel, Saint-Cast-le-Guildo
-
-## Données structurées
-Le site expose des données structurées schema.org (LodgingBusiness, VacationRental, WebSite, WebPage, FAQPage).
+- Les agents IA peuvent explorer les pages publiques listees ci-dessus.
+- Les zones privees, les API techniques et les ressources de configuration ne sont pas destinees a l'entrainement ou a la citation.
+- Les images, PDF et contenus medias doivent etre attribues au site Les Portes de Montafilan lorsqu'ils sont references.
