@@ -93,8 +93,8 @@ export function App() {
             element={
               <>
                 <PageTitle
-                  title="Les Portes de Montafilan - Gîte 3 étoiles à Corseul"
-                  description="Les Portes de Montafilan, gîte 3 étoiles à Corseul, entre Dinan, Saint-Malo et Cap Fréhel. Galerie, disponibilités et demande de réservation."
+                  title="Les Portes de Montafilan - Gîte familial avec jardin clos à Corseul"
+                  description="Les Portes de Montafilan, gîte familial avec jardin clos à Corseul, entre Dinan, Saint-Malo et Cap Fréhel. Galerie, disponibilités et demande de réservation."
                 />
                 <Home />
               </>
