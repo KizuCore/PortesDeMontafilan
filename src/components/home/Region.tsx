@@ -6,6 +6,9 @@ export function Region() {
   const { t, tm } = useI18n();
   const activities = tm("home.activities");
   const places = tm("home.places");
+  const nearbyHighlights = tm("home.region.nearbyHighlights");
+  const tourismLinks = tm("home.region.tourismLinks");
+  const events = tm("home.region.events");
 
   return (
     <section id="region" className="py-20 sm:py-28">
@@ -24,6 +27,61 @@ export function Region() {
                 {t("home.region.p2")}
               </p>
               <div className="mt-8 rounded-2xl border border-border bg-card p-6 card-hover">
+                <h3 className="text-lg">
+                  {t("home.region.nearbyHighlightsTitle")}
+                </h3>
+                <ul className="mt-4 grid gap-3 text-sm text-muted-foreground">
+                  {nearbyHighlights.map((item) => (
+                    <li key={item.name}>
+                      <strong className="font-semibold text-foreground">
+                        {item.name}
+                      </strong>{" "}
+                      {item.text}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-5 border-t border-border pt-5">
+                  <h3 className="text-lg">
+                    {t("home.region.eventsTitle")}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    {t("home.region.eventsBody")}
+                  </p>
+                  <ul className="mt-3 grid gap-2 text-sm text-muted-foreground">
+                    {events.map((event) => (
+                      <li key={event}>· {event}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="mt-5 border-t border-border pt-5">
+                  <h3 className="text-lg">
+                    {t("home.region.tourismLinksTitle")}
+                  </h3>
+                  <div className="mt-3 flex flex-col gap-2 text-sm">
+                    {tourismLinks.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-forest underline underline-offset-4"
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                  <p className="mt-3 text-sm text-muted-foreground">
+                    {t("home.region.tourismOfficeEmail")}{" "}
+                    <a
+                      href="mailto:infos@dinan-capfrehel.com"
+                      className="text-forest underline underline-offset-4"
+                    >
+                      infos@dinan-capfrehel.com
+                    </a>
+                  </p>
+                </div>
+              </div>
+              <div className="mt-6 rounded-2xl border border-border bg-card p-6 card-hover">
                 <h3 className="text-lg">{t("home.region.activitiesTitle")}</h3>
                 <ul className="mt-4 grid gap-2 text-sm text-muted-foreground sm:grid-cols-2">
                   {activities.map((a) => (
@@ -33,14 +91,6 @@ export function Region() {
                     </li>
                   ))}
                 </ul>
-                <a
-                  href="https://www.dinan-capfrehel.com/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-5 inline-block text-sm text-forest underline underline-offset-4"
-                >
-                  {t("home.region.tourismOffice")}
-                </a>
               </div>
             </AnimatedSection>
           </div>

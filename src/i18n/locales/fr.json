@@ -116,8 +116,13 @@
   "home.gallery.body": "Choisissez une section pour parcourir uniquement ses photos.",
   "home.region.eyebrow": "La région",
   "home.region.title": "S'échapper, à deux pas.",
-  "home.region.p1": "Les Portes de Montafilan, c'est un gîte des Côtes-d'Armor situé au centre de la Côte d'Émeraude. Une base pratique pour partir à la découverte de Dinan, Saint-Malo, du Cap Fréhel, de Pléneuf-Val-André et d'Erquy.",
-  "home.region.p2": "La région mêle patrimoine breton, marchés locaux et sentiers côtiers - parfait pour un week-end comme pour des vacances plus longues.",
+  "home.region.p1": "Les Portes de Montafilan, c'est un gîte des Côtes-d'Armor situé au centre de la Côte d'Émeraude. Une base pratique pour partir à la découverte de Dinan, Saint-Malo, Saint-Cast-le-Guildo, Saint-Jacut-de-la-Mer, Erquy et du Cap Fréhel.",
+  "home.region.p2": "Entre ports, cités de caractère, lacs, plages et sentiers côtiers, la région se découvre facilement au rythme de chacun - parfait pour un week-end comme pour des vacances plus longues.",
+  "home.region.nearbyHighlightsTitle": "Escapades faciles",
+  "home.region.eventsTitle": "Événements à proximité",
+  "home.region.eventsBody": "Festivals, marchés, sorties nature ou animations familiales : la destination vit toute l'année. Cette sélection pourra évoluer au fil des saisons.",
+  "home.region.tourismLinksTitle": "Offices de tourisme",
+  "home.region.tourismOfficeEmail": "Contact office de tourisme :",
   "home.region.activitiesTitle": "À faire autour",
   "home.region.tourismOffice": "Office de tourisme Dinan - Cap Fréhel ↗",
   "home.why.eyebrow": "Pourquoi ici",
@@ -128,8 +133,9 @@
   "home.reviews.body": "Jocelyne était accueillante, disponible et nous a donné de très bons conseils de visites. Une base idéale pour explorer la région, la côte et les villes voisines.",
   "home.booking.eyebrow": "Tarifs & réservation",
   "home.booking.title": "Prêts à planifier votre séjour ?",
-  "home.booking.body": "Sélectionnez vos dates pour une estimation instantanée. Le prix final sera confirmé sur Airbnb avant réservation.",
+  "home.booking.body": "Sélectionnez vos dates pour une estimation instantanée. Le prix de base correspond aux nuits ; le forfait ménage est ajouté à la réservation. Le prix final sera confirmé sur Airbnb avant réservation.",
   "home.booking.longStay": "Des conditions préférentielles peuvent être proposées pour les longs séjours.",
+  "home.booking.cleaningBaseNotice": "Le ménage n'est pas inclus dans le prix des nuits. Forfait ménage ajouté :",
   "home.booking.minimumStayTitle": "Séjour minimum :",
   "home.booking.minimumStayLowMid": "hors haute saison",
   "home.booking.minimumStayHigh": "en haute saison (vacances scolaires + juillet/août)",
@@ -141,7 +147,11 @@
   "home.booking.selectHint": "Sélectionnez une arrivée puis un départ pour préparer votre séjour Airbnb.",
   "home.booking.from": "Du",
   "home.booking.to": "au",
+  "home.booking.cleaningFeeAdded": "Forfait ménage ajouté à la réservation :",
   "home.booking.touristTaxIncluded": "Taxe de séjour incluse :",
+  "home.booking.towelsOption": "Linge de toilette proposé en option :",
+  "home.booking.perPerson": "/ personne.",
+  "home.booking.extraCleaningNotice": "Une facturation supplémentaire peut être appliquée si le logement est rendu anormalement sale.",
   "home.booking.weeklyDiscountNotice": "Pour 7 nuits ou plus, une réduction peut s'appliquer sur Airbnb : le prix final sera moins cher que cette estimation.",
   "home.booking.guestsTitle": "Voyageurs",
   "home.booking.adults": "Adultes",
@@ -268,6 +278,7 @@
       "items": [
         "Lit parapluie (sur demande)",
         "Draps fournis & volets occultants",
+        "Linge de toilette proposé en option",
         "Livres & jouets (5+ ans)",
         "Chaise haute pliante (sur demande)",
         "Baignoire bébé, table à langer",
@@ -284,8 +295,8 @@
         "Chauffage central",
         "Lave-linge gratuit",
         "Sèche-cheveux, fer à repasser",
-        "Service de ménage en option",
-        "Animaux acceptés"
+        "Forfait ménage ajouté à la réservation",
+        "Animaux éduqués acceptés avec supplément"
       ]
     },
     {
@@ -491,10 +502,57 @@
       ]
     }
   ],
+  "home.region.nearbyHighlights": [
+    {
+      "name": "Dinan",
+      "text": "pour ses ruelles médiévales, ses remparts et son port sur la Rance."
+    },
+    {
+      "name": "Saint-Cast-le-Guildo",
+      "text": "pour les grandes plages, les balades en bord de mer et les activités nautiques."
+    },
+    {
+      "name": "Saint-Jacut-de-la-Mer",
+      "text": "pour l'ambiance presqu'île, les onze plages et l'accès aux Ébihens à marée basse."
+    },
+    {
+      "name": "Erquy",
+      "text": "pour le port de pêche, les plages de sable fin et les panoramas du cap."
+    },
+    {
+      "name": "Port de Dahouët",
+      "text": "pour une promenade de caractère entre quais, patrimoine maritime et lumières de baie."
+    },
+    {
+      "name": "Jugon-les-Lacs",
+      "text": "pour une pause nature entre Petite Cité de Caractère, lac, pêche et activités douces."
+    }
+  ],
+  "home.region.tourismLinks": [
+    {
+      "label": "Dinan - Cap Fréhel Tourisme",
+      "href": "https://www.dinan-capfrehel.com/"
+    },
+    {
+      "label": "Bureau de Saint-Cast-le-Guildo",
+      "href": "https://villedesaintcastleguildo.fr/loisirs-culture/le-tourisme/dinan-cap-frehel-tourisme/"
+    },
+    {
+      "label": "Cap d'Erquy - Val André Tourisme",
+      "href": "https://www.capderquy-valandre.com/"
+    }
+  ],
+  "home.region.events": [
+    "Festival Bobital L'Armor à Sons, grand rendez-vous musical près de Dinan",
+    "Fête des Remparts de Dinan, pour plonger dans l'ambiance médiévale de la cité",
+    "Marchés locaux, sorties nature, visites guidées et animations familiales selon la saison"
+  ],
   "home.activities": [
     "Zoo de la Bourbansais - Pleugueneuc (29 km)",
     "Dolo Aquapark & Wakepark",
-    "Pléneuf-Val-André et Erquy",
+    "Erquy, Port de Dahouët et Pléneuf-Val-André",
+    "Jugon-les-Lacs et ses activités nature",
+    "Saint-Jacut-de-la-Mer et Saint-Cast-le-Guildo",
     "Golf - Saint-Cast, Lancieux, Dinard, Saint-Michel-de-Plélan",
     "Parcs aventure dans les arbres - Morieux, Saint-Cast",
     "Karting - Lamballe",
@@ -505,11 +563,11 @@
   "home.why.items": [
     {
       "t": "Entre terre et mer",
-      "d": "Depuis Corseul, rejoignez facilement la vieille ville de Dinan, les plages de Saint-Malo et le littoral du Cap Fréhel."
+      "d": "Depuis Corseul, rejoignez facilement la vieille ville de Dinan, les plages de Saint-Cast-le-Guildo, Saint-Jacut-de-la-Mer, Erquy et le littoral du Cap Fréhel."
     },
     {
       "t": "Plages, patrimoine, art de vivre",
-      "d": "Alternez plages, balades dans la vallée de la Rance et sites médiévaux comme Dinan ou le château de la Hunaudaye."
+      "d": "Alternez plages, balades dans la vallée de la Rance, pause au Port de Dahouët, lac à Jugon-les-Lacs et sites médiévaux comme Dinan ou le château de la Hunaudaye."
     },
     {
       "t": "Confort & flexibilité",
@@ -537,7 +595,8 @@
     "Arrivée à partir de 16h00",
     "Départ à 10h00",
     "Arrivée autonome avec boîte à clés",
-    "Réservation finale sur Airbnb"
+    "Réservation finale sur Airbnb",
+    "Animaux éduqués acceptés avec supplément"
   ],
   "home.faqs": [
     {
@@ -551,6 +610,14 @@
     {
       "q": "Pour quel type de séjour ce gîte est-il le mieux adapté ?",
       "a": "Idéal pour des vacances familiales et qualitatives en Bretagne, entre visites, plages et découvertes locales."
+    },
+    {
+      "q": "Le ménage et le linge de toilette sont-ils inclus ?",
+      "a": "Le forfait ménage est ajouté à la réservation. Le linge de toilette est proposé en option."
+    },
+    {
+      "q": "Les animaux sont-ils acceptés ?",
+      "a": "Les animaux éduqués peuvent être acceptés avec un supplément. Une facturation supplémentaire peut aussi être appliquée si le logement est rendu anormalement sale."
     }
   ]
 }

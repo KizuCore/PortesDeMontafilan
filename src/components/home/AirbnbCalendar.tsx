@@ -299,6 +299,14 @@ export function AirbnbCalendar() {
       : t("home.booking.emptySelection");
 
   const locale = lang === "fr" ? "fr-FR" : "en-US";
+  function formatDetailedMoney(amount: number) {
+    return new Intl.NumberFormat(locale, {
+      style: "currency",
+      currency: "EUR",
+      minimumFractionDigits: Number.isInteger(amount) ? 0 : 2,
+      maximumFractionDigits: 2,
+    }).format(amount);
+  }
   const rateBreakdownLabel = estimate?.rateBreakdown
     .map(
       (item) =>
@@ -345,6 +353,13 @@ export function AirbnbCalendar() {
             ) : null}
             <p className="mt-4 text-sm text-muted-foreground">
               {t("home.booking.longStay")}
+            </p>
+            <p className="mt-3 text-sm text-muted-foreground">
+              {t("home.booking.cleaningBaseNotice")}{" "}
+              <strong className="font-semibold text-foreground">
+                {formatMoney(pricingConfig.cleaningFee, locale)}
+              </strong>
+              .
             </p>
             <p className="mt-3 text-sm text-muted-foreground">
               <strong className="font-semibold text-foreground">
@@ -431,6 +446,10 @@ export function AirbnbCalendar() {
                     </strong>
                     {" · "}
                     {rateBreakdownLabel}
+                    <div className="mt-1 text-xs">
+                      {t("home.booking.cleaningFeeAdded")}{" "}
+                      {formatMoney(estimate.cleaningFee, locale)}
+                    </div>
                     <div className="mt-1 text-xs">
                       {t("home.booking.touristTaxIncluded")}{" "}
                       {formatMoney(estimate.touristTax, locale)}
@@ -547,6 +566,14 @@ export function AirbnbCalendar() {
                   <li key={item}>· {item}</li>
                 ))}
               </ul>
+              <div className="mt-5 space-y-2 border-t border-border pt-4 text-sm text-muted-foreground">
+                <p>
+                  {t("home.booking.towelsOption")}{" "}
+                  {formatDetailedMoney(pricingConfig.towelPackPerPerson)}{" "}
+                  {t("home.booking.perPerson")}
+                </p>
+                <p>{t("home.booking.extraCleaningNotice")}</p>
+              </div>
             </div>
           </AnimatedSection>
         </div>

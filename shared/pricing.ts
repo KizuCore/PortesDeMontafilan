@@ -211,8 +211,8 @@ export function estimateReservation(
   const touristTax = roundToCents(nights * input.adults * pricing.touristTaxPerAdultPerNight);
   const towelPacksPrice = roundToCents(input.towelPacks * pricing.towelPackPerPerson);
 
-  // Le ménage est inclus dans le tarif affiché, mais on garde le détail pour la transparence.
-  const totalEstimated = roundToCents(stayBasePrice + touristTax + towelPacksPrice);
+  // Le prix de base correspond aux nuits. Le forfait ménage est ajouté à la réservation.
+  const totalEstimated = roundToCents(stayBasePrice + pricing.cleaningFee + touristTax + towelPacksPrice);
 
   const valid = nights >= minNightsRequired;
   const warning = valid

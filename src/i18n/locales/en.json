@@ -116,8 +116,13 @@
   "home.gallery.body": "Choose a section to browse only those photos.",
   "home.region.eyebrow": "The region",
   "home.region.title": "A getaway on your doorstep.",
-  "home.region.p1": "Les Portes de Montafilan is a cottage in Côtes-d'Armor, set in the heart of the Emerald Coast. It is a practical base for discovering Dinan, Saint-Malo, Cap Fréhel, Pléneuf-Val-André and Erquy.",
-  "home.region.p2": "The area blends Breton heritage, local markets and coastal trails - perfect for a weekend or a longer holiday.",
+  "home.region.p1": "Les Portes de Montafilan is a cottage in Côtes-d'Armor, set in the heart of the Emerald Coast. It is a practical base for discovering Dinan, Saint-Malo, Saint-Cast-le-Guildo, Saint-Jacut-de-la-Mer, Erquy and Cap Fréhel.",
+  "home.region.p2": "Between harbours, small character towns, lakes, beaches and coastal trails, the area is easy to explore at your own pace - perfect for a weekend or a longer holiday.",
+  "home.region.nearbyHighlightsTitle": "Easy day trips",
+  "home.region.eventsTitle": "Events nearby",
+  "home.region.eventsBody": "Festivals, markets, nature outings and family events bring the destination to life throughout the year. This selection can evolve with the seasons.",
+  "home.region.tourismLinksTitle": "Tourism offices",
+  "home.region.tourismOfficeEmail": "Tourism office contact:",
   "home.region.activitiesTitle": "Things to do nearby",
   "home.region.tourismOffice": "Dinan - Cap Fréhel tourism office ↗",
   "home.why.eyebrow": "Why stay here",
@@ -128,8 +133,9 @@
   "home.reviews.body": "Jocelyne was welcoming, available and gave us great tips for visits. An ideal base to explore the region, the coast and nearby towns.",
   "home.booking.eyebrow": "Rates & booking",
   "home.booking.title": "Ready to plan your stay?",
-  "home.booking.body": "Select your dates for an instant estimate. The final price will be confirmed on Airbnb before booking.",
+  "home.booking.body": "Select your dates for an instant estimate. The base price covers the nights; the cleaning fee is added to the booking. The final price will be confirmed on Airbnb before booking.",
   "home.booking.longStay": "Preferential terms may be offered for longer stays.",
+  "home.booking.cleaningBaseNotice": "Cleaning is not included in the nightly base price. Added cleaning fee:",
   "home.booking.minimumStayTitle": "Minimum stay:",
   "home.booking.minimumStayLowMid": "outside high season",
   "home.booking.minimumStayHigh": "in high season (school holidays + July/August)",
@@ -141,7 +147,11 @@
   "home.booking.selectHint": "Select a check-in and check-out date to prepare your Airbnb stay.",
   "home.booking.from": "From",
   "home.booking.to": "to",
+  "home.booking.cleaningFeeAdded": "Cleaning fee added to the booking:",
   "home.booking.touristTaxIncluded": "Tourist tax included:",
+  "home.booking.towelsOption": "Bathroom towels available as an option:",
+  "home.booking.perPerson": "/ person.",
+  "home.booking.extraCleaningNotice": "An additional charge may apply if the cottage is left abnormally dirty.",
   "home.booking.weeklyDiscountNotice": "For 7 nights or more, a discount may apply on Airbnb: the final price will be lower than this estimate.",
   "home.booking.guestsTitle": "Guests",
   "home.booking.adults": "Adults",
@@ -268,6 +278,7 @@
       "items": [
         "Travel cot (on request)",
         "Sheets provided & blackout shutters",
+        "Bathroom towels available as an option",
         "Books & toys (5+ years)",
         "Foldable high chair (on request)",
         "Baby bathtub, changing table",
@@ -284,8 +295,8 @@
         "Central heating",
         "Free washing machine",
         "Hair dryer, iron",
-        "Optional cleaning service",
-        "Pets allowed"
+        "Cleaning fee added to the booking",
+        "Well-behaved pets accepted with a supplement"
       ]
     },
     {
@@ -491,10 +502,57 @@
       ]
     }
   ],
+  "home.region.nearbyHighlights": [
+    {
+      "name": "Dinan",
+      "text": "for medieval streets, ramparts and the harbour on the Rance."
+    },
+    {
+      "name": "Saint-Cast-le-Guildo",
+      "text": "for wide beaches, seaside walks and watersports."
+    },
+    {
+      "name": "Saint-Jacut-de-la-Mer",
+      "text": "for its peninsula atmosphere, eleven beaches and low-tide access to the Ebihens islands."
+    },
+    {
+      "name": "Erquy",
+      "text": "for the fishing harbour, sandy beaches and sweeping views from the cape."
+    },
+    {
+      "name": "Port de Dahouët",
+      "text": "for a characterful stroll among quays, maritime heritage and bay light."
+    },
+    {
+      "name": "Jugon-les-Lacs",
+      "text": "for a nature pause with a small character town, lake, fishing and gentle outdoor activities."
+    }
+  ],
+  "home.region.tourismLinks": [
+    {
+      "label": "Dinan - Cap Fréhel Tourism",
+      "href": "https://www.dinan-capfrehel.com/"
+    },
+    {
+      "label": "Saint-Cast-le-Guildo tourism desk",
+      "href": "https://villedesaintcastleguildo.fr/loisirs-culture/le-tourisme/dinan-cap-frehel-tourisme/"
+    },
+    {
+      "label": "Cap d'Erquy - Val André Tourism",
+      "href": "https://www.capderquy-valandre.com/"
+    }
+  ],
+  "home.region.events": [
+    "Festival Bobital L'Armor à Sons, a major music event near Dinan",
+    "Fête des Remparts de Dinan, bringing the medieval town to life",
+    "Local markets, nature outings, guided visits and family-friendly events depending on the season"
+  ],
   "home.activities": [
     "Zoo de la Bourbansais - Pleugueneuc (29 km)",
     "Dolo Aquapark & Wakepark",
-    "Pléneuf-Val-André and Erquy",
+    "Erquy, Port de Dahouët and Pléneuf-Val-André",
+    "Jugon-les-Lacs and its nature activities",
+    "Saint-Jacut-de-la-Mer and Saint-Cast-le-Guildo",
     "Golf - Saint-Cast, Lancieux, Dinard, Saint-Michel-de-Plélan",
     "Tree adventure parks - Morieux, Saint-Cast",
     "Karting - Lamballe",
@@ -505,11 +563,11 @@
   "home.why.items": [
     {
       "t": "Between land and sea",
-      "d": "From Corseul, you can easily reach Dinan old town, Saint-Malo beaches and the Cap Fréhel coastline."
+      "d": "From Corseul, you can easily reach Dinan old town, the beaches of Saint-Cast-le-Guildo, Saint-Jacut-de-la-Mer, Erquy and the Cap Fréhel coastline."
     },
     {
       "t": "Beaches, heritage and local life",
-      "d": "Alternate between beaches, walks in the Rance valley and medieval sites such as Dinan or Château de la Hunaudaye."
+      "d": "Alternate between beaches, walks in the Rance valley, a stop at Port de Dahouët, lake time in Jugon-les-Lacs and medieval sites such as Dinan or Château de la Hunaudaye."
     },
     {
       "t": "Comfort & flexibility",
@@ -537,7 +595,8 @@
     "Check-in from 4:00 PM",
     "Check-out at 10:00 AM",
     "Self check-in with lockbox",
-    "Final booking on Airbnb"
+    "Final booking on Airbnb",
+    "Well-behaved pets accepted with a supplement"
   ],
   "home.faqs": [
     {
@@ -551,6 +610,14 @@
     {
       "q": "What kind of stay is this cottage best suited for?",
       "a": "It is ideal for a high-quality family holiday in Brittany, with visits, beaches and local discoveries."
+    },
+    {
+      "q": "Are cleaning and towels included?",
+      "a": "The cleaning fee is added to the booking. Bathroom towels are available as an option."
+    },
+    {
+      "q": "Are pets accepted?",
+      "a": "Well-behaved pets may be accepted with a supplement. An additional charge may also apply if the cottage is left abnormally dirty."
     }
   ]
 }
