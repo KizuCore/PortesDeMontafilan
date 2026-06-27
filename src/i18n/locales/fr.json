@@ -426,7 +426,7 @@
           "alt": "Extérieur"
         },
         {
-          "src": "house/ArriereCours1.avif",
+          "src": "house/ArriereCours1.png",
           "alt": "Jardin"
         },
         {
@@ -548,7 +548,7 @@
     "Marchés locaux, sorties nature, visites guidées et animations familiales selon la saison"
   ],
   "home.activities": [
-    "Zoo de la Bourbansais - Pleugueneuc (29 km)",
+    "Zoo de la Bourbansais - Pleugueneuc",
     "Dolo Aquapark & Wakepark",
     "Erquy, Port de Dahouët et Pléneuf-Val-André",
     "Jugon-les-Lacs et ses activités nature",
