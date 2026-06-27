@@ -9,7 +9,7 @@ export function Hero() {
     <section id="top" className="relative overflow-hidden">
       <div className="absolute inset-0">
         <img
-          src={IMG("house/ArriereCours1.avif")}
+          src={IMG("house/ArriereCours1.png")}
           alt={t("home.hero.imageAlt")}
           className="h-full w-full object-cover object-center"
         />
