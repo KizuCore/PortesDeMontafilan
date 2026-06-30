@@ -18,6 +18,7 @@ function loadRecaptchaScript(siteKey: string): Promise<void> {
   }
 
   if (recaptchaScriptPromise) {
+    // Plusieurs soumissions rapides reutilisent le meme chargement de script au lieu d'ajouter des balises en double.
     return recaptchaScriptPromise;
   }
 
@@ -60,6 +61,7 @@ export async function getRecaptchaToken(siteKey: string): Promise<string> {
 
   return new Promise((resolve, reject) => {
     window.grecaptcha?.ready(() => {
+      // L'action doit rester synchronisee avec la verification serveur dans api/contact.ts.
       window.grecaptcha
         ?.execute(siteKey, { action: "contact" })
         .then(resolve)

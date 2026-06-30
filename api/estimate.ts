@@ -1,6 +1,9 @@
-import { findConflictRange, parseBusyRangesFromIcs } from '../shared/availability.js';
-import { estimateReservation } from '../shared/pricing.js';
-import { resolvePricingConfig } from './_pricingConfig.js';
+import {
+  findConflictRange,
+  parseBusyRangesFromIcs,
+} from "../shared/availability.js";
+import { estimateReservation } from "../shared/pricing.js";
+import { resolvePricingConfig } from "./_pricingConfig.js";
 
 interface Req {
   method?: string;
@@ -28,7 +31,10 @@ const MIN_TOWEL_PACKS = 0;
 const MAX_TOWEL_PACKS = 24;
 
 // Empile les avertissements sans dupliquer le meme message.
-function addWarning(baseWarning: string | undefined, nextWarning: string): string {
+function addWarning(
+  baseWarning: string | undefined,
+  nextWarning: string,
+): string {
   if (!baseWarning) {
     return nextWarning;
   }
@@ -40,9 +46,14 @@ function addWarning(baseWarning: string | undefined, nextWarning: string): strin
   return `${baseWarning} ${nextWarning}`;
 }
 
-async function fetchBusyRanges(icalUrl: string): Promise<ReturnType<typeof parseBusyRangesFromIcs>> {
+async function fetchBusyRanges(
+  icalUrl: string,
+): Promise<ReturnType<typeof parseBusyRangesFromIcs>> {
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), DEFAULT_ICAL_FETCH_TIMEOUT_MS);
+  const timeout = setTimeout(
+    () => controller.abort(),
+    DEFAULT_ICAL_FETCH_TIMEOUT_MS,
+  );
 
   try {
     const response = await fetch(icalUrl, { signal: controller.signal });
@@ -57,13 +68,23 @@ async function fetchBusyRanges(icalUrl: string): Promise<ReturnType<typeof parse
   }
 }
 
-function parseBoundedInteger(value: unknown, fallback: number, min: number, max: number): number | null {
-  const parsedValue = typeof value === 'number' ? value : Number(value);
+function parseBoundedInteger(
+  value: unknown,
+  fallback: number,
+  min: number,
+  max: number,
+): number | null {
+  const parsedValue = typeof value === "number" ? value : Number(value);
   if (!Number.isFinite(parsedValue)) {
+    // Absence de champ: on applique le defaut; valeur hors bornes: on refuse plus bas.
     return fallback;
   }
 
-  if (!Number.isInteger(parsedValue) || parsedValue < min || parsedValue > max) {
+  if (
+    !Number.isInteger(parsedValue) ||
+    parsedValue < min ||
+    parsedValue > max
+  ) {
     return null;
   }
 
@@ -75,32 +96,46 @@ function parseBoundedInteger(value: unknown, fallback: number, min: number, max:
 // - controle ensuite la disponibilite Airbnb via iCal
 export default async function handler(req: Req, res: Res) {
   try {
-    if (req.method !== 'POST') {
-      res.status(405).json({ error: 'Method Not Allowed' });
+    if (req.method !== "POST") {
+      res.status(405).json({ error: "Method Not Allowed" });
       return;
     }
 
     const { checkIn, checkOut } = req.body ?? {};
 
     if (!checkIn || !checkOut) {
-      res.status(400).json({ error: 'Dates required' });
+      res.status(400).json({ error: "Dates required" });
       return;
     }
 
-    const adults = parseBoundedInteger(req.body?.adults, MIN_ADULTS, MIN_ADULTS, MAX_ADULTS);
+    const adults = parseBoundedInteger(
+      req.body?.adults,
+      MIN_ADULTS,
+      MIN_ADULTS,
+      MAX_ADULTS,
+    );
     if (adults === null) {
-      res.status(400).json({ error: `Adults must be an integer between ${MIN_ADULTS} and ${MAX_ADULTS}.` });
+      res.status(400).json({
+        error: `Adults must be an integer between ${MIN_ADULTS} and ${MAX_ADULTS}.`,
+      });
       return;
     }
 
-    const children = parseBoundedInteger(req.body?.children, MIN_CHILDREN, MIN_CHILDREN, MAX_CHILDREN);
+    const children = parseBoundedInteger(
+      req.body?.children,
+      MIN_CHILDREN,
+      MIN_CHILDREN,
+      MAX_CHILDREN,
+    );
     if (children === null) {
-      res.status(400).json({ error: `Children must be an integer between ${MIN_CHILDREN} and ${MAX_CHILDREN}.` });
+      res.status(400).json({
+        error: `Children must be an integer between ${MIN_CHILDREN} and ${MAX_CHILDREN}.`,
+      });
       return;
     }
 
     if (adults + children > MAX_GUESTS) {
-      res.status(400).json({ error: 'GUEST_CAPACITY_EXCEEDED' });
+      res.status(400).json({ error: "GUEST_CAPACITY_EXCEEDED" });
       return;
     }
 
@@ -118,7 +153,8 @@ export default async function handler(req: Req, res: Res) {
     }
 
     // Source de prix unique partagee avec /api/pricing-config.
-    const { pricingConfig, warning: pricingWarning } = await resolvePricingConfig();
+    const { pricingConfig, warning: pricingWarning } =
+      await resolvePricingConfig();
 
     const estimate = estimateReservation(
       {
@@ -151,19 +187,20 @@ export default async function handler(req: Req, res: Res) {
       } catch {
         estimate.warning = addWarning(
           estimate.warning,
-          'Disponibilite Airbnb non verifiee pour le moment.',
+          "Disponibilite Airbnb non verifiee pour le moment.",
         );
       }
     } else {
       estimate.warning = addWarning(
         estimate.warning,
-        'Calendrier Airbnb non configure (AIRBNB_ICAL_URL).',
+        "Calendrier Airbnb non configure (AIRBNB_ICAL_URL).",
       );
     }
 
     res.status(200).json({ estimate });
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : 'ESTIMATE_HANDLER_FAILED';
+    const message =
+      error instanceof Error ? error.message : "ESTIMATE_HANDLER_FAILED";
     res.status(500).json({ error: message });
   }
 }

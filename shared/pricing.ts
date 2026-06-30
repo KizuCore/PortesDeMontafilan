@@ -1,4 +1,4 @@
-﻿export type Season = 'low' | 'mid' | 'high';
+﻿export type Season = "low" | "mid" | "high";
 
 export interface PricingConfig {
   lowSeasonNight: number;
@@ -65,14 +65,15 @@ export const defaultPricingConfig: PricingConfig = {
 // Ces plages restent approximatives pour le prototype.
 // À brancher ensuite sur une source officielle (ou un agenda admin).
 export const defaultSchoolHolidayRanges: SchoolHolidayRange[] = [
-  { start: '2026-02-07', end: '2026-03-08', label: 'Vacances hiver' },
-  { start: '2026-04-04', end: '2026-05-03', label: 'Vacances printemps' },
-  { start: '2026-07-04', end: '2026-08-30', label: 'Vacances été' },
-  { start: '2026-10-17', end: '2026-11-01', label: 'Vacances Toussaint' },
-  { start: '2026-12-19', end: '2027-01-03', label: 'Vacances Noël' },
+  { start: "2026-02-07", end: "2026-03-08", label: "Vacances hiver" },
+  { start: "2026-04-04", end: "2026-05-03", label: "Vacances printemps" },
+  { start: "2026-07-04", end: "2026-08-30", label: "Vacances été" },
+  { start: "2026-10-17", end: "2026-11-01", label: "Vacances Toussaint" },
+  { start: "2026-12-19", end: "2027-01-03", label: "Vacances Noël" },
 ];
 
 function parseDate(value: string): Date {
+  // Les dates de formulaire sont interpretees a minuit local pour rester coherentes avec le calendrier affiche.
   return new Date(`${value}T00:00:00`);
 }
 
@@ -105,14 +106,14 @@ export function seasonForDate(
   const month = date.getMonth() + 1;
 
   if (month === 7 || month === 8 || inSchoolHoliday(date, ranges)) {
-    return 'high';
+    return "high";
   }
 
   if (month >= 5 && month <= 9) {
-    return 'mid';
+    return "mid";
   }
 
-  return 'low';
+  return "low";
 }
 
 // Détermine la saison tarifaire selon la date d'arrivée.
@@ -124,11 +125,11 @@ export function seasonForStayStart(
 }
 
 function nightlyRateForSeason(season: Season, pricing: PricingConfig): number {
-  if (season === 'high') {
+  if (season === "high") {
     return pricing.highSeasonNight;
   }
 
-  if (season === 'mid') {
+  if (season === "mid") {
     return pricing.midSeasonNight;
   }
 
@@ -136,15 +137,16 @@ function nightlyRateForSeason(season: Season, pricing: PricingConfig): number {
 }
 
 function highestSeason(seasons: Season[]): Season {
-  if (seasons.includes('high')) {
-    return 'high';
+  // Une reservation qui traverse plusieurs saisons prend la contrainte la plus stricte.
+  if (seasons.includes("high")) {
+    return "high";
   }
 
-  if (seasons.includes('mid')) {
-    return 'mid';
+  if (seasons.includes("mid")) {
+    return "mid";
   }
 
-  return 'low';
+  return "low";
 }
 
 function computeRateBreakdown(
@@ -156,13 +158,18 @@ function computeRateBreakdown(
   const start = parseDate(checkIn);
   const breakdown: RateBreakdownItem[] = [];
 
+  // On regroupe les nuits consecutives au meme tarif pour afficher un detail lisible cote front.
   for (let offset = 0; offset < nights; offset += 1) {
     const nightDate = addCalendarDays(start, offset);
     const season = seasonForDate(nightDate, ranges);
     const nightlyRate = nightlyRateForSeason(season, pricing);
     const previous = breakdown[breakdown.length - 1];
 
-    if (previous && previous.season === season && previous.nightlyRate === nightlyRate) {
+    if (
+      previous &&
+      previous.season === season &&
+      previous.nightlyRate === nightlyRate
+    ) {
       previous.nights += 1;
       previous.subtotal = roundToCents(previous.subtotal + nightlyRate);
     } else {
@@ -186,12 +193,14 @@ export function estimateReservation(
 ): EstimateResult {
   const start = parseDate(input.checkIn);
   const end = parseDate(input.checkOut);
-  const nights = Math.round((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+  const nights = Math.round(
+    (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24),
+  );
 
   if (!Number.isFinite(nights) || nights <= 0) {
     return {
       nights: 0,
-      season: 'low',
+      season: "low",
       minNightsRequired: pricing.minNightsLowMid,
       rateBreakdown: [],
       stayBasePrice: 0,
@@ -200,19 +209,33 @@ export function estimateReservation(
       towelPacksPrice: 0,
       totalEstimated: 0,
       valid: false,
-      warning: 'Les dates sont invalides.',
+      warning: "Les dates sont invalides.",
     };
   }
 
-  const rateBreakdown = computeRateBreakdown(input.checkIn, nights, pricing, ranges);
+  const rateBreakdown = computeRateBreakdown(
+    input.checkIn,
+    nights,
+    pricing,
+    ranges,
+  );
   const season = highestSeason(rateBreakdown.map((item) => item.season));
-  const minNightsRequired = season === 'high' ? pricing.minNightsHigh : pricing.minNightsLowMid;
-  const stayBasePrice = roundToCents(rateBreakdown.reduce((total, item) => total + item.subtotal, 0));
-  const touristTax = roundToCents(nights * input.adults * pricing.touristTaxPerAdultPerNight);
-  const towelPacksPrice = roundToCents(input.towelPacks * pricing.towelPackPerPerson);
+  const minNightsRequired =
+    season === "high" ? pricing.minNightsHigh : pricing.minNightsLowMid;
+  const stayBasePrice = roundToCents(
+    rateBreakdown.reduce((total, item) => total + item.subtotal, 0),
+  );
+  const touristTax = roundToCents(
+    nights * input.adults * pricing.touristTaxPerAdultPerNight,
+  );
+  const towelPacksPrice = roundToCents(
+    input.towelPacks * pricing.towelPackPerPerson,
+  );
 
   // Le prix de base correspond aux nuits. Le forfait ménage est ajouté à la réservation.
-  const totalEstimated = roundToCents(stayBasePrice + pricing.cleaningFee + touristTax + towelPacksPrice);
+  const totalEstimated = roundToCents(
+    stayBasePrice + pricing.cleaningFee + touristTax + towelPacksPrice,
+  );
 
   const valid = nights >= minNightsRequired;
   const warning = valid

@@ -34,6 +34,7 @@ function buildSender(): { email: string; name?: string } {
 
   const match = from.match(/^\s*(.*?)\s*<([^>]+)>\s*$/);
 
+  // Accepte les deux formats courants: "email@domaine.fr" ou "Nom <email@domaine.fr>".
   if (!match) {
     return {
       email: cleanEmail(from, "EMAIL_FROM_INVALID"),
@@ -71,6 +72,7 @@ export async function sendMail(payload: MailPayload): Promise<void> {
     params: MailTemplateParams;
     replyTo?: { email: string };
   } = {
+    // Brevo impose un identifiant numerique de template et des adresses deja nettoyees.
     sender: buildSender(),
     to: [{ email: cleanEmail(payload.to, "EMAIL_TO_INVALID") }],
     templateId: parseTemplateId(payload.templateId),

@@ -74,6 +74,7 @@ async function verifyRecaptchaToken(
     action?: string;
   };
 
+  // On verifie l'action attendue pour eviter de reutiliser un token genere ailleurs sur le site.
   return (
     result.success === true &&
     result.action === "contact" &&
@@ -142,6 +143,7 @@ export default async function handler(req: Req, res: Res) {
     const subject = form.subject.trim();
     const message = form.message.trim();
     const now = new Date();
+    // Les templates Brevo recoivent une date deja formatee pour eviter toute logique de fuseau cote email.
     const sentDate = new Intl.DateTimeFormat("fr-FR", {
       dateStyle: "long",
       timeZone: "Europe/Paris",

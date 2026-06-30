@@ -11,7 +11,7 @@ export function CookieBanner() {
     try {
       if (!localStorage.getItem(KEY)) setVisible(true);
     } catch {
-      /* localStorage may be unavailable in private browsing. */
+      /* localStorage peut etre indisponible en navigation privee. */
     }
   }, []);
   if (!visible) return null;
@@ -19,7 +19,7 @@ export function CookieBanner() {
     try {
       localStorage.setItem(KEY, "accepted");
     } catch {
-      /* Consent still applies for the current session. */
+      /* Le consentement reste valable pour la session courante. */
     }
     setVisible(false);
   };

@@ -24,6 +24,7 @@ export function dateRangeIncludesBusyDate(
   let cursor = dateToYmd(from);
   const end = dateToYmd(to);
 
+  // Airbnb expose les periodes occupees avec une date de fin exclusive: on teste chaque nuit, pas le jour de depart.
   while (cursor < end) {
     if (
       busyRanges.some((range) => cursor >= range.start && cursor < range.end)

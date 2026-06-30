@@ -1,11 +1,13 @@
-import { defaultPricingConfig } from '../shared/pricing.js';
-import type { PricingConfig } from '../shared/pricing.js';
+import { defaultPricingConfig } from "../shared/pricing.js";
+import type { PricingConfig } from "../shared/pricing.js";
 
 // Delais de securite: on evite de bloquer la requete trop longtemps sur Google Sheets.
 const DEFAULT_SHEETS_FETCH_TIMEOUT_MS = 6000;
 const DEFAULT_SHEETS_CACHE_TTL_MS = 5 * 60 * 1000;
 
-const PRICING_KEYS = Object.keys(defaultPricingConfig) as Array<keyof PricingConfig>;
+const PRICING_KEYS = Object.keys(defaultPricingConfig) as Array<
+  keyof PricingConfig
+>;
 
 // Cache en memoire du dernier fichier CSV valide, partage entre requetes.
 let cachedGoogleSheetPricingConfig: PricingConfig | null = null;
@@ -19,7 +21,7 @@ function isPricingConfigKey(value: string): value is keyof PricingConfig {
 // Parseur CSV minimal: gere les virgules en dehors des guillemets.
 function parseCsvLine(line: string): string[] {
   const values: string[] = [];
-  let current = '';
+  let current = "";
   let inQuotes = false;
 
   for (let index = 0; index < line.length; index += 1) {
@@ -36,9 +38,9 @@ function parseCsvLine(line: string): string[] {
       continue;
     }
 
-    if (char === ',' && !inQuotes) {
+    if (char === "," && !inQuotes) {
       values.push(current.trim());
-      current = '';
+      current = "";
       continue;
     }
 
@@ -52,9 +54,9 @@ function parseCsvLine(line: string): string[] {
 // Convertit les nombres FR/EN (virgule ou point) en nombre JS.
 function parseNumberValue(raw: string): number | null {
   const normalized = raw
-    .replace(/\s+/g, '')
-    .replace(/[^0-9,.-]/g, '')
-    .replace(',', '.');
+    .replace(/\s+/g, "")
+    .replace(/[^0-9,.-]/g, "")
+    .replace(",", ".");
   if (!normalized) {
     return null;
   }
@@ -72,15 +74,15 @@ function parsePricingConfigFromCsv(csvData: string): PricingConfig {
     .filter(Boolean);
 
   for (const line of lines) {
-    if (line.startsWith('#')) {
+    if (line.startsWith("#")) {
       continue;
     }
 
-    const [rawKey = '', rawValue = ''] = parseCsvLine(line);
+    const [rawKey = "", rawValue = ""] = parseCsvLine(line);
     const key = rawKey.trim();
     const lowerKey = key.toLowerCase();
 
-    if (lowerKey === 'key' || lowerKey === 'cle' || lowerKey === 'clé') {
+    if (lowerKey === "key" || lowerKey === "cle" || lowerKey === "clé") {
       continue;
     }
 
@@ -100,9 +102,15 @@ function parsePricingConfigFromCsv(csvData: string): PricingConfig {
 }
 
 // Telecharge la feuille Google Sheets au format CSV puis la transforme en config utilisable.
-async function fetchGoogleSheetPricingConfig(csvUrl: string): Promise<PricingConfig> {
+async function fetchGoogleSheetPricingConfig(
+  csvUrl: string,
+): Promise<PricingConfig> {
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), DEFAULT_SHEETS_FETCH_TIMEOUT_MS);
+  // AbortController evite qu'une feuille Google lente bloque toute la reponse serverless.
+  const timeout = setTimeout(
+    () => controller.abort(),
+    DEFAULT_SHEETS_FETCH_TIMEOUT_MS,
+  );
 
   try {
     const response = await fetch(csvUrl, { signal: controller.signal });
@@ -123,28 +131,36 @@ async function fetchGoogleSheetPricingConfig(csvUrl: string): Promise<PricingCon
 export async function resolvePricingConfig(): Promise<{
   pricingConfig: PricingConfig;
   warning?: string;
-  source: 'google-sheets' | 'default';
+  source: "google-sheets" | "default";
 }> {
   const csvUrl = process.env.GOOGLE_SHEETS_PRICING_CSV_URL?.trim();
   if (!csvUrl) {
-    return { pricingConfig: defaultPricingConfig, source: 'default' };
+    return { pricingConfig: defaultPricingConfig, source: "default" };
   }
 
   const now = Date.now();
-  if (cachedGoogleSheetPricingConfig && now < cachedGoogleSheetPricingExpiresAt) {
-    return { pricingConfig: cachedGoogleSheetPricingConfig, source: 'google-sheets' };
+  if (
+    cachedGoogleSheetPricingConfig &&
+    now < cachedGoogleSheetPricingExpiresAt
+  ) {
+    // Le cache garde la derniere config valide pour reduire les appels Sheets et lisser les erreurs temporaires.
+    return {
+      pricingConfig: cachedGoogleSheetPricingConfig,
+      source: "google-sheets",
+    };
   }
 
   try {
     const pricingConfig = await fetchGoogleSheetPricingConfig(csvUrl);
     cachedGoogleSheetPricingConfig = pricingConfig;
     cachedGoogleSheetPricingExpiresAt = now + DEFAULT_SHEETS_CACHE_TTL_MS;
-    return { pricingConfig, source: 'google-sheets' };
+    return { pricingConfig, source: "google-sheets" };
   } catch {
     return {
       pricingConfig: defaultPricingConfig,
-      warning: 'Tarifs Google Sheets indisponibles, estimation locale appliquee.',
-      source: 'default',
+      warning:
+        "Tarifs Google Sheets indisponibles, estimation locale appliquee.",
+      source: "default",
     };
   }
 }

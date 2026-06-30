@@ -48,6 +48,7 @@ function buildAirbnbRedirectUrl(
   }
 
   if (!base.hostname.includes("airbnb.")) {
+    // Garde-fou: meme si la variable d'environnement est mal remplie, on ne redirige pas vers un autre domaine.
     return null;
   }
 

@@ -53,6 +53,7 @@ export function AirbnbCalendar() {
   const [pricingWarning, setPricingWarning] = useState<string | null>(null);
   const rateLabels = tm("home.rates");
   const practical = tm("home.practical");
+  // Adultes et enfants partagent la capacite totale du gite; les bornes se recalculent donc ensemble.
   const maxAdults = Math.max(MIN_ADULTS, MAX_GUESTS - children);
   const maxChildren = Math.max(MIN_CHILDREN, MAX_GUESTS - adults);
   const displayedRates = [
@@ -102,6 +103,7 @@ export function AirbnbCalendar() {
       nextRange?.to &&
       dateRangeIncludesBusyDate(nextRange.from, nextRange.to, busyRanges)
     ) {
+      // Si la selection traverse une date occupee, on conserve seulement le debut pour relancer un choix propre.
       setRange({ from: nextRange.from });
       setAirbnbError(t("home.booking.unavailableRange"));
       return;
@@ -177,6 +179,7 @@ export function AirbnbCalendar() {
     void loadPricingConfig();
 
     return () => {
+      // Evite de mettre a jour l'etat si le composant disparait avant la fin de la requete.
       cancelled = true;
     };
   }, [t]);
@@ -278,6 +281,7 @@ export function AirbnbCalendar() {
     () =>
       busyRanges.map((rangeItem) => ({
         from: new Date(`${rangeItem.start}T00:00:00`),
+        // Les plages iCal finissent le matin du depart; react-day-picker attend une borne inclusive.
         to: addDays(new Date(`${rangeItem.end}T00:00:00`), -1),
       })),
     [busyRanges],

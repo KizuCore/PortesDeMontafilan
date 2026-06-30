@@ -55,7 +55,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     try {
       localStorage.setItem("lang", l);
     } catch {
-      // Ignore storage failures; in-memory language still updates.
+      // Si le stockage est bloque, la langue change quand meme pour la session courante.
     }
   };
 
